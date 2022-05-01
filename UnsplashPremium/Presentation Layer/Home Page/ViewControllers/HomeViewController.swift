@@ -19,14 +19,15 @@ class HomeViewController: UIViewController {
     
     private let unsplashView: UIImageView = {
         let unsplashView = UIImageView()
-        let tintedImage = UIImage(named: "unsplash")?.withRenderingMode(.alwaysTemplate)
-        unsplashView.image = tintedImage
+        unsplashView.image = UIImage(named: "unsplash")?.withRenderingMode(.alwaysTemplate)
         unsplashView.contentMode = .scaleAspectFit
         return unsplashView
     }()
     private let logoView: UIImageView = {
         let logoView = UIImageView()
-        logoView.image = UIImage(named: "logo")
+        logoView.contentMode = .scaleAspectFit
+        logoView.image = UIImage(named: "logo")?.withRenderingMode(.alwaysTemplate)
+        logoView.tintColor = .white
         return logoView
     }()
     private let collectionView: UICollectionView = {
@@ -34,6 +35,10 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .black
         return collectionView
+    }()
+    private let gradientView: GradientView = {
+        let gradientView = GradientView(gradientColor: .black)
+        return gradientView
     }()
 
     private lazy var collectionDirector: CollectionDirector = {
@@ -58,6 +63,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        self.navigationItem.titleView = unsplashView
+        navigationItem.titleView?.tintColor = .white
         layout()
         setUpMenuBar()
         bindViewModel()
@@ -69,10 +76,19 @@ class HomeViewController: UIViewController {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        self.navigationItem.titleView = unsplashView
-        navigationItem.titleView?.tintColor = .white
+        view.addSubview(gradientView)
+        gradientView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(65)
+        }
         unsplashView.snp.makeConstraints {
             $0.height.equalTo(20)
+        }
+        view.addSubview(logoView)
+        logoView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
+            $0.size.equalTo(20)
         }
     }
     private func setUpMenuBar() {

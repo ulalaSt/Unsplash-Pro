@@ -16,16 +16,18 @@ class TopicBar: UIView {
             collectionView.reloadData()
         }
     }
+    private var viewModel: HomeViewModel?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 5
+        layout.minimumLineSpacing = 20
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
         collectionView.register(TopicCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -37,8 +39,6 @@ class TopicBar: UIView {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        let selectedIndexPath = NSIndexPath( )
-        collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: .left)
         setUpHorizontalBarView()
     }
     required init?(coder: NSCoder) {
@@ -47,7 +47,10 @@ class TopicBar: UIView {
     
     func updateTopics(with topics: [Topic]) {
         self.topics = [Topic(id: nil, title: "Editorial")] + topics
+        let selectedIndexPath = NSIndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: .right)
     }
+    
     private func setUpHorizontalBarView() {
         let horizontalView = UIView()
         horizontalView.backgroundColor = UIColor(white: 1, alpha: 0.5)
@@ -72,5 +75,7 @@ extension TopicBar: UICollectionViewDataSource {
     }
 }
 extension TopicBar: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }

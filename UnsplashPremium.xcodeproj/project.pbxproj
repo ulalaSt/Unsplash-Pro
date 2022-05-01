@@ -17,6 +17,8 @@
 		207EEA9C2819BB5F00A074EC /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207EEA9B2819BB5F00A074EC /* SearchResultViewModel.swift */; };
 		207EEA9E2819C29A00A074EC /* UserCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207EEA9D2819C29A00A074EC /* UserCellData.swift */; };
 		CC59F18BB97C48FFED712AF6 /* Pods_UnsplashPremium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEADE85FD6602BC3154196E /* Pods_UnsplashPremium.framework */; };
+		CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F39D2817E6BF00860EA2 /* Gradient View.swift */; };
+		CE9034CD281E8872001C4674 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9034CC281E8872001C4674 /* PageViewController.swift */; };
 		CEB77D572817037C005C5E7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77D562817037C005C5E7A /* AppDelegate.swift */; };
 		CEB77D592817037C005C5E7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77D582817037C005C5E7A /* SceneDelegate.swift */; };
 		CEB77D5B2817037C005C5E7A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77D5A2817037C005C5E7A /* HomeViewController.swift */; };
@@ -55,6 +57,8 @@
 		207EEA9D2819C29A00A074EC /* UserCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellData.swift; sourceTree = "<group>"; };
 		25A9D4C0E6C5F721ABFDBFE0 /* Pods-UnsplashPremium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashPremium.release.xcconfig"; path = "Target Support Files/Pods-UnsplashPremium/Pods-UnsplashPremium.release.xcconfig"; sourceTree = "<group>"; };
 		9DEADE85FD6602BC3154196E /* Pods_UnsplashPremium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashPremium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE66F39D2817E6BF00860EA2 /* Gradient View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient View.swift"; sourceTree = "<group>"; };
+		CE9034CC281E8872001C4674 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		CEB77D532817037C005C5E7A /* UnsplashPremium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashPremium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB77D562817037C005C5E7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB77D582817037C005C5E7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB77D5A2817037C005C5E7A /* HomeViewController.swift */,
+				CE9034CC281E8872001C4674 /* PageViewController.swift */,
 				CEB77D98281793DF005C5E7A /* PhotoDetailViewController.swift */,
 			);
 			path = ViewControllers;
@@ -219,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				CEB77D80281748D7005C5E7A /* PhotosService.swift */,
-				CEB77D8228174C06005C5E7A /* Endpoint.swift */,
 				207EEA962819B7AF00A074EC /* UsersService.swift */,
 				207EEA9A2819B9D700A074EC /* Model */,
 			);
@@ -229,6 +233,7 @@
 		CEB77D762817056A005C5E7A /* Core Layer */ = {
 			isa = PBXGroup;
 			children = (
+				CEB77D8228174C06005C5E7A /* Endpoint.swift */,
 			);
 			path = "Core Layer";
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				CEB77D7A28172166005C5E7A /* TopicBar.swift */,
 				CEB77D7E2817286C005C5E7A /* TopicCell.swift */,
 				CEB77D9E281794AE005C5E7A /* HomePhotoCell.swift */,
+				CE66F39D2817E6BF00860EA2 /* Gradient View.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				CEB77D5B2817037C005C5E7A /* HomeViewController.swift in Sources */,
 				CEB77D8F28177E0A005C5E7A /* User.swift in Sources */,
 				CEB77D9128178A56005C5E7A /* DetailedPhoto.swift in Sources */,
+				CE9034CD281E8872001C4674 /* PageViewController.swift in Sources */,
 				CEB77D7F2817286C005C5E7A /* TopicCell.swift in Sources */,
 				CEB77D7B28172166005C5E7A /* TopicBar.swift in Sources */,
 				CEB77D572817037C005C5E7A /* AppDelegate.swift in Sources */,
@@ -439,6 +446,7 @@
 				CEB77D592817037C005C5E7A /* SceneDelegate.swift in Sources */,
 				CEB77D78281714BE005C5E7A /* PhotoWrapper.swift in Sources */,
 				CEB77D8328174C06005C5E7A /* Endpoint.swift in Sources */,
+				CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */,
 				CEB77D6F281704DE005C5E7A /* PostViewController.swift in Sources */,
 				CEB77D8B28177B2A005C5E7A /* Topic.swift in Sources */,
 			);
