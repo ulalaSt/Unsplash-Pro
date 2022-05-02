@@ -1,39 +1,36 @@
 //
-//  UserTableDirector.swift
+//  UserCollectionsTableDirector.swift
 //  UnsplashPremium
 //
-//  Created by Lidiya Karnaukhova on 27.04.2022.
+//  Created by Lidiya Karnaukhova on 02.05.2022.
 //
 
 import Foundation
 import UIKit
 
-class UsersTableDirector : NSObject {
-    
+class UserCollectionsTableDirector : NSObject {
     let tableView: UITableView
-    let cellSelectedListener: UserCellSelectedListener
-    var items = [UserCellData]() {
+    var items = [UserCollectionCellData]() {
         didSet {
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
     
-    init(tableView: UITableView, items: [UserCellData], cellSelectedListener: UserCellSelectedListener) {
+    init(tableView: UITableView, items: [UserCollectionCellData]) {
         self.tableView = tableView
-        self.cellSelectedListener = cellSelectedListener
         super.init()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.items = items
     }
     
-    func updateItems(newItems: [UserCellData]) {
+    func updateItems(newItems: [UserCollectionCellData]) {
         self.items = newItems
     }
 }
 
-extension UsersTableDirector : UITableViewDelegate, UITableViewDataSource {
-
+extension UserCollectionsTableDirector : UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count > 0 ? 1 : 0
     }
@@ -43,19 +40,14 @@ extension UsersTableDirector : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 200
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellConfig = UserCellConfigurator(item: self.items[indexPath.row])
+        let cellConfig = UserCollectionCellConfigurator(item: self.items[indexPath.row])
         tableView.register(type(of: cellConfig).cellClass, forCellReuseIdentifier: type(of:cellConfig).reuseId)
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: cellConfig).reuseId, for: indexPath)
         cellConfig.configure(cell: cell)
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        cellSelectedListener.onUserCellSelected(userCellData: items[indexPath.row])
     }
 }

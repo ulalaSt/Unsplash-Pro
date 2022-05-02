@@ -13,6 +13,8 @@ class SearchResultViewController: UIViewController {
     
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Photos", "Collections", "Users"])
+        segmentedControl.backgroundColor = .darkGray
+        segmentedControl.tintColor = .white
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(changeSegment), for: .valueChanged)
         return segmentedControl
@@ -21,14 +23,21 @@ class SearchResultViewController: UIViewController {
     let photosView = UIView()
     let collectionsView = UIView()
     
-    let usersView = UITableView()
+    let usersView: UITableView = {
+        let usersView = UITableView()
+        usersView.separatorColor = .lightGray
+        return usersView
+    }()
+    
     private lazy var usersTableDirector: UsersTableDirector = {
-        let tableDirector = UsersTableDirector(tableView: usersView, items: [])
+        let tableDirector = UsersTableDirector(tableView: usersView, items: [], cellSelectedListener: self)
         return tableDirector
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
+
         bindViewModel()
         configureSegmentedControl()
         configureContainer()
@@ -48,7 +57,7 @@ class SearchResultViewController: UIViewController {
     private func configureContainer() {
         view.addSubview(containerView)
         containerView.snp.makeConstraints {
-            $0.top.equalTo(segmentedControl.snp.bottom)
+            $0.top.equalTo(segmentedControl.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.width.equalToSuperview()
         }
@@ -106,6 +115,16 @@ class SearchResultViewController: UIViewController {
     }
 
     private func loadUsers() {
-        viewModel.searchUsers(query: "youtube")
+        viewModel.searchUsers(query: "bob")
+    }
+}
+
+extension SearchResultViewController : UserCellSelectedListener {
+    func onUserCellSelected(userCellData: UserCellData) {
+        let rootVC = UserDetailsViewController()
+        rootVC.userCellData = userCellData
+        let navigationVC = UINavigationController(rootViewController: rootVC)
+        navigationVC.modalPresentationStyle = .currentContext
+        present(navigationVC, animated: false)
     }
 }

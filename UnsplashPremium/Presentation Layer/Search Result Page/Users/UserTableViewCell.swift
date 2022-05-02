@@ -20,25 +20,29 @@ class UserTableViewCell: UITableViewCell, ConfigurableCell {
     
     let name: UILabel = {
         let name = UILabel()
+        name.textColor = .white
         name.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return name
     }()
     
     let nickname: UILabel = {
         let nickname = UILabel()
+        nickname.textColor = .lightGray
         nickname.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         return nickname
     }()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [name, nickname])
-        stackView.axis = .vertical
         stackView.spacing = 5
+            
+        stackView.axis = .vertical
         return stackView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .black
         layoutUI()
     }
     
@@ -58,7 +62,7 @@ class UserTableViewCell: UITableViewCell, ConfigurableCell {
         }
         
         stackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(10)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalTo(image.snp.trailing).offset(10)
         }
     }
