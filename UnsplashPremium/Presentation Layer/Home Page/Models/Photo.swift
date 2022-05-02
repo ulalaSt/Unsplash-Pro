@@ -10,6 +10,7 @@ import Foundation
 struct Photo {
     let id: String
     let urlStringSmall: String
+    let urlStringLarge: String
     let userName: String
-//    let likes: Int
+    let details: PhotoDetail
 }

@@ -14,8 +14,9 @@ struct User {
     let location: String?
     let portfolioURL: String?
     let profileImageURL: ProfileImageURL
+    
+    struct ProfileImageURL {
+        let small, medium, large: String
+    }
 }
 
-struct ProfileImageURL {
-    let small, medium, large: String
-}

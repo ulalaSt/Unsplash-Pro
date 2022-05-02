@@ -10,19 +10,19 @@ import SnapKit
 
 class TopicBar: UIView {
     
-    private var topics = [Topic]() {
+    private var topics = [Topic(id: "", title: "Editorial")] {
         didSet {
-            print(topics)
             collectionView.reloadData()
         }
     }
     private var viewModel: HomeViewModel?
     
+    var didTapBarItem: ((Int) -> Void)?
+
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
@@ -46,7 +46,7 @@ class TopicBar: UIView {
     }
     
     func updateTopics(with topics: [Topic]) {
-        self.topics = [Topic(id: nil, title: "Editorial")] + topics
+        self.topics.append(contentsOf: topics)
         let selectedIndexPath = NSIndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: .right)
     }
@@ -60,7 +60,9 @@ class TopicBar: UIView {
             $0.height.equalTo(4)
         }
     }
-    
+    func chooseTopic(at position: Int){
+        collectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
 }
 
 extension TopicBar: UICollectionViewDataSource {
@@ -76,6 +78,6 @@ extension TopicBar: UICollectionViewDataSource {
 }
 extension TopicBar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.didTapBarItem?(indexPath.row)
     }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 struct Topic {
-    let id: String?
+    let id: String
     let title: String
 }
