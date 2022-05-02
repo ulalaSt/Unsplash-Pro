@@ -177,6 +177,8 @@
 		207EEA9A2819B9D700A074EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEB77D77281714BE005C5E7A /* PhotoWrapper.swift */,
+				CEB77D87281750D5005C5E7A /* TopicWrapper.swift */,
 				207EEA982819B9CF00A074EC /* UsersWrapper.swift */,
 				CE903509281FEB25001C4674 /* UserProfileWrapper.swift */,
 				CE90350B281FEB2D001C4674 /* UserCollectionWrapper.swift */,
@@ -255,6 +257,24 @@
 			path = "User Collections";
 			sourceTree = "<group>";
 		};
+		CE90350D282001B1001C4674 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77D7E2817286C005C5E7A /* TopicCell.swift */,
+				CEB77D9E281794AE005C5E7A /* HomePhotoCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CE90350E282001BC001C4674 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE66F39D2817E6BF00860EA2 /* Gradient View.swift */,
+				CEB77D7A28172166005C5E7A /* TopicBar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CEB77D4A2817037B005C5E7A = {
 			isa = PBXGroup;
 			children = (
@@ -284,8 +304,6 @@
 				CEB77D6A281703CE005C5E7A /* Main.storyboard */,
 				CEB77D6128170380005C5E7A /* LaunchScreen.storyboard */,
 				CEB77D6428170380005C5E7A /* Info.plist */,
-				CEB77D77281714BE005C5E7A /* PhotoWrapper.swift */,
-				CEB77D87281750D5005C5E7A /* TopicWrapper.swift */,
 			);
 			path = UnsplashPremium;
 			sourceTree = "<group>";
@@ -341,10 +359,8 @@
 		CEB77D7928172150005C5E7A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CEB77D7A28172166005C5E7A /* TopicBar.swift */,
-				CEB77D7E2817286C005C5E7A /* TopicCell.swift */,
-				CEB77D9E281794AE005C5E7A /* HomePhotoCell.swift */,
-				CE66F39D2817E6BF00860EA2 /* Gradient View.swift */,
+				CE90350D282001B1001C4674 /* Cells */,
+				CE90350E282001BC001C4674 /* Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";

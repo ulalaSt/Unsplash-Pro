@@ -1,12 +1,9 @@
-//
-//  PhotoDetailViewController.swift
-//  UnsplashPremium
-//
-//  Created by user on 26.04.2022.
-//
 
 import UIKit
 import SnapKit
+
+
+//MARK: - Detail View of Image with More Quality
 
 class DetailPage: UIViewController {
     
@@ -69,6 +66,9 @@ class DetailPage: UIViewController {
         infoImageView.tintColor = UIColor.white
         return infoImageView
     }()
+    
+    
+    //initialize
     init(viewModel: Photo){
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -78,7 +78,6 @@ class DetailPage: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -86,6 +85,9 @@ class DetailPage: UIViewController {
         fetchData()
         layout()
     }
+    
+    
+    // request for a single image
     private func fetchData(){
         PhotosServiceImplementation.getImage(urlString: viewModel.urlStringLarge) { [weak self] result in
             switch result {
@@ -97,6 +99,7 @@ class DetailPage: UIViewController {
         }
         titleLabel.text = viewModel.userName
     }
+    
     private func layout(){
         view.addSubview(photoView)
         photoView.snp.makeConstraints {
@@ -104,9 +107,15 @@ class DetailPage: UIViewController {
         }
         layoutIcons()
     }
+    
     private func layoutIcons(){
-        
-        
+        layoutDownloadIcon()
+        layoutPlusIcon()
+        layoutLikeIcon()
+        layoutInfoIcon()
+    }
+    
+    private func layoutDownloadIcon(){
         view.addSubview(downloadView)
         downloadView.layer.cornerRadius = 25
         downloadView.snp.makeConstraints {
@@ -118,8 +127,9 @@ class DetailPage: UIViewController {
         downloadImageView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
-        
-        
+    }
+    
+    private func layoutPlusIcon(){
         view.addSubview(plusView)
         plusView.layer.cornerRadius = downloadView.layer.cornerRadius
         plusView.snp.makeConstraints {
@@ -131,8 +141,9 @@ class DetailPage: UIViewController {
         plusImageView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
-        
-        
+    }
+    
+    private func layoutLikeIcon(){
         view.addSubview(likeView)
         likeView.layer.cornerRadius = downloadView.layer.cornerRadius
         likeView.snp.makeConstraints {
@@ -144,15 +155,23 @@ class DetailPage: UIViewController {
         likeImageView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
+    }
+    
+    private func layoutInfoIcon(){
         view.addSubview(infoImageView)
         infoImageView.snp.makeConstraints {
             $0.bottom.equalTo(downloadView)
+            $0.size.equalTo(25)
             $0.leading.equalToSuperview().inset(10)
         }
     }
+    
+    
+    // control tabbar appearance
     override func viewWillDisappear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         tabBarController?.tabBar.isHidden = true

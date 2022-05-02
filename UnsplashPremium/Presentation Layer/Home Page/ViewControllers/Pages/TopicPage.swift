@@ -1,17 +1,16 @@
-//
-//  ViewController.swift
-//  UnsplashPremium
-//
-//  Created by user on 25.04.2022.
-//
 
 import UIKit
 import SnapKit
 
+
+//MARK: - Additional Pages for Top News of Specific Topics
+
 class TopicPage: UIViewController {
     
     private let viewModel: HomeViewModel
+    
     private let topic: Topic
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -22,11 +21,13 @@ class TopicPage: UIViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
+    
     private lazy var collectionDirector: CollectionDirector = {
         let collectionDirector = CollectionDirector(collectionView: collectionView)
         return collectionDirector
     }()
     
+    // to add pull to refresh functionality
     private let refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(reloadCollection), for: .valueChanged)
@@ -36,27 +37,32 @@ class TopicPage: UIViewController {
         refreshControl.layer.zPosition = -1
         return refreshControl
     }()
+    
+    
+    // to refresh collectionView
     @objc private func reloadCollection(){
         self.collectionView.refreshControl?.beginRefreshing()
         self.fetchData()
         self.collectionView.refreshControl?.endRefreshing()
     }
     
+    // initialize with specific topic
     init(viewModel: HomeViewModel, topic: Topic) {
         self.viewModel = viewModel
         self.topic = topic
         super.init(nibName: nil, bundle: nil)
-        bindViewModel()
-        fetchData()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         collectionView.refreshControl = self.refreshControl
         layout()
+        bindViewModel()
+        fetchData()
         setActionsForCells()
     }
 
@@ -67,6 +73,9 @@ class TopicPage: UIViewController {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    
+    // to reload collectionView with topic related images
     private func bindViewModel(){
         viewModel.didLoadPhotosForTopic = { [weak self] photos in
             self?.collectionDirector.updateItems(with: photos.map({ photo in
@@ -86,6 +95,14 @@ class TopicPage: UIViewController {
             }))
         }
     }
+    
+    // request from service
+    private func fetchData() {
+        viewModel.getPhotosFor(topic: self.topic)
+    }
+
+
+    // show detail when cells are tapped
     private func setActionsForCells() {
         self.collectionDirector.actionProxy.on(action: .didSelect) { (configurator: HomePhotoConfigurator, cell) in
             let data = configurator.data
@@ -93,9 +110,5 @@ class TopicPage: UIViewController {
             self.navigationController?.pushViewController(DetailPage(viewModel: data), animated: true)
         }
     }
-    private func fetchData() {
-        viewModel.getPhotosFor(topic: self.topic)
-    }
-
 }
 

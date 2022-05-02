@@ -19,9 +19,7 @@ class PhotosServiceImplementation: PhotosService {
     func getEditorialPhotos(result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
         let urlString = String(format: "%@photos%@", EndPoint.baseUrl,EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
-        
-//        let queryParams: Parameters = ["apiKey": EndPoint.apiKey, "country": EndPoint.country, "language": "en"]
-        
+                
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
             case .success(let elements):

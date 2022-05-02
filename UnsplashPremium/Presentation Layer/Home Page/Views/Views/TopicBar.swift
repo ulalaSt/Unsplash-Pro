@@ -1,23 +1,23 @@
-//
-//  MenuBar.swift
-//  UnsplashPremium
-//
-//  Created by user on 26.04.2022.
-//
+
 
 import UIKit
 import SnapKit
 
+//MARK: - Scrollable and Choosable Topic Bar on Top
+
 class TopicBar: UIView {
     
+    // first topic is already set (Editorial)
     private var topics = [Topic(id: "", title: "Editorial")] {
         didSet {
             collectionView.reloadData()
         }
     }
+    
     private var viewModel: HomeViewModel?
     
-    var didTapBarItem: ((Int) -> Void)?
+    // action when item selected
+    var didSelectBarItem: ((Int) -> Void)?
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,6 +33,7 @@ class TopicBar: UIView {
         return collectionView
     }()
     
+    //initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(collectionView)
@@ -41,16 +42,21 @@ class TopicBar: UIView {
         }
         setUpHorizontalBarView()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // updates topics with the first one selected
     func updateTopics(with topics: [Topic]) {
         self.topics.append(contentsOf: topics)
         let selectedIndexPath = NSIndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: .right)
     }
     
+    
+    // sets light gray horizonatal line as a scroll indicator line
     private func setUpHorizontalBarView() {
         let horizontalView = UIView()
         horizontalView.backgroundColor = UIColor(white: 1, alpha: 0.5)
@@ -60,10 +66,17 @@ class TopicBar: UIView {
             $0.height.equalTo(4)
         }
     }
+    
+    
+    // sets topics selected properly when swiped to specific position
     func chooseTopic(at position: Int){
         collectionView.selectItem(at: IndexPath(item: position, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
 }
+
+
+
+//MARK: - Sets Topics Texts and Number of Topics
 
 extension TopicBar: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,8 +89,14 @@ extension TopicBar: UICollectionViewDataSource {
         return cell
     }
 }
+
+
+
+
+//MARK: - Calls Action When Topic is Tapped
+
 extension TopicBar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.didTapBarItem?(indexPath.row)
+        self.didSelectBarItem?(indexPath.row)
     }
 }

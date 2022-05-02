@@ -1,15 +1,13 @@
-//
-//  Gradient View.swift
-//  UnsplashPremium
-//
-//  Created by user on 26.04.2022.
-//
 
 import UIKit
+
+
+//MARK: - Gradient View to Make Contents More Readable
 
 class GradientView: UIView {
 
     private let gradient : CAGradientLayer = CAGradientLayer()
+    
     private let gradientColor: UIColor
 
     init(gradientColor: UIColor) {

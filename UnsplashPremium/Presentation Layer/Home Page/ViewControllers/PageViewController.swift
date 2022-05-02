@@ -1,7 +1,10 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
+
+//MARK: - Set All Pages, Topic Bar, and Logo
+
+class PageViewController: UIPageViewController {
     
     private let viewModel: HomeViewModel
     
@@ -10,42 +13,48 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         return topicBar
     }()
     
-    private let unsplashView: UIImageView = {
-        let unsplashView = UIImageView()
+    private let logoNameView: UIImageView = {
+        let logoNameView = UIImageView()
         let image = UIImage(named: "unsplash")
-        unsplashView.image = image?.withRenderingMode(.alwaysTemplate)
-        unsplashView.contentMode = .scaleAspectFit
-        unsplashView.frame.size.height = 20
-        return unsplashView
+        logoNameView.image = image?.withRenderingMode(.alwaysTemplate)
+        logoNameView.contentMode = .scaleAspectFit
+        logoNameView.frame.size.height = 20
+        return logoNameView
     }()
     
-    private let logoView: UIImageView = {
-        let logoView = UIImageView()
-        logoView.contentMode = .scaleAspectFit
+    private let logoIconView: UIImageView = {
+        let logoIconView = UIImageView()
+        logoIconView.contentMode = .scaleAspectFit
+        logoIconView.tintColor = .white
         let image = UIImage(named: "logo")
-        logoView.image = image?.withRenderingMode(.alwaysTemplate)
-        logoView.tintColor = .white
-        return logoView
+        logoIconView.image = image?.withRenderingMode(.alwaysTemplate)
+        return logoIconView
     }()
     
-    private let gradientView: GradientView = {
-        let gradientView = GradientView(gradientColor: .black)
-        return gradientView
+    private let topBlackGradient: GradientView = {
+        let topBlackGradient = GradientView(gradientColor: .black)
+        return topBlackGradient
     }()
+    
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        super.init(transitionStyle: .scroll,
+                   navigationOrientation: .horizontal,
+                   options: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var orderedViewControllers: [UIViewController] = {
+    
+    //subpages
+    private var orderedSubViewControllers: [UIViewController] = {
         let model = HomeViewModel(photosService: PhotosServiceImplementation())
         return [EditorialPage(viewModel: model)]
     }()
+    
     
     //making navigation bar transparent
     override func viewWillAppear(_ animated: Bool) {
@@ -53,45 +62,61 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
+        navigationItem.titleView?.tintColor = .white
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        self.navigationItem.titleView = logoNameView
+        dataSource = self
+        delegate = self
+
         bindViewModel()
         fetchData()
-        setupPageController()
-        self.navigationItem.titleView = unsplashView
-        navigationItem.titleView?.tintColor = .white
-        
-        view.addSubview(gradientView)
-        gradientView.snp.makeConstraints {
+        layout()
+        setUpMenuBar()
+        setUpInitialPage()
+    }
+    
+    private func layout(){
+        view.addSubview(topBlackGradient)
+        topBlackGradient.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(65)
         }
-        view.addSubview(logoView)
-        logoView.snp.makeConstraints {
+        view.addSubview(logoIconView)
+        logoIconView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
             $0.size.equalTo(20)
         }
-        setUpMenuBar()
-    }
-    private func bindViewModel(){
-        
-        //Task: When topics are loaded, update the topicBar, and pages accordingly
-        viewModel.didLoadTopics = { [weak self] topics in
-            self?.topicBar.updateTopics(with: topics.map(
-                {
-                    let topic = Topic(id: $0.id, title: $0.title)
-                    self?.orderedViewControllers.append(
-                        TopicPage(
-                            viewModel: HomeViewModel(photosService: PhotosServiceImplementation()),
-                            topic: topic
-                        )
-                    )
-                    return topic
-                }))
+        view.addSubview(topicBar)
+        topicBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(50)
         }
+    }
+    
+    private func bindViewModel(){
+        // to update the topic bar and topic pages accordingly when topics are loaded
+        viewModel.didLoadTopics = { [weak self] topics in
+            self?.topicBar.updateTopics(
+                with: topics.map({
+                        let topic = Topic(id: $0.id, title: $0.title)
+                        self?.appendTopicPage(with: topic)
+                        return topic
+                    })
+            )}
+    }
+    
+    private func appendTopicPage(with topic: Topic) {
+        orderedSubViewControllers.append(
+            TopicPage(
+                viewModel: HomeViewModel(photosService: PhotosServiceImplementation()),
+                topic: topic
+            ))
     }
     
     private func fetchData() {
@@ -99,73 +124,67 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
     }
     
     private func setUpMenuBar() {
-        navigationController?.hidesBarsOnSwipe = true
-        view.addSubview(topicBar)
-        topicBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(50)
-        }
-        topicBar.didTapBarItem = { row in
-            let currentViewController = self.orderedViewControllers[row]
+        topicBar.didSelectBarItem = { selectedIndex in
+            let currentViewController = self.orderedSubViewControllers[selectedIndex]
             self.setViewControllers([currentViewController], direction: .forward, animated: false, completion: nil)
         }
     }
     
-    func setupPageController() {
-        view.backgroundColor = UIColor.clear
-        
-        dataSource = self
-        delegate = self
-        
-        if let firstViewController = orderedViewControllers.first {
+    
+    private func setUpInitialPage() {
+        if let firstViewController = orderedSubViewControllers.first {
             setViewControllers([firstViewController],
                                direction: .forward,
-                               animated: true,
+                               animated: false,
                                completion: nil)
         }
     }
+}
+
+
+
+
+
+//MARK: - Change Pages When Swiped
+
+extension PageViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedSubViewControllers.firstIndex(of: viewController) else {
+            return nil
+        }
+        if viewControllerIndex == 0 {
+            return nil
+        }
+        
+        return orderedSubViewControllers[viewControllerIndex - 1]
+    }
+    
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedSubViewControllers.firstIndex(of: viewController) else {
+            return nil
+        }
+        if viewControllerIndex == orderedSubViewControllers.count - 1 {
+            return nil
+        }
+        return orderedSubViewControllers[viewControllerIndex + 1]
+    }
+}
+
+
+
+
+
+//MARK: - Change Topic Bar When Swiped
+
+extension PageViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed,
-           let visibleViewController = pageViewController.viewControllers?.first,
-           let index = orderedViewControllers.firstIndex(of: visibleViewController)
+        
+        if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = orderedSubViewControllers.firstIndex(of: visibleViewController)
         {
             topicBar.chooseTopic(at: index)
         }
     }
     
-    
-}
-
-extension PageViewController: UIPageViewControllerDataSource {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
-            return nil
-        }
-        
-        let previousIndex = viewControllerIndex - 1
-        
-        guard previousIndex >= 0 else {
-            return nil
-        }
-        
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
-        return orderedViewControllers[previousIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
-            return nil
-        }
-        let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = orderedViewControllers.count
-        
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        return orderedViewControllers[nextIndex]
-    }
 }

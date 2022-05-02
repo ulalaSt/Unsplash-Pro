@@ -1,25 +1,27 @@
-//
-//  HomeViewModel.swift
-//  UnsplashPremium
-//
-//  Created by user on 26.04.2022.
-//
+
+
+
 
 import Foundation
 
 class HomeViewModel {
     private let photosService: PhotosService
     
+    // initializer
     init(photosService: PhotosService) {
         self.photosService = photosService
     }
-
+    
+    
+    // actions after request
     var didLoadTopics: (([TopicWrapper]) -> Void)?
 
     var didLoadEditorialPhotos: (([PhotoWrapper]) -> Void)?
     
     var didLoadPhotosForTopic: (([PhotoWrapper]) -> Void)?
     
+    
+    // requests
     func getEditorialPhotos() {
         photosService.getEditorialPhotos {[weak self] result in
             switch result {
@@ -36,7 +38,6 @@ class HomeViewModel {
             switch result {
             case .success(let topics):
                 self?.didLoadTopics?(topics)
-                print(topics)
             case .failure(let error):
                 print("Failed to load topics with error: \(error.localizedDescription)")
             }
