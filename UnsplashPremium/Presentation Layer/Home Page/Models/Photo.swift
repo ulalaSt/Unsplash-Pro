@@ -14,3 +14,10 @@ struct Photo {
     let userName: String
     let details: PhotoDetail
 }
+
+struct PhotoDetail {
+    let color: String
+    let created_at: String
+    let name: String
+    let blurHash: String
+}

@@ -10,4 +10,7 @@ import Foundation
 struct Topic {
     let id: String
     let title: String
+    let description: String
+    let totalPhotos: Int
+    let coverPhotoUrlString: String
 }

@@ -7,15 +7,15 @@ import SnapKit
 
 class DetailPage: UIViewController {
     
-    let viewModel: Photo
+    private var photoInfo: PhotoInfo?
     
-    let photoView: UIImageView = {
+    private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.contentMode = .scaleAspectFit
         return photoView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         titleLabel.textColor = .white
@@ -24,54 +24,63 @@ class DetailPage: UIViewController {
         return titleLabel
     }()
     
-    let likeView: UIView = {
+    private let likeView: UIView = {
         let likeView = UIView()
         likeView.clipsToBounds = true
         likeView.backgroundColor = .darkGray
         return likeView
     }()
-    let likeImageView: UIImageView = {
+    private let likeImageView: UIImageView = {
         let likeImageView = UIImageView(image: UIImage(systemName: "heart.fill")?.withRenderingMode(.alwaysTemplate))
         likeImageView.contentMode = .scaleAspectFit
         likeImageView.tintColor = UIColor.white
         return likeImageView
     }()
-    let plusView: UIView = {
+    private let plusView: UIView = {
         let plusView = UIView()
         plusView.clipsToBounds = true
         plusView.backgroundColor = .darkGray
         return plusView
     }()
-    let plusImageView: UIImageView = {
+    private let plusImageView: UIImageView = {
         let plusImageView = UIImageView(image: UIImage(systemName: "plus")?.withRenderingMode(.alwaysTemplate))
         plusImageView.contentMode = .scaleAspectFit
         plusImageView.tintColor = UIColor.white
         return plusImageView
     }()
-    let downloadView: UIView = {
+    private let downloadView: UIView = {
         let downloadView = UIView()
         downloadView.clipsToBounds = true
         downloadView.backgroundColor = .white
         return downloadView
     }()
-    let downloadImageView: UIImageView = {
+    private let downloadImageView: UIImageView = {
         let downloadImageView = UIImageView(image: UIImage(systemName: "arrow.down")?.withRenderingMode(.alwaysTemplate))
         downloadImageView.contentMode = .scaleAspectFit
         downloadImageView.tintColor = UIColor.darkGray
         return downloadImageView
     }()
-    let infoImageView: UIImageView = {
+    private let infoImageView: UIImageView = {
         let infoImageView = UIImageView(image: UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysTemplate))
         infoImageView.contentMode = .scaleAspectFit
         infoImageView.tintColor = UIColor.white
+        infoImageView.isUserInteractionEnabled = true
         return infoImageView
     }()
     
+    @objc private func infoIconTapped(){
+        guard let photoInfo = photoInfo else {
+            return
+        }
+        present(InfoPage(photoInfo: photoInfo), animated: true, completion: nil)
+    }
     
     //initialize
-    init(viewModel: Photo){
-        self.viewModel = viewModel
+    init(photoUrlString: String, userName: String, photoId: String){
         super.init(nibName: nil, bundle: nil)
+        setImage(with: photoUrlString)
+        titleLabel.text = userName
+        fetchData(with: photoId)
     }
     
     required init?(coder: NSCoder) {
@@ -82,23 +91,37 @@ class DetailPage: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.navigationItem.titleView = titleLabel
-        fetchData()
+        infoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoIconTapped)))
         layout()
     }
     
+    private func setImage(with urlString: String){
+        PhotosServiceImplementation.getImage(urlString: urlString) { [weak self] result in
+                switch result {
+                case .success(let image):
+                    self?.photoView.image = image
+                case .failure(let error):
+                    print("Error on downloading image: \(error)")
+                }
+            }
+    }
     
     // request for a single image
-    private func fetchData(){
-        PhotosServiceImplementation.getImage(urlString: viewModel.urlStringLarge) { [weak self] result in
+    private func fetchData(with id: String){
+        PhotosServiceImplementation.getSinglePhoto(with: id) { [weak self] result in
             switch result {
-            case .success(let image):
-                self?.photoView.image = image
+            case .success(let data):
+                self?.photoInfo = PhotoInfo(
+                    exif: data.exif,
+                    dimensions: Size(width: Double(data.width), height: Double(data.height)),
+                    publishedDate: data.createdAt)
+                print(self?.photoInfo)
             case .failure(let error):
                 print("Error on downloading image: \(error)")
             }
         }
-        titleLabel.text = viewModel.userName
     }
+    
     
     private func layout(){
         view.addSubview(photoView)
@@ -170,10 +193,12 @@ class DetailPage: UIViewController {
     // control tabbar appearance
     override func viewWillDisappear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.hidesBarsOnSwipe = false
         tabBarController?.tabBar.isHidden = true
     }
 }

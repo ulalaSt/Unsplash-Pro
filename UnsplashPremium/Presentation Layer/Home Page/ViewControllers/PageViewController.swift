@@ -72,7 +72,7 @@ class PageViewController: UIPageViewController {
         self.navigationItem.titleView = logoNameView
         dataSource = self
         delegate = self
-
+        
         bindViewModel()
         fetchData()
         layout()
@@ -104,10 +104,15 @@ class PageViewController: UIPageViewController {
         viewModel.didLoadTopics = { [weak self] topics in
             self?.topicBar.updateTopics(
                 with: topics.map({
-                        let topic = Topic(id: $0.id, title: $0.title)
-                        self?.appendTopicPage(with: topic)
-                        return topic
-                    })
+                    let topic = Topic(
+                        id: $0.id,
+                        title: $0.title,
+                        description: $0.topicDescription,
+                        totalPhotos: $0.totalPhotos,
+                        coverPhotoUrlString: $0.coverPhoto.urls.small)
+                    self?.appendTopicPage(with: topic)
+                    return topic
+                })
             )}
     }
     
@@ -124,9 +129,12 @@ class PageViewController: UIPageViewController {
     }
     
     private func setUpMenuBar() {
-        topicBar.didSelectBarItem = { selectedIndex in
-            let currentViewController = self.orderedSubViewControllers[selectedIndex]
-            self.setViewControllers([currentViewController], direction: .forward, animated: false, completion: nil)
+        topicBar.didSelectBarItem = { [weak self] selectedIndex in
+            guard let strongSelf = self else {
+                return
+            }
+            let currentViewController = strongSelf.orderedSubViewControllers[selectedIndex]
+            strongSelf.setViewControllers([currentViewController], direction: .forward, animated: false, completion: nil)
         }
     }
     

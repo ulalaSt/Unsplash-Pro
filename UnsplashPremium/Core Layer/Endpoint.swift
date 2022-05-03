@@ -9,5 +9,5 @@ import Foundation
 
 class EndPoint {
     static let baseUrl = "https://api.unsplash.com/"
-    static let clientIdParameter = "/?client_id=U5J0yL0ODxlpD5dVDc0CvqSXDDrdLNXYWc-h0FSWFSo"
+    static let clientIdParameter = "client_id=U5J0yL0ODxlpD5dVDc0CvqSXDDrdLNXYWc-h0FSWFSo"
 }

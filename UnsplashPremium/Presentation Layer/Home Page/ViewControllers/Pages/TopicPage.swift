@@ -11,6 +11,8 @@ class TopicPage: UIViewController {
     
     private let topic: Topic
     
+    private var currentLastPage = 1
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -42,6 +44,7 @@ class TopicPage: UIViewController {
     // to refresh collectionView
     @objc private func reloadCollection(){
         self.collectionView.refreshControl?.beginRefreshing()
+        currentLastPage = 1
         self.fetchData()
         self.collectionView.refreshControl?.endRefreshing()
     }
@@ -65,7 +68,7 @@ class TopicPage: UIViewController {
         fetchData()
         setActionsForCells()
     }
-
+    
     private func layout(){
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -78,36 +81,88 @@ class TopicPage: UIViewController {
     // to reload collectionView with topic related images
     private func bindViewModel(){
         viewModel.didLoadPhotosForTopic = { [weak self] photos in
-            self?.collectionDirector.updateItems(with: photos.map({ photo in
-                HomePhotoConfigurator(
+
+            guard let strongSelf = self else {
+                return
+            }
+            
+            var items: [CellConfigurator] = [TopicDescriptionCellConfigurator(data: strongSelf.topic)]
+            var itemSizes: [Size?] = [nil]
+            
+            itemSizes.append(contentsOf: photos.map({ photo in
+                Size(
+                    width: strongSelf.view.frame.width,
+                    height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
+            }))
+            
+            strongSelf.collectionDirector.updateItemSizes(with: itemSizes)
+            items.append(contentsOf: photos.map({ photo in
+                HomePhotoCellConfigurator(
                     data: Photo(
                         id: photo.id,
                         urlStringSmall: photo.urls.small,
                         urlStringLarge: photo.urls.regular,
                         userName: photo.user.name,
                         details: PhotoDetail(
-                            size: Size(
-                                width: photo.width,
-                                height: photo.height),
                             color: photo.color,
                             created_at: photo.createdAt,
-                            name: photo.user.name)))
+                            name: photo.user.name,
+                            blurHash: photo.blurHash)))
+            }))
+            self?.collectionDirector.updateItems(with: items)
+        }
+        
+        viewModel.didLoadAdditionalPhotosForTopic = { [weak self] photos in
+            guard let strongSelf = self else {
+                return
+            }
+
+            strongSelf.collectionDirector.addItemSizes(with: photos.map({ photo in
+                Size(
+                    width: strongSelf.view.frame.width,
+                    height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
+            }))
+            strongSelf.collectionDirector.addItems(with: photos.map({ photo in
+                HomePhotoCellConfigurator(
+                    data: Photo(
+                        id: photo.id,
+                        urlStringSmall: photo.urls.small,
+                        urlStringLarge: photo.urls.regular,
+                        userName: photo.user.name,
+                        details: PhotoDetail(
+                            color: photo.color,
+                            created_at: photo.createdAt,
+                            name: photo.user.name,
+                            blurHash: photo.blurHash)))
             }))
         }
     }
     
-    // request from service
+    
+    // initial request from service
     private func fetchData() {
-        viewModel.getPhotosFor(topic: self.topic)
+        viewModel.getPhotosFor(topic: self.topic, page: currentLastPage)
     }
-
-
+    
+    
     // show detail when cells are tapped
     private func setActionsForCells() {
-        self.collectionDirector.actionProxy.on(action: .didSelect) { (configurator: HomePhotoConfigurator, cell) in
-            let data = configurator.data
-            self.navigationController?.isNavigationBarHidden = false
-            self.navigationController?.pushViewController(DetailPage(viewModel: data), animated: true)
+        
+        collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+            let photoUrl = configurator.data.urlStringLarge
+            let userName = configurator.data.userName
+            let id = configurator.data.id
+            self?.navigationController?.pushViewController(DetailPage(photoUrlString: photoUrl, userName: userName, photoId: id), animated: true)
+        }
+        
+        collectionDirector.actionProxy.on(action: .didReachedEnd) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+            guard let strongSelf = self else {
+                return
+            }
+            if strongSelf.currentLastPage * 10 < strongSelf.topic.totalPhotos {
+                strongSelf.currentLastPage = strongSelf.currentLastPage + 1
+                strongSelf.fetchData()
+            }
         }
     }
 }

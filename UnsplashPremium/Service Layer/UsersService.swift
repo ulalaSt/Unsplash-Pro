@@ -18,7 +18,7 @@ protocol UsersService {
 
 class UsersServiceImplementation : UsersService {
     func searchUsers(query: String, result: @escaping (Result<UsersWrapper, Error>) -> Void) {
-        let urlString = String(format: "%@search/users%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
+        let urlString = String(format: "%@search/users/?%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
         let parameters: [String: Any] = ["query": query, "per_page": 20]
         
@@ -33,7 +33,7 @@ class UsersServiceImplementation : UsersService {
     }
     
     func getUserPhotos(username: String, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
-        let urlString = String(format: "%@users/\(username)/photos%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
+        let urlString = String(format: "%@users/\(username)/photos/?%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
         
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
@@ -47,7 +47,7 @@ class UsersServiceImplementation : UsersService {
     }
     
     func getUserLikes(username: String, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
-        let urlString = String(format: "%@users/\(username)/likes%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
+        let urlString = String(format: "%@users/\(username)/likes/?%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
         
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
@@ -61,7 +61,7 @@ class UsersServiceImplementation : UsersService {
     }
     
     func getUserCollections(username: String, result: @escaping (Result<[UserCollectionWrapper], Error>) -> Void) {
-        let urlString = String(format: "%@users/\(username)/collections%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
+        let urlString = String(format: "%@users/\(username)/collections/?%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
         
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[UserCollectionWrapper], AFError>) in
@@ -75,7 +75,7 @@ class UsersServiceImplementation : UsersService {
     }
     
     func getUserProfile(username: String, result: @escaping (Result<UserProfileWrapper, Error>) -> Void) {
-        let urlString = String(format: "%@users/\(username)%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
+        let urlString = String(format: "%@users/\(username)/?%@", EndPoint.baseUrl, EndPoint.clientIdParameter)
         guard let url = URL(string: urlString) else { return }
         
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<UserProfileWrapper, AFError>) in

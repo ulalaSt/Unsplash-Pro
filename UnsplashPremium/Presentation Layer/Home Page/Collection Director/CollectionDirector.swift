@@ -17,25 +17,19 @@ class CollectionDirector: NSObject {
         }
     }
     
-    private let welcomeLabel: UILabel = {
-        let welcomeLabel = UILabel()
-        welcomeLabel.text = "Photos For Everyone"
-        welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .regular)
-        welcomeLabel.textColor = .white
-        return welcomeLabel
-    }()
+    private var itemSizes = [Size?]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
         super.init()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.register(HomePagePhotoCell.self, forCellWithReuseIdentifier: HomePagePhotoCell.identifier)
-        self.collectionView.addSubview(welcomeLabel)
-        welcomeLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(200)
-        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onActionEvent(notification:)), name: CollectionAction.notificationName, object: nil)
     }
     
@@ -52,6 +46,18 @@ class CollectionDirector: NSObject {
 
     func updateItems(with newItems: [CellConfigurator]){
         self.items = newItems
+    }
+    
+    func updateItemSizes(with newSizes: [Size?]){
+        self.itemSizes = newSizes
+    }
+    
+    func addItems(with newItems: [CellConfigurator]){
+        self.items.append(contentsOf: newItems)
+    }
+    
+    func addItemSizes(with newSizes: [Size?]){
+        self.itemSizes.append(contentsOf: newSizes)
     }
 }
 
@@ -70,6 +76,13 @@ extension CollectionDirector: UICollectionViewDataSource {
         collectionView.register(type(of: item).cellClass, forCellWithReuseIdentifier: type(of: item).reuseId)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: type(of: item).reuseId, for: indexPath)
         item.configure(cell: cell)
+        
+        if indexPath.row == self.items.count - 1 {
+            DispatchQueue.main.async {
+                CollectionAction.didReachedEnd.invoke(cell: collectionView.cellForItem(at: indexPath)!)
+            }
+        }
+        
         return cell
     }
 }
@@ -91,6 +104,13 @@ extension CollectionDirector: UICollectionViewDelegate {
 
 extension CollectionDirector: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if let size = itemSizes[indexPath.row] {
+            let width = size.width
+            let height = size.height
+            return CGSize(width: width, height: height)
+        }
+        
         return CGSize(width: collectionView.frame.width, height: 300)
     }
 }

@@ -2,14 +2,14 @@
 import UIKit
 import SnapKit
 
-typealias HomePhotoConfigurator = CollectionCellConfigurator<HomePagePhotoCell, Photo>
+typealias HomePhotoCellConfigurator = CollectionCellConfigurator<HomePagePhotoCell, Photo>
 
 //MARK: - Photo Cell for Home Page
 
 class HomePagePhotoCell: UICollectionViewCell {
     
     static let identifier = "HomePagePhotoCell"
-    
+        
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.textColor = .white

@@ -9,10 +9,12 @@ import UIKit
 
 enum CollectionAction: Hashable {
     case didSelect
+    case didReachedEnd
     
     var hashValue: Int {
         switch self {
         case .didSelect: return 0
+        case .didReachedEnd: return 1
         }
     }
 }

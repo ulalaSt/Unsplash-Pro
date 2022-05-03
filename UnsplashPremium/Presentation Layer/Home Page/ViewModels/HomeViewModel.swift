@@ -5,6 +5,7 @@
 import Foundation
 
 class HomeViewModel {
+        
     private let photosService: PhotosService
     
     // initializer
@@ -20,6 +21,9 @@ class HomeViewModel {
     
     var didLoadPhotosForTopic: (([PhotoWrapper]) -> Void)?
     
+    var didLoadAdditionalPhotosForTopic: (([PhotoWrapper]) -> Void)?
+    
+    var didLoadRandomPhoto: ((PhotoWrapper) -> Void)?
     
     // requests
     func getEditorialPhotos() {
@@ -44,14 +48,18 @@ class HomeViewModel {
         }
     }
     
-    func getPhotosFor(topic: Topic){
-        photosService.getPhotosForTopic(topicID: topic.id) { [weak self] result in
-            switch result {
-            case .success(let photos):
-                self?.didLoadPhotosForTopic?(photos)
-            case .failure(_):
-                print("Failed to load photos")
-            }
-        }
+    func getPhotosFor(topic: Topic, page: Int){
+                self.photosService.getPhotosForTopic(topicID: topic.id, page: page) { [weak self] result in
+                    switch result {
+                    case .success(let photos):
+                        if page == 1 {
+                            self?.didLoadPhotosForTopic?(photos)
+                        } else {
+                            self?.didLoadAdditionalPhotosForTopic?(photos)
+                        }
+                    case .failure(_):
+                        print("Failed to load photos")
+                    }
+                }
     }
 }
