@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let homeVC = PageViewController(viewModel: HomeViewModel(photosService: PhotosServiceImplementation()))
+        let homeVC = HomePageViewController(viewModel: HomeViewModel(photosService: PhotosServiceImplementation()))
         let searchVC = SearchResultViewController(nibName: nil, bundle: nil)
         let postVC = PostViewController(nibName: nil, bundle: nil)
         let profileVC = ProfileViewController(nibName: nil, bundle: nil)

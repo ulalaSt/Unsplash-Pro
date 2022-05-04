@@ -38,9 +38,9 @@ struct PhotoDetailedWrapper: Codable {
 
 // MARK: - Exif
 struct Exif: Codable {
-    let make, model, name, exposureTime: String
-    let aperture, focalLength: String
-    let iso: Int
+    let make, model, name, exposureTime: String?
+    let aperture, focalLength: String?
+    let iso: Int?
 
     enum CodingKeys: String, CodingKey {
         case make, model, name

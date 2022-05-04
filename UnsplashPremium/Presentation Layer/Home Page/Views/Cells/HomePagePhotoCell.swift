@@ -39,7 +39,7 @@ class HomePagePhotoCell: UICollectionViewCell {
         }
         contentView.addSubview(authorLabel)
         authorLabel.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview()
+            $0.leading.bottom.equalToSuperview().inset(20)
         }
     }
 }
@@ -62,25 +62,30 @@ extension HomePagePhotoCell: ConfigurableCell {
     
     // sets appropriate color as placeholder before images are loaded
     private func configurePlaceHolder(with hexString: String) {
+        
         let redIndex = hexString.index(hexString.startIndex, offsetBy: 1)
         let greenIndex = hexString.index(hexString.startIndex, offsetBy: 3)
         let blueIndex = hexString.index(hexString.endIndex, offsetBy: -2)
+        
         self.backgroundColor = UIColor(
             red: CGFloat(Float(String(hexString[redIndex..<greenIndex])) ?? 0),
             green: CGFloat(Float(String(hexString[greenIndex..<blueIndex])) ?? 0),
             blue: CGFloat(Float(String(hexString[blueIndex..<hexString.endIndex])) ?? 0),
             alpha: 0.8)
+        
     }
     
     // loads image by string url
     private func setUpImage(with urlString: String) {
         PhotosServiceImplementation.getImage(urlString: urlString) { [weak self] result in
+            
             switch result {
             case .success(let image):
                 self?.photoView.image = image
             case .failure(let error):
                 print("Error on downloading image: \(error)")
             }
+            
         }
     }
     

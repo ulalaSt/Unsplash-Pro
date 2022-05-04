@@ -133,7 +133,9 @@ class TopicPage: UIViewController {
                             color: photo.color,
                             created_at: photo.createdAt,
                             name: photo.user.name,
-                            blurHash: photo.blurHash)))
+                            blurHash: photo.blurHash)
+                    )
+                )
             }))
         }
     }
@@ -152,7 +154,14 @@ class TopicPage: UIViewController {
             let photoUrl = configurator.data.urlStringLarge
             let userName = configurator.data.userName
             let id = configurator.data.id
-            self?.navigationController?.pushViewController(DetailPage(photoUrlString: photoUrl, userName: userName, photoId: id), animated: true)
+            self?.navigationController?.pushViewController(
+                PhotoDetailViewController(
+                    photoUrlString: photoUrl,
+                    userName: userName,
+                    photoId: id
+                ),
+                animated: true
+            )
         }
         
         collectionDirector.actionProxy.on(action: .didReachedEnd) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in

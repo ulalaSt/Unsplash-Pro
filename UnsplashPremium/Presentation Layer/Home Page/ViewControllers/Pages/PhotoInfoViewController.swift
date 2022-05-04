@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InfoPage: UIViewController {
+class PhotoInfoViewController: UIViewController {
     
     private let infoLabel: UILabel = {
         let infoLabel = UILabel()
@@ -48,17 +48,33 @@ class InfoPage: UIViewController {
         return collectionDirector
     }()
     
-    private var data: [Info] = [Info(key: .make, value: "-"), Info(key: .focalLength, value: "-"), Info(key: .model, value: "-"), Info(key: .iso, value: "-"), Info(key: .shutterSpeed, value: "-"), Info(key: .dimensions, value: "-"), Info(key: .aperture, value: "-"), Info(key: .published, value: "-")]
+    private var data: [Info] = []
     
     init(photoInfo: PhotoInfo) {
         super.init(nibName: nil, bundle: nil)
-        data[0].value = photoInfo.exif.make
-        data[1].value = photoInfo.exif.focalLength
-        data[2].value = "\(photoInfo.exif.iso)"
-        data[3].value = photoInfo.exif.exposureTime
-        data[4].value = "\(photoInfo.dimensions.width)x\(photoInfo.dimensions.height)"
-        data[5].value = photoInfo.exif.aperture
-        data[6].value = photoInfo.publishedDate
+        
+        data.append( Info(
+                key: .make,
+                value: photoInfo.exif.make ?? "-"))
+        data.append( Info(
+                key: .focalLength,
+                value: photoInfo.exif.focalLength ?? "-"))
+        data.append( Info(
+                key: .iso,
+                value: (photoInfo.exif.iso != nil) ? "\(photoInfo.exif.iso)" : "-"))
+        data.append( Info(
+                key: .shutterSpeed,
+                value: photoInfo.exif.exposureTime ?? "-"))
+        data.append( Info(
+                key: .dimensions,
+                value: "\(photoInfo.dimensions.width) x \(photoInfo.dimensions.height)"))
+        data.append( Info(
+                key: .aperture,
+                value: photoInfo.exif.aperture ?? "-"))
+        data.append( Info(
+                key: .published,
+                value: photoInfo.publishedDate ?? "-"))
+        
     }
     
     required init?(coder: NSCoder) {
@@ -66,12 +82,17 @@ class InfoPage: UIViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         view.backgroundColor = .darkGray
         collectionView.reloadData()
+        
         collectionDirector.updateItems( with: data.map(){ InfoCellConfigurator(data: $0) })
         collectionDirector.updateItemSizes(with: data.map(){ _ in
-            Size(width: (view.frame.width - 50.0) / 2.0, height: 40)
+            Size(
+                width: (view.frame.width - 50.0) / 2.0,
+                height: 40
+            )
         })
         layout()
     }
@@ -98,20 +119,4 @@ class InfoPage: UIViewController {
             $0.top.equalTo(cameraLabel.snp.bottom).offset(20)
         }
     }
-}
-
-enum InfoKeys: String {
-    case make = "Make"
-    case focalLength = "Focal length"
-    case model = "Model"
-    case iso = "ISO"
-    case shutterSpeed = "Shutter speed"
-    case dimensions = "Dimensions"
-    case aperture = "Aperture"
-    case published = "Published"
-}
-
-struct Info {
-    let key: InfoKeys
-    var value: String
 }

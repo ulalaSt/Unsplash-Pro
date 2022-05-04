@@ -82,7 +82,6 @@ extension CollectionDirector: UICollectionViewDataSource {
                 CollectionAction.didReachedEnd.invoke(cell: collectionView.cellForItem(at: indexPath)!)
             }
         }
-        
         return cell
     }
 }

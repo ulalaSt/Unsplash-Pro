@@ -12,7 +12,7 @@ class EditorialPage: UIViewController {
     private let welcomeLabel: UILabel = {
         let welcomeLabel = UILabel()
         welcomeLabel.text = "Photos For Everyone"
-        welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .regular)
+        welcomeLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         welcomeLabel.textColor = .white
         return welcomeLabel
     }()
@@ -87,7 +87,7 @@ class EditorialPage: UIViewController {
         collectionView.addSubview(welcomeLabel)
         welcomeLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(200)
+            $0.top.equalToSuperview().inset(150)
         }
     }
     
@@ -104,7 +104,8 @@ class EditorialPage: UIViewController {
                     Size(
                         width: strongSelf.view.frame.width,
                         height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
-                }))
+                })
+            )
             
             strongSelf.collectionDirector.updateItems(with: photos.map({ photo in
                 HomePhotoCellConfigurator(
@@ -118,8 +119,10 @@ class EditorialPage: UIViewController {
                                 color: photo.color,
                                 created_at: photo.createdAt,
                                 name: photo.user.name,
-                                blurHash: photo.blurHash)
-                        ))
+                                blurHash: photo.blurHash
+                            )
+                        )
+                )
             }))
         }
     }
@@ -137,7 +140,14 @@ class EditorialPage: UIViewController {
             let photoUrl = configurator.data.urlStringLarge
             let userName = configurator.data.userName
             let id = configurator.data.id
-            self?.navigationController?.pushViewController(DetailPage(photoUrlString: photoUrl, userName: userName, photoId: id), animated: true)
+            self?.navigationController?.pushViewController(
+                PhotoDetailViewController(
+                    photoUrlString: photoUrl,
+                    userName: userName,
+                    photoId: id
+                ),
+                animated: true
+            )
         }
     }
 }

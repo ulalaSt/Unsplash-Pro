@@ -4,7 +4,7 @@ import UIKit
 
 //MARK: - Set All Pages, Topic Bar, and Logo
 
-class PageViewController: UIPageViewController {
+class HomePageViewController: UIPageViewController {
     
     private let viewModel: HomeViewModel
     
@@ -56,20 +56,19 @@ class PageViewController: UIPageViewController {
     }()
     
     
-    //making navigation bar transparent
+    //making navigation bar transparent and hidable
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .clear
         navigationItem.titleView?.tintColor = .white
         navigationController?.hidesBarsOnSwipe = true
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        self.navigationItem.titleView = logoNameView
+        navigationItem.titleView = logoNameView
         dataSource = self
         delegate = self
         
@@ -86,12 +85,14 @@ class PageViewController: UIPageViewController {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(65)
         }
+        
         view.addSubview(logoIconView)
         logoIconView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
             $0.size.equalTo(20)
         }
+        
         view.addSubview(topicBar)
         topicBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -100,20 +101,25 @@ class PageViewController: UIPageViewController {
     }
     
     private func bindViewModel(){
-        // to update the topic bar and topic pages accordingly when topics are loaded
+        // When topics are loaded: update the topic bar $ topic pages accordingly
         viewModel.didLoadTopics = { [weak self] topics in
             self?.topicBar.updateTopics(
-                with: topics.map({
-                    let topic = Topic(
-                        id: $0.id,
-                        title: $0.title,
-                        description: $0.topicDescription,
-                        totalPhotos: $0.totalPhotos,
-                        coverPhotoUrlString: $0.coverPhoto.urls.small)
-                    self?.appendTopicPage(with: topic)
-                    return topic
-                })
-            )}
+                with: topics.map(
+                    {
+                        let topic = Topic(
+                            id: $0.id,
+                            title: $0.title,
+                            description: $0.topicDescription,
+                            totalPhotos: $0.totalPhotos,
+                            coverPhotoUrlString: $0.coverPhoto.urls.small
+                        )
+                        self?.appendTopicPage(with: topic)
+                        
+                        return topic
+                    }
+                )
+            )
+        }
     }
     
     private func appendTopicPage(with topic: Topic) {
@@ -129,22 +135,54 @@ class PageViewController: UIPageViewController {
     }
     
     private func setUpMenuBar() {
+        
+        // When Specific Topic is Selected on Topic Bar: Move Pages accordingly
         topicBar.didSelectBarItem = { [weak self] selectedIndex in
-            guard let strongSelf = self else {
-                return
-            }
+            
+            guard let strongSelf = self,
+                  let vc = strongSelf.viewControllers?.first,
+                  let currentIndex = strongSelf.orderedSubViewControllers.firstIndex(of: vc) else { return }
+            
             let currentViewController = strongSelf.orderedSubViewControllers[selectedIndex]
-            strongSelf.setViewControllers([currentViewController], direction: .forward, animated: false, completion: nil)
+            
+            let difference = selectedIndex - currentIndex
+            
+            //if the selected topic is just the next, animate right
+            if difference == 1 {
+                strongSelf.setViewControllers(
+                    [currentViewController],
+                    direction: .forward,
+                    animated: true,
+                    completion: nil)
+                
+            //if the selected topic is just the previous, animate left
+            } else if difference == -1 {
+                strongSelf.setViewControllers(
+                    [currentViewController],
+                    direction: .reverse,
+                    animated: true,
+                    completion: nil)
+                
+            //else, just open page
+            } else {
+                strongSelf.setViewControllers(
+                    [currentViewController],
+                    direction: .reverse,
+                    animated: false,
+                    completion: nil)
+                
+            }
         }
     }
     
     
     private func setUpInitialPage() {
         if let firstViewController = orderedSubViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: false,
-                               completion: nil)
+            setViewControllers(
+                [firstViewController],
+                direction: .forward,
+                animated: false,
+                completion: nil)
         }
     }
 }
@@ -155,7 +193,9 @@ class PageViewController: UIPageViewController {
 
 //MARK: - Change Pages When Swiped
 
-extension PageViewController: UIPageViewControllerDataSource {
+extension HomePageViewController: UIPageViewControllerDataSource {
+    
+    //swiped left
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedSubViewControllers.firstIndex(of: viewController) else {
             return nil
@@ -167,7 +207,7 @@ extension PageViewController: UIPageViewControllerDataSource {
         return orderedSubViewControllers[viewControllerIndex - 1]
     }
     
-    
+    //swiped right
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedSubViewControllers.firstIndex(of: viewController) else {
             return nil
@@ -185,11 +225,13 @@ extension PageViewController: UIPageViewControllerDataSource {
 
 //MARK: - Change Topic Bar When Swiped
 
-extension PageViewController: UIPageViewControllerDelegate {
+extension HomePageViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = orderedSubViewControllers.firstIndex(of: visibleViewController)
+        if completed,
+           let visibleViewController = pageViewController.viewControllers?.first,
+           let index = orderedSubViewControllers.firstIndex(of: visibleViewController)
         {
             topicBar.chooseTopic(at: index)
         }

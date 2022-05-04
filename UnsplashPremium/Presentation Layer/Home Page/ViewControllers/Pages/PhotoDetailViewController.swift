@@ -5,7 +5,7 @@ import SnapKit
 
 //MARK: - Detail View of Image with More Quality
 
-class DetailPage: UIViewController {
+class PhotoDetailViewController: UIViewController {
     
     private var photoInfo: PhotoInfo?
     
@@ -68,11 +68,17 @@ class DetailPage: UIViewController {
         return infoImageView
     }()
     
+    
+    //when info icon tapped: show photo info
     @objc private func infoIconTapped(){
         guard let photoInfo = photoInfo else {
             return
         }
-        present(InfoPage(photoInfo: photoInfo), animated: true, completion: nil)
+        present(
+            PhotoInfoViewController(photoInfo: photoInfo),
+            animated: true,
+            completion: nil
+        )
     }
     
     //initialize
@@ -87,23 +93,32 @@ class DetailPage: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.navigationItem.titleView = titleLabel
-        infoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoIconTapped)))
+        
+        infoImageView.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(infoIconTapped)
+            )
+        )
+        
         layout()
     }
     
+    
     private func setImage(with urlString: String){
         PhotosServiceImplementation.getImage(urlString: urlString) { [weak self] result in
-                switch result {
-                case .success(let image):
-                    self?.photoView.image = image
-                case .failure(let error):
-                    print("Error on downloading image: \(error)")
-                }
+            switch result {
+            case .success(let image):
+                self?.photoView.image = image
+            case .failure(let error):
+                print("Error on downloading image: \(error)")
             }
+        }
     }
     
     // request for a single image
@@ -113,9 +128,12 @@ class DetailPage: UIViewController {
             case .success(let data):
                 self?.photoInfo = PhotoInfo(
                     exif: data.exif,
-                    dimensions: Size(width: Double(data.width), height: Double(data.height)),
-                    publishedDate: data.createdAt)
-                print(self?.photoInfo)
+                    dimensions: Size(
+                        width: Double(data.width),
+                        height: Double(data.height)
+                    ),
+                    publishedDate: data.createdAt
+                )
             case .failure(let error):
                 print("Error on downloading image: \(error)")
             }

@@ -26,7 +26,8 @@ class GradientView: UIView {
         gradient.frame = self.bounds
         gradient.colors = [
             gradientColor.withAlphaComponent(0.7).cgColor,
-            gradientColor.withAlphaComponent(0.0).cgColor]
+            gradientColor.withAlphaComponent(0.0).cgColor
+        ]
         gradient.locations = [NSNumber(value: 0.2),NSNumber(value: 1.0)]
         gradient.startPoint = CGPoint(x: 1, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 1)

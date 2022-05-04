@@ -11,5 +11,5 @@ import Foundation
 struct PhotoInfo {
     let exif: Exif
     let dimensions: Size
-    let publishedDate: String
+    let publishedDate: String?
 }
