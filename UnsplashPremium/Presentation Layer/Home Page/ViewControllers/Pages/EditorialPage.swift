@@ -107,22 +107,8 @@ class EditorialPage: UIViewController {
                 })
             )
             
-            strongSelf.collectionDirector.updateItems(with: photos.map({ photo in
-                HomePhotoCellConfigurator(
-                    data:
-                        Photo(
-                            id: photo.id,
-                            urlStringSmall: photo.urls.small,
-                            urlStringLarge: photo.urls.regular,
-                            userName: photo.user.name,
-                            details: PhotoDetail(
-                                color: photo.color,
-                                created_at: photo.createdAt,
-                                name: photo.user.name,
-                                blurHash: photo.blurHash
-                            )
-                        )
-                )
+            strongSelf.collectionDirector.updateItems(with: photos.map({
+                HomePhotoCellConfigurator( data: Photo(wrapper: $0))
             }))
         }
     }

@@ -19,7 +19,7 @@ class HomeViewModel {
 
     var didLoadEditorialPhotos: (([PhotoWrapper]) -> Void)?
     
-    var didLoadPhotosForTopic: (([PhotoWrapper]) -> Void)?
+    var didLoadPhotosForTopic: (([Photo]) -> Void)?
     
     var didLoadAdditionalPhotosForTopic: (([PhotoWrapper]) -> Void)?
     
@@ -53,7 +53,7 @@ class HomeViewModel {
                     switch result {
                     case .success(let photos):
                         if page == 1 {
-                            self?.didLoadPhotosForTopic?(photos)
+                            self?.didLoadPhotosForTopic?(photos.map(){ Photo(wrapper: $0) })
                         } else {
                             self?.didLoadAdditionalPhotosForTopic?(photos)
                         }

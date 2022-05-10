@@ -12,7 +12,22 @@ struct Photo {
     let urlStringSmall: String
     let urlStringLarge: String
     let userName: String
+    let aspectRatio: Double
     let details: PhotoDetail
+    
+    init(wrapper: PhotoWrapper) {
+        self.id = wrapper.id
+        self.urlStringLarge = wrapper.urls.regular
+        self.urlStringSmall = wrapper.urls.small
+        self.userName = wrapper.user.name
+        self.aspectRatio = Double(wrapper.width)/Double(wrapper.height)
+        self.details = PhotoDetail(
+            color: wrapper.color,
+            created_at: wrapper.createdAt,
+            name: wrapper.user.name,
+            blurHash: wrapper.blurHash
+        )
+    }
 }
 
 struct PhotoDetail {

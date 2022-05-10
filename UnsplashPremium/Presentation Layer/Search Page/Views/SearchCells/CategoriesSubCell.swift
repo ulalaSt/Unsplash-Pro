@@ -1,14 +1,21 @@
+//
+//  CategorySubCell.swift
+//  UnsplashPremium
+//
+//  Created by user on 07.05.2022.
+//
 
 import UIKit
-import SnapKit
 
-typealias HomePhotoCellConfigurator = CollectionCellConfigurator<HomePagePhotoCell, Photo>
+typealias CategoriesSubCellConfigurator = CollectionCellConfigurator<CategoriesSubCell, Category>
+
 
 //MARK: - Photo Cell for Home Page
 
-class HomePagePhotoCell: UICollectionViewCell {
+
+class CategoriesSubCell: UICollectionViewCell {
     
-    static let identifier = "HomePagePhotoCell"
+    static let identifier = "CategoriesSubCell"
         
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
@@ -18,7 +25,6 @@ class HomePagePhotoCell: UICollectionViewCell {
     
     private let photoView: UIImageView = {
         let photoView = UIImageView()
-        photoView.clipsToBounds = true
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -33,46 +39,32 @@ class HomePagePhotoCell: UICollectionViewCell {
     }
     
     private func layout(){
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 20
+
         contentView.addSubview(photoView)
         photoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         contentView.addSubview(authorLabel)
         authorLabel.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview().inset(20)
+            $0.centerX.centerY.equalToSuperview()
         }
     }
 }
 
 
 
-
 //MARK: - Set as Configurable Cell
 
-extension HomePagePhotoCell: ConfigurableCell {
+extension CategoriesSubCell: ConfigurableCell {
     
-    typealias DataType = Photo
+    typealias DataType = Category
     
-    func configure(data: Photo) {
-        self.authorLabel.text = data.userName
-        configurePlaceHolder(with: data.details.color)
-        setUpImage(with: data.urlStringSmall)
-    }
-    
-    
-    // sets appropriate color as placeholder before images are loaded
-    private func configurePlaceHolder(with hexString: String) {
-        
-        let redIndex = hexString.index(hexString.startIndex, offsetBy: 1)
-        let greenIndex = hexString.index(hexString.startIndex, offsetBy: 3)
-        let blueIndex = hexString.index(hexString.endIndex, offsetBy: -2)
-        
-        self.backgroundColor = UIColor(
-            red: CGFloat(Float(String(hexString[redIndex..<greenIndex])) ?? 0),
-            green: CGFloat(Float(String(hexString[greenIndex..<blueIndex])) ?? 0),
-            blue: CGFloat(Float(String(hexString[blueIndex..<hexString.endIndex])) ?? 0),
-            alpha: 0.8)
-        
+    func configure(data: Category) {
+        self.authorLabel.text = data.title
+        configurePlaceHolder(with: data.backgroundColor)
+        setUpImage(with: data.photoUrl)
     }
     
     // loads image by string url
@@ -85,7 +77,24 @@ extension HomePagePhotoCell: ConfigurableCell {
             case .failure(let error):
                 print("Error on downloading image: \(error)")
             }
+            
         }
     }
+    
+    // sets appropriate color as placeholder before images are loaded
+    private func configurePlaceHolder(with hexString: String) {
+        
+        let redIndex = hexString.index(hexString.startIndex, offsetBy: 1)
+        let greenIndex = hexString.index(hexString.startIndex, offsetBy: 3)
+        let blueIndex = hexString.index(hexString.endIndex, offsetBy: -2)
+        
+        self.contentView.backgroundColor = UIColor(
+            red: CGFloat(Float(String(hexString[redIndex..<greenIndex])) ?? 0),
+            green: CGFloat(Float(String(hexString[greenIndex..<blueIndex])) ?? 0),
+            blue: CGFloat(Float(String(hexString[blueIndex..<hexString.endIndex])) ?? 0),
+            alpha: 0.8)
+        
+    }
+
     
 }

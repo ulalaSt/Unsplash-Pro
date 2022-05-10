@@ -40,7 +40,7 @@ extension UIImage {
 
                 for j in 0 ..< numY {
                     for i in 0 ..< numX {
-                        let basis = cos(Float.pi * Float(x) * Float(i) / Float(width)) * cos(Float.pi * Float(y) * Float(j) / Float(height))
+                        let basis = cos(Float.pi * Float(x) * Float(i) / Float(width))  * cos(Float.pi * Float(y) * Float(j) / Float(height))
                         let colour = colours[i + j * numX]
                         r += colour.0 * basis
                         g += colour.1 * basis

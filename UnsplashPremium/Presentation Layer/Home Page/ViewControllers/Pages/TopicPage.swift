@@ -92,22 +92,12 @@ class TopicPage: UIViewController {
             itemSizes.append(contentsOf: photos.map({ photo in
                 Size(
                     width: strongSelf.view.frame.width,
-                    height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
+                    height: strongSelf.view.frame.width/photo.aspectRatio)
             }))
             
             strongSelf.collectionDirector.updateItemSizes(with: itemSizes)
-            items.append(contentsOf: photos.map({ photo in
-                HomePhotoCellConfigurator(
-                    data: Photo(
-                        id: photo.id,
-                        urlStringSmall: photo.urls.small,
-                        urlStringLarge: photo.urls.regular,
-                        userName: photo.user.name,
-                        details: PhotoDetail(
-                            color: photo.color,
-                            created_at: photo.createdAt,
-                            name: photo.user.name,
-                            blurHash: photo.blurHash)))
+            items.append(contentsOf: photos.map({
+                HomePhotoCellConfigurator( data: $0)
             }))
             self?.collectionDirector.updateItems(with: items)
         }
@@ -122,20 +112,8 @@ class TopicPage: UIViewController {
                     width: strongSelf.view.frame.width,
                     height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
             }))
-            strongSelf.collectionDirector.addItems(with: photos.map({ photo in
-                HomePhotoCellConfigurator(
-                    data: Photo(
-                        id: photo.id,
-                        urlStringSmall: photo.urls.small,
-                        urlStringLarge: photo.urls.regular,
-                        userName: photo.user.name,
-                        details: PhotoDetail(
-                            color: photo.color,
-                            created_at: photo.createdAt,
-                            name: photo.user.name,
-                            blurHash: photo.blurHash)
-                    )
-                )
+            strongSelf.collectionDirector.addItems(with: photos.map({
+                HomePhotoCellConfigurator( data: Photo(wrapper: $0) )
             }))
         }
     }

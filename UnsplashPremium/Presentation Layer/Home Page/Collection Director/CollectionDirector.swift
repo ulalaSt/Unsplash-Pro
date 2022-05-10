@@ -13,15 +13,13 @@ class CollectionDirector: NSObject {
     
     private var items = [CellConfigurator]() {
         didSet {
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
     
-    private var itemSizes = [Size?]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private var itemSizes = [Size?]()
     
     
     init(collectionView: UICollectionView) {
@@ -79,9 +77,10 @@ extension CollectionDirector: UICollectionViewDataSource {
         
         if indexPath.row == self.items.count - 1 {
             DispatchQueue.main.async {
-                CollectionAction.didReachedEnd.invoke(cell: collectionView.cellForItem(at: indexPath)!)
+                CollectionAction.didReachedEnd.invoke(cell: cell)
             }
         }
+        
         return cell
     }
 }
