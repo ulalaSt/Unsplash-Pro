@@ -99,16 +99,13 @@ class EditorialPage: UIViewController {
                 return
             }
             
-            strongSelf.collectionDirector.updateItemSizes(
-                with: photos.map({ photo in
-                    Size(
+            strongSelf.collectionDirector.updateItems(with: photos.map({ photo in
+                CollectionCellData(
+                    cellConfigurator: HomePhotoCellConfigurator( data: Photo(wrapper: photo)),
+                    size: Size(
                         width: strongSelf.view.frame.width,
-                        height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
-                })
-            )
-            
-            strongSelf.collectionDirector.updateItems(with: photos.map({
-                HomePhotoCellConfigurator( data: Photo(wrapper: $0))
+                        height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width)
+                    ))
             }))
         }
     }

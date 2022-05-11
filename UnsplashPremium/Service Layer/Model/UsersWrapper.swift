@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UsersWrapper: Codable {
+struct UsersResult: Codable {
     let total: Int
     let results: [UserWrapper]
     

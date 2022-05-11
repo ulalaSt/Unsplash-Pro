@@ -10,4 +10,6 @@ target 'UnsplashPremium' do
 pod 'SnapKit'
 pod 'Alamofire'
 pod 'AlamofireImage'
+pod 'CHTCollectionViewWaterfallLayout'
+
 end

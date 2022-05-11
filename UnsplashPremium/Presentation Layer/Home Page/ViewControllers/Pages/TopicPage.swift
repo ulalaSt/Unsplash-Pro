@@ -81,23 +81,22 @@ class TopicPage: UIViewController {
     // to reload collectionView with topic related images
     private func bindViewModel(){
         viewModel.didLoadPhotosForTopic = { [weak self] photos in
-
+            
             guard let strongSelf = self else {
                 return
             }
-            
-            var items: [CellConfigurator] = [TopicDescriptionCellConfigurator(data: strongSelf.topic)]
-            var itemSizes: [Size?] = [nil]
-            
-            itemSizes.append(contentsOf: photos.map({ photo in
-                Size(
-                    width: strongSelf.view.frame.width,
-                    height: strongSelf.view.frame.width/photo.aspectRatio)
-            }))
-            
-            strongSelf.collectionDirector.updateItemSizes(with: itemSizes)
-            items.append(contentsOf: photos.map({
-                HomePhotoCellConfigurator( data: $0)
+            var items: [CollectionCellData] = [
+                CollectionCellData(
+                    cellConfigurator: TopicDescriptionCellConfigurator(data: strongSelf.topic),
+                    size: nil)
+            ]
+            items.append(contentsOf: photos.map({ photo in
+                CollectionCellData(
+                    cellConfigurator: HomePhotoCellConfigurator( data: photo),
+                    size: Size(
+                        width: strongSelf.view.frame.width,
+                        height: strongSelf.view.frame.width/photo.aspectRatio)
+                )
             }))
             self?.collectionDirector.updateItems(with: items)
         }
@@ -106,15 +105,16 @@ class TopicPage: UIViewController {
             guard let strongSelf = self else {
                 return
             }
-
-            strongSelf.collectionDirector.addItemSizes(with: photos.map({ photo in
-                Size(
-                    width: strongSelf.view.frame.width,
-                    height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
-            }))
-            strongSelf.collectionDirector.addItems(with: photos.map({
-                HomePhotoCellConfigurator( data: Photo(wrapper: $0) )
-            }))
+            
+            strongSelf.collectionDirector.addItems(with: photos.map({ photo in
+                CollectionCellData(
+                    cellConfigurator: HomePhotoCellConfigurator( data: Photo(wrapper: photo) ),
+                    size:                 Size(
+                        width: strongSelf.view.frame.width,
+                        height: strongSelf.view.frame.width * Double(photo.height) / Double(photo.width))
+                    
+                )})
+            )
         }
     }
     

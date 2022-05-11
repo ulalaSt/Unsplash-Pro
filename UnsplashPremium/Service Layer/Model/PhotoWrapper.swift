@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct ResultWrapper: Codable {
+    let total, totalPages: Int
+    let results: [PhotoWrapper]
+
+    enum CodingKeys: String, CodingKey {
+        case total
+        case totalPages = "total_pages"
+        case results
+    }
+}
 struct PhotoWrapper: Codable {
     let id: String
     let createdAt: String

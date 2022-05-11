@@ -1,21 +1,14 @@
-//
-//  CategorySubCell.swift
-//  UnsplashPremium
-//
-//  Created by user on 07.05.2022.
-//
 
 import UIKit
+import SnapKit
 
-typealias CategoriesSubCellConfigurator = CollectionCellConfigurator<CategoriesSubCell, Category>
-
+typealias SearchedCollectionCellConfigurator = CollectionCellConfigurator<SearchedCollectionCell, Collection>
 
 //MARK: - Photo Cell for Home Page
 
-
-class CategoriesSubCell: UICollectionViewCell {
+class SearchedCollectionCell: UICollectionViewCell {
     
-    static let identifier = "CategoriesSubCell"
+    static let identifier = "SearchedCollectionCell"
         
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
@@ -25,6 +18,8 @@ class CategoriesSubCell: UICollectionViewCell {
     
     private let photoView: UIImageView = {
         let photoView = UIImageView()
+        photoView.clipsToBounds = true
+        photoView.layer.cornerRadius = 15
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -39,9 +34,6 @@ class CategoriesSubCell: UICollectionViewCell {
     }
     
     private func layout(){
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 20
-
         contentView.addSubview(photoView)
         photoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -55,16 +47,16 @@ class CategoriesSubCell: UICollectionViewCell {
 
 
 
+
 //MARK: - Set as Configurable Cell
 
-extension CategoriesSubCell: ConfigurableCell {
+extension SearchedCollectionCell: ConfigurableCell {
     
-    typealias DataType = Category
+    typealias DataType = Collection
     
-    func configure(data: Category) {
+    func configure(data: Collection) {
         self.authorLabel.text = data.title
-        configurePlaceHolder(with: data.backgroundColor)
-        setUpImage(with: data.photoUrl)
+        setUpImage(with: data.smallUrl)
     }
     
     // loads image by string url
@@ -77,24 +69,7 @@ extension CategoriesSubCell: ConfigurableCell {
             case .failure(let error):
                 print("Error on downloading image: \(error)")
             }
-            
         }
     }
-    
-    // sets appropriate color as placeholder before images are loaded
-    private func configurePlaceHolder(with hexString: String) {
-        
-        let redIndex = hexString.index(hexString.startIndex, offsetBy: 1)
-        let greenIndex = hexString.index(hexString.startIndex, offsetBy: 3)
-        let blueIndex = hexString.index(hexString.endIndex, offsetBy: -2)
-        
-        self.contentView.backgroundColor = UIColor(
-            red: CGFloat(Float(String(hexString[redIndex..<greenIndex])) ?? 0),
-            green: CGFloat(Float(String(hexString[greenIndex..<blueIndex])) ?? 0),
-            blue: CGFloat(Float(String(hexString[blueIndex..<hexString.endIndex])) ?? 0),
-            alpha: 0.8)
-        
-    }
-
     
 }

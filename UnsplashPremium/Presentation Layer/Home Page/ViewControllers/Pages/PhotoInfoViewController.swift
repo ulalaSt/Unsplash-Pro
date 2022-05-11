@@ -54,26 +54,26 @@ class PhotoInfoViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         data.append( Info(
-                key: .make,
-                value: photoInfo.exif.make ?? "-"))
+            key: .make,
+            value: photoInfo.exif.make ?? "-"))
         data.append( Info(
-                key: .focalLength,
-                value: photoInfo.exif.focalLength ?? "-"))
+            key: .focalLength,
+            value: photoInfo.exif.focalLength ?? "-"))
         data.append( Info(
-                key: .iso,
-                value: (photoInfo.exif.iso != nil) ? "\(photoInfo.exif.iso)" : "-"))
+            key: .iso,
+            value: (photoInfo.exif.iso != nil) ? "\(photoInfo.exif.iso)" : "-"))
         data.append( Info(
-                key: .shutterSpeed,
-                value: photoInfo.exif.exposureTime ?? "-"))
+            key: .shutterSpeed,
+            value: photoInfo.exif.exposureTime ?? "-"))
         data.append( Info(
-                key: .dimensions,
-                value: "\(photoInfo.dimensions.width) x \(photoInfo.dimensions.height)"))
+            key: .dimensions,
+            value: "\(photoInfo.dimensions.width) x \(photoInfo.dimensions.height)"))
         data.append( Info(
-                key: .aperture,
-                value: photoInfo.exif.aperture ?? "-"))
+            key: .aperture,
+            value: photoInfo.exif.aperture ?? "-"))
         data.append( Info(
-                key: .published,
-                value: photoInfo.publishedDate ?? "-"))
+            key: .published,
+            value: photoInfo.publishedDate ?? "-"))
         
     }
     
@@ -87,11 +87,13 @@ class PhotoInfoViewController: UIViewController {
         view.backgroundColor = .darkGray
         collectionView.reloadData()
         
-        collectionDirector.updateItems( with: data.map(){ InfoCellConfigurator(data: $0) })
-        collectionDirector.updateItemSizes(with: data.map(){ _ in
-            Size(
-                width: (view.frame.width - 50.0) / 2.0,
-                height: 40
+        collectionDirector.updateItems( with: data.map(){
+            CollectionCellData(
+                cellConfigurator: InfoCellConfigurator(data: $0),
+                size: Size(
+                    width: (view.frame.width - 50.0) / 2.0,
+                    height: 40
+                )
             )
         })
         layout()
