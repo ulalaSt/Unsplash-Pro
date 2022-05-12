@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 
 class UserResultPage: UIViewController {
-
+    
     private let viewModel: UserResultViewModel
     
     private var currentLastPage = 1
     
     private var query: String
-
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -86,12 +86,19 @@ class UserResultPage: UIViewController {
     
     // show detail when cells are tapped
     private func setActionsForCells() {
-//        collectionDirector.actionProxy.on(action: .didReachedEnd) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            strongSelf.currentLastPage = strongSelf.currentLastPage + 1
-//            strongSelf.fetchData()
-//        }
+        collectionDirector.actionProxy.on(action: .didSelect) { [weak self](configurator: SearchedUserCellConfigurator, cell) in
+            let user = configurator.data
+            self?.navigationController?.pushViewController(
+                UserDetailViewController(
+                    viewModel: UserDetailViewModel(resultsService: UserDetailServiceImplementation()),
+                    user: user
+                ),
+                animated: true)
+            
+        }
+        //        collectionDirector.actionProxy.on(action: .didReachedEnd) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+        //            strongSelf.currentLastPage = strongSelf.currentLastPage + 1
+        //            strongSelf.fetchData()
+        //        }
     }
 }

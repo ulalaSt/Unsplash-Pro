@@ -92,5 +92,15 @@ class CollectionResultPage: UIViewController {
 //            strongSelf.currentLastPage = strongSelf.currentLastPage + 1
 //            strongSelf.fetchData()
 //        }
+        collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: SearchedCollectionCellConfigurator, cell) in
+            let collectionDetail =
+            CollectionDetailViewController(
+                viewModel: CollectionDetailViewModel(resultsService: CollectionDetailServiceImplementation()),
+                title: configurator.data.title,
+                id: configurator.data.id)
+            self?.navigationController?.pushViewController(collectionDetail,
+                                                           animated: true)
+        }
+
     }
 }

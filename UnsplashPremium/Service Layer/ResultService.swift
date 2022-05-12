@@ -21,7 +21,7 @@ class SearchResultServiceImplementation: SearchResultService {
             format: "%@search/photos/?page=\(page)&per_page=30&query=\(query)&%@",
             EndPoint.baseUrl,
             EndPoint.clientIdParameter
-        )
+        ).replacingOccurrences(of: " ", with: "%20")
         guard let url = URL(string: urlString) else { return }
         print(urlString)
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<ResultWrapper, AFError>) in

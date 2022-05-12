@@ -95,7 +95,6 @@ extension SearchedUserCell: ConfigurableCell {
     // loads image by string url
     private func setUpImage(with urlString: String) {
         PhotosServiceImplementation.getImage(urlString: urlString) { [weak self] result in
-            
             switch result {
             case .success(let image):
                 self?.photoView.image = image

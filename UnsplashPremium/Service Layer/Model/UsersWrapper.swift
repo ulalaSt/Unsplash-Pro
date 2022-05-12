@@ -21,11 +21,15 @@ struct UserWrapper: Codable {
     let username: String
     let name: String
     let profileImageUrl: UserProfileImageWrapper
+    let location: String?
+    let website: String?
     
     enum CodingKeys: String, CodingKey {
         case username
         case name
         case profileImageUrl = "profile_image"
+        case location
+        case website = "portfolio_url"
     }
 }
 

@@ -10,13 +10,13 @@ import SnapKit
 import CHTCollectionViewWaterfallLayout
 
 class PhotoResultPage: UIViewController {
-
+    
     private let viewModel: PhotoResultViewModel
     
     private var currentLastPage = 1
     
     private var query: String
-
+    
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.columnCount = 2
@@ -45,6 +45,8 @@ class PhotoResultPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        
         layout()
         bindViewModel()
         fetchData()
@@ -55,7 +57,8 @@ class PhotoResultPage: UIViewController {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(80)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().priority(999)
         }
     }
     
@@ -95,6 +98,14 @@ class PhotoResultPage: UIViewController {
             }
             strongSelf.currentLastPage = strongSelf.currentLastPage + 1
             strongSelf.fetchData()
+        }
+        collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+            let photoDetail = PhotoDetailViewController(
+                photoUrlString: configurator.data.urlStringLarge,
+                userName: configurator.data.userName,
+                photoId: configurator.data.id)
+            self?.navigationController?.pushViewController(photoDetail,
+                                                           animated: true)
         }
     }
 }

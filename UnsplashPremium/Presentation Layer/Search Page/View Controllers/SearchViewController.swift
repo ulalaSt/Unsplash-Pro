@@ -7,9 +7,16 @@
 
 import UIKit
 import SnapKit
+import CHTCollectionViewWaterfallLayout
 
 class SearchViewController: UIViewController {
     
+    private let viewModel: SearchRecommendationViewModel
+        
+    var resultViewController: ResultPageViewController?
+
+    private var photos: [Photo]?
+
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.default
@@ -23,9 +30,21 @@ class SearchViewController: UIViewController {
         return searchBar
     }()
     
-    private let viewModel: SearchRecommendationViewModel
-        
-    var resultViewController: ResultPageViewController!
+    private let collectionView: UICollectionView = {
+        let layout = CHTCollectionViewWaterfallLayout()
+        layout.columnCount = 2
+        layout.itemRenderDirection = .shortestFirst
+        layout.minimumInteritemSpacing = 4.0
+        layout.minimumColumnSpacing = 4.0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .black
+        return collectionView
+    }()
+    
+    private lazy var collectionDirector: WaterfallCollectionDirector = {
+        let collectionDirector = WaterfallCollectionDirector(collectionView: collectionView)
+        return collectionDirector
+    }()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -37,6 +56,22 @@ class SearchViewController: UIViewController {
         let tableDirector = TableDirector(tableView: tableView)
         return tableDirector
     }()
+        
+    private func fetchData(){
+        viewModel.getDiscoveryPhotos()
+        
+    }
+    private func fetchOtherData(){
+        if let photos = photos {
+            collectionDirector.updateItems(with:
+                photos.map({
+                CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: $0),
+                                   size: Size(width: view.frame.width,
+                                              height: view.frame.width/$0.aspectRatio))
+                })
+            )
+        }
+    }
     
     init(viewModel: SearchRecommendationViewModel) {
         self.viewModel = viewModel
@@ -49,11 +84,13 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.hidesBarsOnSwipe = false
         view.backgroundColor = .black
         searchBar.delegate = self
         searchBar.showsCancelButton = true
         navigationItem.titleView = searchBar
-        
+        collectionView.contentInset = UIEdgeInsets(top: self.view.frame.width+60.0, left: 0, bottom: 0, right: 0)
+        collectionView.clipsToBounds = false
         layout()
         bindViewModel()
         fetchData()
@@ -61,15 +98,19 @@ class SearchViewController: UIViewController {
     }
     
     private func layout(){
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        collectionView.addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.bottom.equalTo(collectionView.snp.top)
+            $0.height.equalTo(self.view.frame.width+60.0)
+            $0.width.equalTo(view.safeAreaLayoutGuide)
+        }
     }
+
     private func bindViewModel() {
-        
         viewModel.didLoadDiscoveryPhotos = { photos in
             self.tableDirector.addItems(with: [
                 TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Browse by Category"),
@@ -77,17 +118,28 @@ class SearchViewController: UIViewController {
                 TableCellData(configurator: CategoryContainingCellConfigurator(item: self.viewModel.categories),
                               height: self.view.frame.width-60.0),
                 TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Discover"),
-                              height: 60),
-                TableCellData(configurator: CollectionContainingCellConfigurator(item: photos),
-                              height: self.view.frame.size.height)
+                              height: 60)
             ])
+            self.photos = photos
+            self.fetchOtherData()
         }
     }
-    private func fetchData() {
-        viewModel.getDiscoveryPhotos()
-    }
+    
     private func setActionsForCells() {
-        tableDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+        tableDirector.actionProxy.on(action: .custom("categorySelected")) { [weak self] (configurator: CategoryContainingCellConfigurator, cell) in
+            guard let configurator = cell.tappedSearchedCollectionCellConfigurator else {
+                return
+            }
+            let title = configurator.data.title
+            let photosPage = PhotoResultPage(with: PhotoResultViewModel(resultsService: SearchResultServiceImplementation()),
+                                             query: title)
+            photosPage.title = title
+            self?.navigationController?.pushViewController(
+                photosPage,
+                animated: true
+            )
+        }
+        collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
             let photoUrl = configurator.data.urlStringLarge
             let userName = configurator.data.userName
             let id = configurator.data.id
@@ -101,29 +153,23 @@ class SearchViewController: UIViewController {
             )
         }
     }
-}
-
-
-
-
-extension SearchViewController: UISearchBarDelegate {
-    //to search for headlines when is entered
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let text = searchBar.text, !text.isEmpty {
-            searchBar.endEditing(true)
-            self.tableView.isHidden = true
-            resultViewController = ResultPageViewController(query: text)
+    
+    private func showResultView(){
+        self.tableView.isHidden = true
+        self.collectionView.isHidden = true
+        
+        if let resultViewController = resultViewController {
             self.addChild(resultViewController)
             self.view.addSubview(resultViewController.view)
             resultViewController.view.snp.makeConstraints {
-                $0.top.equalTo(self.searchBar.snp.bottom)
-                $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                $0.edges.equalTo(self.view.safeAreaLayoutGuide)
             }
+            resultViewController.didMove(toParent: self)
         }
     }
-    //to get topheadlines again when is canceled
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func removeResultView(){
         self.tableView.isHidden = false
+        self.collectionView.isHidden = false
         if self.children.count > 0{
             let viewControllers:[UIViewController] = self.children
             for viewContoller in viewControllers{
@@ -132,7 +178,29 @@ extension SearchViewController: UISearchBarDelegate {
                 viewContoller.removeFromParent()
             }
         }
+        self.resultViewController = nil
+    }
+}
+
+
+
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    //to search for headlines when is entered
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let text = searchBar.text, !text.isEmpty {
+            searchBar.endEditing(true)
+            resultViewController = ResultPageViewController(query: text)
+            showResultView()
+        }
+    }
+    
+    
+    //to get topheadlines again when is canceled
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         searchBar.endEditing(true)
+        removeResultView()
     }
 }

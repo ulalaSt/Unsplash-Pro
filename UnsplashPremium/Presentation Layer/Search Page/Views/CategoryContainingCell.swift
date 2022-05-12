@@ -30,6 +30,7 @@ class CategoryContainingCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
+        setActions()
     }
     
     required init?(coder: NSCoder) {
@@ -44,8 +45,7 @@ class CategoryContainingCell: UITableViewCell {
     }
     private func fetchData(){
         if let categories = categories {
-            collectionDirector.updateItems(with:
-                                            categories.map({
+            collectionDirector.updateItems(with: categories.map({
                 CollectionCellData(
                     cellConfigurator:
                         SearchedCollectionCellConfigurator(
@@ -56,6 +56,15 @@ class CategoryContainingCell: UITableViewCell {
                     size: Size(width: (contentView.frame.height-10.0)/2.0,
                                height: (contentView.frame.height-10.0)/2.0))
             }))
+        }
+    }
+    
+    var tappedSearchedCollectionCellConfigurator: SearchedCollectionCellConfigurator?
+    
+    private func setActions(){
+        collectionDirector.actionProxy.on(action: .didSelect) { (configurator: SearchedCollectionCellConfigurator, cell) in
+            self.tappedSearchedCollectionCellConfigurator = configurator
+            Action.custom("categorySelected").invoke(cell: self)
         }
     }
 }

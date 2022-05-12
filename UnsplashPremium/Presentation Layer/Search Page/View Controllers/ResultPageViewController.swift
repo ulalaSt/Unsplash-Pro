@@ -82,12 +82,12 @@ class ResultPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         dataSource = self
         delegate = self
         self.view.clipsToBounds = false
         layout()
         setUpInitialPage()
-        // Do any additional setup after loading the view.
     }
     
     private func layout(){
