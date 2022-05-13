@@ -67,8 +67,27 @@ class PhotoDetailViewController: UIViewController {
         infoImageView.isUserInteractionEnabled = true
         return infoImageView
     }()
-    
-    
+    private let shareButton: UIButton = {
+        let shareButton = UIButton()
+        shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
+        shareButton.tintColor = .white
+        return shareButton
+    }()
+
+    @objc private func didTapShare(){
+        guard let image = photoView.image else {
+            return
+        }
+        let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        shareController.completionWithItemsHandler = { _, isSent, _, _ in
+            if isSent {
+                print("Successfully sent")
+            }
+        }
+        present(shareController, animated: true, completion: nil)
+        
+    }
     //when info icon tapped: show photo info
     @objc private func infoIconTapped(){
         guard let photoInfo = photoInfo else {
@@ -154,6 +173,7 @@ class PhotoDetailViewController: UIViewController {
         layoutPlusIcon()
         layoutLikeIcon()
         layoutInfoIcon()
+        layoutShareButton()
     }
     
     private func layoutDownloadIcon(){
@@ -207,6 +227,14 @@ class PhotoDetailViewController: UIViewController {
         }
     }
     
+    private func layoutShareButton(){
+        view.addSubview(shareButton)
+        shareButton.snp.makeConstraints{
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.size.equalTo(35)
+        }
+    }
     
     // control tabbar appearance
     override func viewWillDisappear(_ animated: Bool) {

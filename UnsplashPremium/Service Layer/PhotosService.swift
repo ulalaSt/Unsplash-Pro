@@ -13,14 +13,13 @@ protocol PhotosService {
 class PhotosServiceImplementation: PhotosService {
     
     func getEditorialPhotos(result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
-        
         let urlString = String(
             format: "%@photos/?%@",
             EndPoint.baseUrl,
             EndPoint.clientIdParameter
         )
         guard let url = URL(string: urlString) else { return }
-
+        
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
             case .success(let elements):
@@ -33,8 +32,9 @@ class PhotosServiceImplementation: PhotosService {
     
     func getPhotosForTopic(topicID: String, page: Int, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
         
+        let parameters: Parameters = ["page" : "\(page)"]
         let urlString = String(
-            format: "%@topics/\(topicID)/photos?page=\(page)&%@",
+            format: "%@topics/\(topicID)/photos?%@",
             EndPoint.baseUrl,
             EndPoint.clientIdParameter
         )
@@ -43,7 +43,7 @@ class PhotosServiceImplementation: PhotosService {
             return
         }
         
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
+        AF.request(url, method: .get, parameters: parameters).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
             case .success(let elements):
                 result(.success(elements))

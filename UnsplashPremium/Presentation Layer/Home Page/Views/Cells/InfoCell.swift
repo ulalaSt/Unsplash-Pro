@@ -8,7 +8,7 @@ typealias InfoCellConfigurator = CollectionCellConfigurator<InfoCell,Info>
 
 class InfoCell: UICollectionViewCell {
     
-    static let identifier = "TopicPagePhotoCell"
+    static let identifier = "InfoCell"
     
     private let keyLabel: UILabel = {
         let keyLabel = UILabel()

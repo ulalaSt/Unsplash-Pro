@@ -13,7 +13,7 @@ class TableDirector: NSObject {
     
     private var heightForRow: Double?
     
-    private var items = [TableCellData]() {
+    private var items = [[TableCellData]]() {
         didSet {
             tableView.reloadData()
         }
@@ -44,15 +44,17 @@ class TableDirector: NSObject {
     
     @objc private func onActionEvent(notification: Notification) {
         if let eventData = notification.userInfo?["data"] as? ActionEventData, let cell = eventData.cell as? UITableViewCell, let indexPath = self.tableView.indexPath(for: cell) {
-            actionProxy.invoke(action: eventData.action, cell: cell, configurator: self.items[indexPath.row].configurator)
+            actionProxy.invoke(action: eventData.action,
+                               cell: cell,
+                               configurator: self.items[indexPath.section][indexPath.row].configurator)
         }
     }
 
-    func updateItems(with newItems: [TableCellData]){
+    func updateItems(with newItems: [[TableCellData]]){
         self.items = newItems
     }
     
-    func addItems(with newItems: [TableCellData]){
+    func addItems(with newItems: [[TableCellData]]){
         self.items.append(contentsOf: newItems)
     }
     
@@ -62,11 +64,17 @@ class TableDirector: NSObject {
 }
 
 extension TableDirector: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        items.count
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items[section].count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configurator = items[indexPath.row].configurator
+        let configurator = items[indexPath.section][indexPath.row].configurator
         tableView.register(type(of: configurator).cellClass, forCellReuseIdentifier: type(of: configurator).reuseId)
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configurator).reuseId, for: indexPath)
         configurator.configure(cell: cell)
@@ -77,7 +85,7 @@ extension TableDirector: UITableViewDataSource {
 extension TableDirector: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return items[indexPath.row].height
+        return items[indexPath.section][indexPath.row].height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -7,6 +7,8 @@ import SnapKit
 
 class TopicCell: UICollectionViewCell {
     
+    static let identifier = "TopicCell"
+
     private let topicLabel: UILabel = {
         let topicLabel = UILabel()
         topicLabel.textColor = .white

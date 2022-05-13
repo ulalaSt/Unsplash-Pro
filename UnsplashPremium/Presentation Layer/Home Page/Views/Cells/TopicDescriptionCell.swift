@@ -8,7 +8,7 @@ typealias TopicDescriptionCellConfigurator = CollectionCellConfigurator<TopicDes
 
 class TopicDescriptionCell: UICollectionViewCell {
     
-    static let identifier = "TopicPagePhotoCell"
+    static let identifier = "TopicDescriptionCell"
     
     private let topicLabel: UILabel = {
         let topicLabel = UILabel()

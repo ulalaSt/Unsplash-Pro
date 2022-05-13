@@ -81,10 +81,11 @@ class SearchViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.hidesBarsOnSwipe = false
         view.backgroundColor = .black
         searchBar.delegate = self
         searchBar.showsCancelButton = true
@@ -112,14 +113,14 @@ class SearchViewController: UIViewController {
 
     private func bindViewModel() {
         viewModel.didLoadDiscoveryPhotos = { photos in
-            self.tableDirector.addItems(with: [
+            self.tableDirector.updateItems(with: [[
                 TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Browse by Category"),
                               height: 60),
                 TableCellData(configurator: CategoryContainingCellConfigurator(item: self.viewModel.categories),
                               height: self.view.frame.width-60.0),
                 TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Discover"),
                               height: 60)
-            ])
+            ]])
             self.photos = photos
             self.fetchOtherData()
         }

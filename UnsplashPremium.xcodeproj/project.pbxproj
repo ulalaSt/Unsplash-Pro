@@ -38,6 +38,10 @@
 		CE3FD8F8282CE39700F479CF /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8F7282CE39700F479CF /* UserDetailViewModel.swift */; };
 		CE3FD8FA282CE6CC00F479CF /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8F9282CE6CC00F479CF /* UserDetailViewController.swift */; };
 		CE3FD8FC282CED1B00F479CF /* UserDetailTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8FB282CED1B00F479CF /* UserDetailTopView.swift */; };
+		CE3FD8FE282DF5E200F479CF /* UnsplashInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8FD282DF5E200F479CF /* UnsplashInfoViewController.swift */; };
+		CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */; };
+		CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */; };
+		CE3FD904282DFA3400F479CF /* UnsplashLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */; };
 		CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F39D2817E6BF00860EA2 /* Gradient View.swift */; };
 		CE7689A8282147F6004DEDDB /* TopicDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */; };
 		CE7689AA2821A412004DEDDB /* PhotoDetailedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */; };
@@ -111,6 +115,10 @@
 		CE3FD8F7282CE39700F479CF /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		CE3FD8F9282CE6CC00F479CF /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		CE3FD8FB282CED1B00F479CF /* UserDetailTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailTopView.swift; sourceTree = "<group>"; };
+		CE3FD8FD282DF5E200F479CF /* UnsplashInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashInfoViewController.swift; sourceTree = "<group>"; };
+		CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashViewModel.swift; sourceTree = "<group>"; };
+		CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInfoCell.swift; sourceTree = "<group>"; };
+		CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashLogoCell.swift; sourceTree = "<group>"; };
 		CE66F39D2817E6BF00860EA2 /* Gradient View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient View.swift"; sourceTree = "<group>"; };
 		CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDescriptionCell.swift; sourceTree = "<group>"; };
 		CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailedWrapper.swift; sourceTree = "<group>"; };
@@ -241,6 +249,7 @@
 				CEB77D5A2817037C005C5E7A /* TopicPage.swift */,
 				CEB77D98281793DF005C5E7A /* PhotoDetailViewController.swift */,
 				CE7689AB2821B89B004DEDDB /* PhotoInfoViewController.swift */,
+				CE3FD8FD282DF5E200F479CF /* UnsplashInfoViewController.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -252,6 +261,8 @@
 				CEB77D9E281794AE005C5E7A /* HomePagePhotoCell.swift */,
 				CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */,
 				CE7689AF2821CBC8004DEDDB /* InfoCell.swift */,
+				CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */,
+				CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB77D8528174D90005C5E7A /* HomeViewModel.swift */,
+				CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -615,16 +627,19 @@
 				CEB77D93281791E8005C5E7A /* CollectionDirector.swift in Sources */,
 				CE3FD8C4282A757100F479CF /* WaterfallCollectionDirector.swift in Sources */,
 				CE3FD8CD282A865000F479CF /* UserResultPage.swift in Sources */,
+				CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */,
 				CE3FD8EC282B83D400F479CF /* CategoryContainingCell.swift in Sources */,
 				CE90351128213377001C4674 /* UIImage + BlurHash.swift in Sources */,
 				CE3FD8DC282B6C2600F479CF /* TableDirector.swift in Sources */,
 				CE3FD8C6282A852F00F479CF /* ResultPageViewController.swift in Sources */,
 				CE3FD8E8282B7E7300F479CF /* TableCellData.swift in Sources */,
+				CE3FD904282DFA3400F479CF /* UnsplashLogoCell.swift in Sources */,
 				CEB77D8628174D90005C5E7A /* HomeViewModel.swift in Sources */,
 				CEB77D8D28177BD3005C5E7A /* Photo.swift in Sources */,
 				207EEA922819AF2400A074EC /* ConfigurableCell.swift in Sources */,
 				CE7689B02821CBC8004DEDDB /* InfoCell.swift in Sources */,
 				CE3FD8F2282C002400F479CF /* CollectionDetailService.swift in Sources */,
+				CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */,
 				CE3FD8CF282A895900F479CF /* CollectionResultViewModel.swift in Sources */,
 				CE3FD8F4282C012800F479CF /* CollectionDetailViewController.swift in Sources */,
 				CE3FD8E2282B716B00F479CF /* SearchRecommendationViewModel.swift in Sources */,
@@ -636,6 +651,7 @@
 				CEBD44782828E7FE0051EA8B /* ResultService.swift in Sources */,
 				CE3FD8FC282CED1B00F479CF /* UserDetailTopView.swift in Sources */,
 				CE3FD8D9282AC48000F479CF /* SearchedUserCell.swift in Sources */,
+				CE3FD8FE282DF5E200F479CF /* UnsplashInfoViewController.swift in Sources */,
 				CEB77D592817037C005C5E7A /* SceneDelegate.swift in Sources */,
 				CE3FD8EA282B81E100F479CF /* TitleRecommendationCell.swift in Sources */,
 				CEB77D78281714BE005C5E7A /* PhotoWrapper.swift in Sources */,

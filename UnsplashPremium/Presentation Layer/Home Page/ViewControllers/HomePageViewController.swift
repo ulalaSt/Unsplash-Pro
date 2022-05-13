@@ -22,13 +22,13 @@ class HomePageViewController: UIPageViewController {
         return logoNameView
     }()
     
-    private let logoIconView: UIImageView = {
-        let logoIconView = UIImageView()
-        logoIconView.contentMode = .scaleAspectFit
-        logoIconView.tintColor = .white
-        let image = UIImage(named: "logo")
-        logoIconView.image = image?.withRenderingMode(.alwaysTemplate)
-        return logoIconView
+    private let logoIconView: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "logo")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(didTapLogo), for: .touchUpInside)
+        return button
     }()
     
     private let topBlackGradient: GradientView = {
@@ -36,6 +36,9 @@ class HomePageViewController: UIPageViewController {
         return topBlackGradient
     }()
     
+    @objc private func didTapLogo(){
+        present(UnsplashInfoViewController(), animated: true, completion: nil)
+    }
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -71,7 +74,6 @@ class HomePageViewController: UIPageViewController {
         navigationItem.titleView = logoNameView
         dataSource = self
         delegate = self
-        
         bindViewModel()
         fetchData()
         layout()
@@ -86,17 +88,16 @@ class HomePageViewController: UIPageViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(65)
         }
         
-        view.addSubview(logoIconView)
-        logoIconView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
-            $0.size.equalTo(20)
-        }
-        
         view.addSubview(topicBar)
         topicBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(50)
+        }
+        view.addSubview(logoIconView)
+        logoIconView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
+            $0.size.equalTo(25)
         }
     }
     
@@ -185,6 +186,7 @@ class HomePageViewController: UIPageViewController {
                 completion: nil)
         }
     }
+    
 }
 
 
@@ -237,4 +239,41 @@ extension HomePageViewController: UIPageViewControllerDelegate {
         }
     }
     
+}
+
+
+class TransparentNavigationBar: UINavigationBar {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard nestedInteractiveViews(in: self, contain: point) else { return false }
+        return super.point(inside: point, with: event)
+    }
+
+    private func nestedInteractiveViews(in view: UIView, contain point: CGPoint) -> Bool {
+        if view.isPotentiallyInteractive, view.bounds.contains(convert(point, to: view)) {
+            return true
+        }
+
+        for subview in view.subviews {
+            if nestedInteractiveViews(in: subview, contain: point) {
+                return true
+            }
+        }
+
+        return false
+    }
+}
+
+private extension UIView {
+    var isPotentiallyInteractive: Bool {
+        guard isUserInteractionEnabled else { return false }
+        return (isControl || doesContainGestureRecognizer)
+    }
+
+    var isControl: Bool {
+        return self is UIControl
+    }
+
+    var doesContainGestureRecognizer: Bool {
+        return !(gestureRecognizers?.isEmpty ?? true)
+    }
 }
