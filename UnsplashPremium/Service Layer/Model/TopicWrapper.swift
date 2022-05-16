@@ -12,6 +12,7 @@ struct TopicWrapper: Codable {
     let totalPhotos: Int
     let links: TopicLinksCodable
     let coverPhoto: PhotoWrapper
+    let previewPhotos: [PreviewPhoto]
 
     enum CodingKeys: String, CodingKey {
         case id, slug, title
@@ -19,6 +20,7 @@ struct TopicWrapper: Codable {
         case totalPhotos = "total_photos"
         case links
         case coverPhoto = "cover_photo"
+        case previewPhotos = "preview_photos"
     }
 }
 
@@ -32,3 +34,14 @@ struct TopicLinksCodable: Codable {
     }
 }
 
+struct PreviewPhoto: Codable {
+    let id: String
+    let createdAt: String
+    let urls: UrlsCodable
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case createdAt = "created_at"
+        case urls
+    }
+}

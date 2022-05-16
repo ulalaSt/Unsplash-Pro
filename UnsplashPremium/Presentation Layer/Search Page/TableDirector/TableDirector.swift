@@ -13,23 +13,11 @@ class TableDirector: NSObject {
     
     private var heightForRow: Double?
     
-    private var items = [[TableCellData]]() {
+    private var items = [TableCellData]() {
         didSet {
             tableView.reloadData()
         }
     }
-
-    private let headerSearchField: UITextField = {
-        let headerSearchField = UITextField()
-        headerSearchField.placeholder = "Search for News..."
-        return headerSearchField
-    }()
-    private let headerTitleLabel: UILabel = {
-        let headerTitleLabel = UILabel()
-        headerTitleLabel.font = UIFont(name: "NewYorkMedium-Bold", size: 30)
-        headerTitleLabel.text = "Top News"
-        return headerTitleLabel
-    }()
     
     let actionProxy = ActionProxy()
         
@@ -46,15 +34,15 @@ class TableDirector: NSObject {
         if let eventData = notification.userInfo?["data"] as? ActionEventData, let cell = eventData.cell as? UITableViewCell, let indexPath = self.tableView.indexPath(for: cell) {
             actionProxy.invoke(action: eventData.action,
                                cell: cell,
-                               configurator: self.items[indexPath.section][indexPath.row].configurator)
+                               configurator: self.items[indexPath.row].configurator)
         }
     }
 
-    func updateItems(with newItems: [[TableCellData]]){
+    func updateItems(with newItems: [TableCellData]){
         self.items = newItems
     }
     
-    func addItems(with newItems: [[TableCellData]]){
+    func addItems(with newItems: [TableCellData]){
         self.items.append(contentsOf: newItems)
     }
     
@@ -65,16 +53,12 @@ class TableDirector: NSObject {
 
 extension TableDirector: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        items.count
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items[section].count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configurator = items[indexPath.section][indexPath.row].configurator
+        let configurator = items[indexPath.row].configurator
         tableView.register(type(of: configurator).cellClass, forCellReuseIdentifier: type(of: configurator).reuseId)
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: configurator).reuseId, for: indexPath)
         configurator.configure(cell: cell)
@@ -85,7 +69,7 @@ extension TableDirector: UITableViewDataSource {
 extension TableDirector: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return items[indexPath.section][indexPath.row].height
+        return items[indexPath.row].height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

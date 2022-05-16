@@ -113,14 +113,20 @@ class SearchViewController: UIViewController {
 
     private func bindViewModel() {
         viewModel.didLoadDiscoveryPhotos = { photos in
-            self.tableDirector.updateItems(with: [[
-                TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Browse by Category"),
+            self.tableDirector.updateItems(with: [
+                TableCellData(configurator: TitleRecommendationCellConfigurator(item: TitleCellData(text: "Browse by Category",
+                                                                                                    textFont: .systemFont(
+                                                                                                        ofSize: 35,
+                                                                                                        weight: .semibold))),
                               height: 60),
                 TableCellData(configurator: CategoryContainingCellConfigurator(item: self.viewModel.categories),
                               height: self.view.frame.width-60.0),
-                TableCellData(configurator: TitleRecommendationCellConfigurator(item: "Discover"),
+                TableCellData(configurator: TitleRecommendationCellConfigurator(item: TitleCellData(text: "Discover",
+                                                                                                    textFont: .systemFont(
+                                                                                                        ofSize: 35,
+                                                                                                        weight: .semibold))),
                               height: 60)
-            ]])
+            ])
             self.photos = photos
             self.fetchOtherData()
         }

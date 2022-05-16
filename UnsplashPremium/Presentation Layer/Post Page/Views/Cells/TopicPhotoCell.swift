@@ -2,13 +2,13 @@
 import UIKit
 import SnapKit
 
-typealias SearchedCollectionCellConfigurator = CollectionCellConfigurator<SearchedCollectionCell, Collection>
+typealias TopicPhotoCellConfigurator = CollectionCellConfigurator<TopicPhotoCell, Topic>
 
 //MARK: - Photo Cell for Home Page
 
-class SearchedCollectionCell: UICollectionViewCell {
+class TopicPhotoCell: UICollectionViewCell {
     
-    static let identifier = "SearchedCollectionCell"
+    static let identifier = "TopicPhotoCell"
         
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
@@ -51,13 +51,13 @@ class SearchedCollectionCell: UICollectionViewCell {
 
 //MARK: - Set as Configurable Cell
 
-extension SearchedCollectionCell: ConfigurableCell {
+extension TopicPhotoCell: ConfigurableCell {
     
-    typealias DataType = Collection
+    typealias DataType = Topic
     
-    func configure(data: Collection) {
+    func configure(data: Topic) {
         self.authorLabel.text = data.title
-        setUpImage(with: data.smallUrl)
+        setUpImage(with: data.coverPhotoUrlString)
     }
     
     // loads image by string url

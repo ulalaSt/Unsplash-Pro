@@ -42,6 +42,16 @@
 		CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */; };
 		CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */; };
 		CE3FD904282DFA3400F479CF /* UnsplashLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */; };
+		CE3FD906282E800B00F479CF /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD905282E800B00F479CF /* ServiceManager.swift */; };
+		CE3FD93028322EB700F479CF /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD92F28322EB700F479CF /* DashedLineView.swift */; };
+		CE3FD9342832305400F479CF /* UploadPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9332832305400F479CF /* UploadPhotoCell.swift */; };
+		CE3FD93728323E2100F479CF /* SubmitToTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93628323E2100F479CF /* SubmitToTopicCell.swift */; };
+		CE3FD93928323F0600F479CF /* TitleCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93828323F0600F479CF /* TitleCellData.swift */; };
+		CE3FD93B283244D000F479CF /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93A283244D000F479CF /* PostViewModel.swift */; };
+		CE3FD93D2832531A00F479CF /* ProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93C2832531A00F479CF /* ProfileTextField.swift */; };
+		CE3FD93F2832671100F479CF /* SubmitToTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93E2832671100F479CF /* SubmitToTopicViewController.swift */; };
+		CE3FD9412832717500F479CF /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9402832717500F479CF /* PhotoCell.swift */; };
+		CE3FD94328327D3C00F479CF /* TopicPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD94228327D3C00F479CF /* TopicPhotoCell.swift */; };
 		CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F39D2817E6BF00860EA2 /* Gradient View.swift */; };
 		CE7689A8282147F6004DEDDB /* TopicDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */; };
 		CE7689AA2821A412004DEDDB /* PhotoDetailedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */; };
@@ -119,6 +129,16 @@
 		CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashViewModel.swift; sourceTree = "<group>"; };
 		CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInfoCell.swift; sourceTree = "<group>"; };
 		CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashLogoCell.swift; sourceTree = "<group>"; };
+		CE3FD905282E800B00F479CF /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		CE3FD92F28322EB700F479CF /* DashedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
+		CE3FD9332832305400F479CF /* UploadPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoCell.swift; sourceTree = "<group>"; };
+		CE3FD93628323E2100F479CF /* SubmitToTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitToTopicCell.swift; sourceTree = "<group>"; };
+		CE3FD93828323F0600F479CF /* TitleCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCellData.swift; sourceTree = "<group>"; };
+		CE3FD93A283244D000F479CF /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		CE3FD93C2832531A00F479CF /* ProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTextField.swift; sourceTree = "<group>"; };
+		CE3FD93E2832671100F479CF /* SubmitToTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitToTopicViewController.swift; sourceTree = "<group>"; };
+		CE3FD9402832717500F479CF /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		CE3FD94228327D3C00F479CF /* TopicPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPhotoCell.swift; sourceTree = "<group>"; };
 		CE66F39D2817E6BF00860EA2 /* Gradient View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient View.swift"; sourceTree = "<group>"; };
 		CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDescriptionCell.swift; sourceTree = "<group>"; };
 		CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailedWrapper.swift; sourceTree = "<group>"; };
@@ -229,6 +249,56 @@
 			path = TableDirector;
 			sourceTree = "<group>";
 		};
+		CE3FD92B28322E7B00F479CF /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77D6E281704DE005C5E7A /* PostViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		CE3FD92D28322E9A00F479CF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD93A283244D000F479CF /* PostViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE3FD92E28322EA200F479CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE3FD93128322FF600F479CF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD935283230D500F479CF /* Views */,
+				CE3FD9322832300100F479CF /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE3FD9322832300100F479CF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD9332832305400F479CF /* UploadPhotoCell.swift */,
+				CE3FD93628323E2100F479CF /* SubmitToTopicCell.swift */,
+				CE3FD94228327D3C00F479CF /* TopicPhotoCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CE3FD935283230D500F479CF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD92F28322EB700F479CF /* DashedLineView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CE9034D4281F82F8001C4674 /* Collection Director */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +320,7 @@
 				CEB77D98281793DF005C5E7A /* PhotoDetailViewController.swift */,
 				CE7689AB2821B89B004DEDDB /* PhotoInfoViewController.swift */,
 				CE3FD8FD282DF5E200F479CF /* UnsplashInfoViewController.swift */,
+				CE3FD93E2832671100F479CF /* SubmitToTopicViewController.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -263,6 +334,7 @@
 				CE7689AF2821CBC8004DEDDB /* InfoCell.swift */,
 				CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */,
 				CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */,
+				CE3FD9402832717500F479CF /* PhotoCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -356,6 +428,7 @@
 				CE3FD8F1282C002400F479CF /* CollectionDetailService.swift */,
 				CE3FD8F5282C078400F479CF /* UserDetailService.swift */,
 				207EEA9A2819B9D700A074EC /* Model */,
+				CE3FD905282E800B00F479CF /* ServiceManager.swift */,
 			);
 			path = "Service Layer";
 			sourceTree = "<group>";
@@ -415,7 +488,10 @@
 		CEB77D9628179334005C5E7A /* Post Page */ = {
 			isa = PBXGroup;
 			children = (
-				CEB77D6E281704DE005C5E7A /* PostViewController.swift */,
+				CE3FD92B28322E7B00F479CF /* View Controllers */,
+				CE3FD92D28322E9A00F479CF /* ViewModels */,
+				CE3FD92E28322EA200F479CF /* Models */,
+				CE3FD93128322FF600F479CF /* Views */,
 			);
 			path = "Post Page";
 			sourceTree = "<group>";
@@ -424,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB77D70281704ED005C5E7A /* ProfileViewController.swift */,
+				CE3FD93C2832531A00F479CF /* ProfileTextField.swift */,
 			);
 			path = "Profile Page";
 			sourceTree = "<group>";
@@ -470,6 +547,7 @@
 			children = (
 				CE3FD8D4282AC23A00F479CF /* Collection.swift */,
 				CE3FD8ED282B855D00F479CF /* Category.swift */,
+				CE3FD93828323F0600F479CF /* TitleCellData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -605,6 +683,7 @@
 				CE9034E0281FDB60001C4674 /* Size.swift in Sources */,
 				207EEA992819B9CF00A074EC /* UsersWrapper.swift in Sources */,
 				CE3FD8EE282B855D00F479CF /* Category.swift in Sources */,
+				CE3FD9342832305400F479CF /* UploadPhotoCell.swift in Sources */,
 				CE3FD8CB282A863F00F479CF /* CollectionResultPage.swift in Sources */,
 				CE7689A8282147F6004DEDDB /* TopicDescriptionCell.swift in Sources */,
 				CEB77D81281748D7005C5E7A /* PhotosService.swift in Sources */,
@@ -616,19 +695,25 @@
 				CE9034DB281F8358001C4674 /* CollectionCellConfigurator.swift in Sources */,
 				CE3FD8C8282A861400F479CF /* PhotoResultPage.swift in Sources */,
 				CEB77D5B2817037C005C5E7A /* TopicPage.swift in Sources */,
+				CE3FD93728323E2100F479CF /* SubmitToTopicCell.swift in Sources */,
+				CE3FD93028322EB700F479CF /* DashedLineView.swift in Sources */,
 				CEB77D8F28177E0A005C5E7A /* User.swift in Sources */,
 				CE9034CD281E8872001C4674 /* HomePageViewController.swift in Sources */,
 				CE3FD8D3282ABD3A00F479CF /* CollectionWrapper.swift in Sources */,
 				CEB77D7F2817286C005C5E7A /* TopicCell.swift in Sources */,
 				CE3FD8D1282A896B00F479CF /* UserResultViewModel.swift in Sources */,
 				CEB77D7B28172166005C5E7A /* TopicBar.swift in Sources */,
+				CE3FD93B283244D000F479CF /* PostViewModel.swift in Sources */,
 				CEB77D572817037C005C5E7A /* AppDelegate.swift in Sources */,
 				207EEA952819AF5900A074EC /* CellConfigurator.swift in Sources */,
 				CEB77D93281791E8005C5E7A /* CollectionDirector.swift in Sources */,
 				CE3FD8C4282A757100F479CF /* WaterfallCollectionDirector.swift in Sources */,
 				CE3FD8CD282A865000F479CF /* UserResultPage.swift in Sources */,
+				CE3FD94328327D3C00F479CF /* TopicPhotoCell.swift in Sources */,
+				CE3FD906282E800B00F479CF /* ServiceManager.swift in Sources */,
 				CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */,
 				CE3FD8EC282B83D400F479CF /* CategoryContainingCell.swift in Sources */,
+				CE3FD93928323F0600F479CF /* TitleCellData.swift in Sources */,
 				CE90351128213377001C4674 /* UIImage + BlurHash.swift in Sources */,
 				CE3FD8DC282B6C2600F479CF /* TableDirector.swift in Sources */,
 				CE3FD8C6282A852F00F479CF /* ResultPageViewController.swift in Sources */,
@@ -637,11 +722,13 @@
 				CEB77D8628174D90005C5E7A /* HomeViewModel.swift in Sources */,
 				CEB77D8D28177BD3005C5E7A /* Photo.swift in Sources */,
 				207EEA922819AF2400A074EC /* ConfigurableCell.swift in Sources */,
+				CE3FD9412832717500F479CF /* PhotoCell.swift in Sources */,
 				CE7689B02821CBC8004DEDDB /* InfoCell.swift in Sources */,
 				CE3FD8F2282C002400F479CF /* CollectionDetailService.swift in Sources */,
 				CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */,
 				CE3FD8CF282A895900F479CF /* CollectionResultViewModel.swift in Sources */,
 				CE3FD8F4282C012800F479CF /* CollectionDetailViewController.swift in Sources */,
+				CE3FD93F2832671100F479CF /* SubmitToTopicViewController.swift in Sources */,
 				CE3FD8E2282B716B00F479CF /* SearchRecommendationViewModel.swift in Sources */,
 				CE3FD8D5282AC23A00F479CF /* Collection.swift in Sources */,
 				CE7689B42822C891004DEDDB /* Info.swift in Sources */,
@@ -669,6 +756,7 @@
 				CE3FD8D7282AC46D00F479CF /* SearchedCollectionCell.swift in Sources */,
 				CEB77D8B28177B2A005C5E7A /* Topic.swift in Sources */,
 				CE3FD8F6282C078400F479CF /* UserDetailService.swift in Sources */,
+				CE3FD93D2832531A00F479CF /* ProfileTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

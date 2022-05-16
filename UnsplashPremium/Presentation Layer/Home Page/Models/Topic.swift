@@ -13,4 +13,5 @@ struct Topic {
     let description: String
     let totalPhotos: Int
     let coverPhotoUrlString: String
+    let previewPhotos: [PreviewPhoto]?
 }

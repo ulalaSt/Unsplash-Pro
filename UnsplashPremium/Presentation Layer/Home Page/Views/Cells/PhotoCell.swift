@@ -2,25 +2,17 @@
 import UIKit
 import SnapKit
 
-typealias SearchedCollectionCellConfigurator = CollectionCellConfigurator<SearchedCollectionCell, Collection>
+typealias PhotoCellConfigurator = CollectionCellConfigurator<PhotoCell, String>
 
 //MARK: - Photo Cell for Home Page
 
-class SearchedCollectionCell: UICollectionViewCell {
+class PhotoCell: UICollectionViewCell {
     
-    static let identifier = "SearchedCollectionCell"
+    static let identifier = "PhotoCell"
         
-    private let authorLabel: UILabel = {
-        let authorLabel = UILabel()
-        authorLabel.textColor = .white
-        authorLabel.font = .systemFont(ofSize: 17, weight: .bold)
-        return authorLabel
-    }()
-    
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true
-        photoView.layer.cornerRadius = 15
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -39,10 +31,6 @@ class SearchedCollectionCell: UICollectionViewCell {
         photoView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        contentView.addSubview(authorLabel)
-        authorLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
-        }
     }
 }
 
@@ -51,13 +39,28 @@ class SearchedCollectionCell: UICollectionViewCell {
 
 //MARK: - Set as Configurable Cell
 
-extension SearchedCollectionCell: ConfigurableCell {
+extension PhotoCell: ConfigurableCell {
     
-    typealias DataType = Collection
+    typealias DataType = String
     
-    func configure(data: Collection) {
-        self.authorLabel.text = data.title
-        setUpImage(with: data.smallUrl)
+    func configure(data: String) {
+        setUpImage(with: data)
+    }
+    
+    
+    // sets appropriate color as placeholder before images are loaded
+    private func configurePlaceHolder(with hexString: String) {
+        
+        let redIndex = hexString.index(hexString.startIndex, offsetBy: 1)
+        let greenIndex = hexString.index(hexString.startIndex, offsetBy: 3)
+        let blueIndex = hexString.index(hexString.endIndex, offsetBy: -2)
+        
+        self.backgroundColor = UIColor(
+            red: CGFloat(Float(String(hexString[redIndex..<greenIndex])) ?? 0),
+            green: CGFloat(Float(String(hexString[greenIndex..<blueIndex])) ?? 0),
+            blue: CGFloat(Float(String(hexString[blueIndex..<hexString.endIndex])) ?? 0),
+            alpha: 0.8)
+        
     }
     
     // loads image by string url

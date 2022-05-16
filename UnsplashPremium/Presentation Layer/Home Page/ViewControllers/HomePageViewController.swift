@@ -112,7 +112,8 @@ class HomePageViewController: UIPageViewController {
                             title: $0.title,
                             description: $0.topicDescription,
                             totalPhotos: $0.totalPhotos,
-                            coverPhotoUrlString: $0.coverPhoto.urls.small
+                            coverPhotoUrlString: $0.coverPhoto.urls.small,
+                            previewPhotos: $0.previewPhotos
                         )
                         self?.appendTopicPage(with: topic)
                         

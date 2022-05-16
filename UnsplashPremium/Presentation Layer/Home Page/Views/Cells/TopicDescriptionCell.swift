@@ -32,8 +32,14 @@ class TopicDescriptionCell: UICollectionViewCell {
         addButton.backgroundColor = .white
         addButton.layer.cornerRadius = 4
         addButton.clipsToBounds = true
+        addButton.addTarget(self, action: #selector(didTapSubmit), for: .touchUpInside)
         return addButton
     }()
+    
+    @objc private func didTapSubmit(){
+        Action.custom("didTapSubmit").invoke(cell: self)
+    }
+    
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true

@@ -2,7 +2,7 @@
 import UIKit
 import SnapKit
 
-typealias TitleRecommendationCellConfigurator = TableCellConfigurator<TitleRecommendationCell, String>
+typealias TitleRecommendationCellConfigurator = TableCellConfigurator<TitleRecommendationCell, TitleCellData>
 
 //MARK: - Photo Cell for Home Page
 
@@ -12,8 +12,6 @@ class TitleRecommendationCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: 35, weight: .semibold)
-        titleLabel.textColor = .white
         return titleLabel
     }()
     
@@ -43,10 +41,12 @@ class TitleRecommendationCell: UITableViewCell {
 
 extension TitleRecommendationCell: ConfigurableCell {
     
-    typealias DataType = String
+    typealias DataType = TitleCellData
     
-    func configure(data: String) {
-        self.titleLabel.text = data
+    func configure(data: TitleCellData) {
+        titleLabel.text = data.text
+        titleLabel.font = data.textFont
+        titleLabel.textColor = data.textColor
     }
 }
 

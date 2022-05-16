@@ -14,7 +14,8 @@ class TopicBar: UIView {
             title: "Editorial",
             description: "",
             totalPhotos: 30,
-            coverPhotoUrlString: "")
+            coverPhotoUrlString: "",
+            previewPhotos: nil)
     ]
     {
         didSet {

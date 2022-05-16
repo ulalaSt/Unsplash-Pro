@@ -67,13 +67,6 @@ class PhotoDetailViewController: UIViewController {
         infoImageView.isUserInteractionEnabled = true
         return infoImageView
     }()
-    private let shareButton: UIButton = {
-        let shareButton = UIButton()
-        shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
-        shareButton.tintColor = .white
-        return shareButton
-    }()
 
     @objc private func didTapShare(){
         guard let image = photoView.image else {
@@ -88,6 +81,7 @@ class PhotoDetailViewController: UIViewController {
         present(shareController, animated: true, completion: nil)
         
     }
+    
     //when info icon tapped: show photo info
     @objc private func infoIconTapped(){
         guard let photoInfo = photoInfo else {
@@ -117,7 +111,9 @@ class PhotoDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.navigationItem.titleView = titleLabel
-        
+        let menuButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(didTapShare))
+        self.navigationItem.rightBarButtonItem = menuButton
+        navigationItem.rightBarButtonItem?.tintColor = .white
         infoImageView.addGestureRecognizer(
             UITapGestureRecognizer(
                 target: self,
@@ -173,7 +169,6 @@ class PhotoDetailViewController: UIViewController {
         layoutPlusIcon()
         layoutLikeIcon()
         layoutInfoIcon()
-        layoutShareButton()
     }
     
     private func layoutDownloadIcon(){
@@ -224,15 +219,6 @@ class PhotoDetailViewController: UIViewController {
             $0.bottom.equalTo(downloadView)
             $0.size.equalTo(25)
             $0.leading.equalToSuperview().inset(10)
-        }
-    }
-    
-    private func layoutShareButton(){
-        view.addSubview(shareButton)
-        shareButton.snp.makeConstraints{
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
-            $0.size.equalTo(35)
         }
     }
     

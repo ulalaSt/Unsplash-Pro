@@ -151,6 +151,19 @@ class TopicPage: UIViewController {
                 strongSelf.fetchData()
             }
         }
+        
+        collectionDirector.actionProxy.on(action: .custom("didTapSubmit")) { [weak self] (configurator: TopicDescriptionCellConfigurator, cell) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let viewController = SubmitToTopicViewController(topic: configurator.data)
+            if let presentationController = viewController.presentationController as? UISheetPresentationController {
+                presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
+            }
+
+            strongSelf.present(viewController, animated: true, completion: nil)
+        }
     }
 }
 

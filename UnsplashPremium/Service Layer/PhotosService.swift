@@ -61,7 +61,8 @@ class PhotosServiceImplementation: PhotosService {
             EndPoint.clientIdParameter
         )
         guard let url = URL(string: urlString) else { return }
-                
+        
+        print(urlString)
         AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[TopicWrapper], AFError>) in
             switch response.result {
             case .success(let topics):

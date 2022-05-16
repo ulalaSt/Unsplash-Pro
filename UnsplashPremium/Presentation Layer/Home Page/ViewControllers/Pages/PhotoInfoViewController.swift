@@ -23,6 +23,7 @@ class PhotoInfoViewController: UIViewController {
         cancelLabel.text = "Cancel"
         cancelLabel.textColor = .white
         cancelLabel.font = .systemFont(ofSize: 20, weight: .regular)
+        cancelLabel.isUserInteractionEnabled = true
         return cancelLabel
     }()
     
@@ -85,6 +86,7 @@ class PhotoInfoViewController: UIViewController {
         
         super.viewDidLoad()
         view.backgroundColor = .darkGray
+        cancelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCancel)))
         collectionView.reloadData()
         
         collectionDirector.updateItems( with: data.map(){
@@ -97,6 +99,10 @@ class PhotoInfoViewController: UIViewController {
             )
         })
         layout()
+    }
+    
+    @objc private func didTapCancel(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func layout(){
