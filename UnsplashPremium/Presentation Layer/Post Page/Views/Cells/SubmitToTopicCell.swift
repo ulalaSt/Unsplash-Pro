@@ -49,7 +49,7 @@ class SubmitToTopicCell: UITableViewCell {
                 CollectionCellData(
                     cellConfigurator:
                         TopicPhotoCellConfigurator(data: $0),
-                    size: Size(width: (contentView.frame.width-10.0)/2.0,
+                    size: Size(width: (contentView.frame.width-50.0)/2.0,
                                height: (contentView.frame.height-10.0)/2.0))
             }))
         }

@@ -44,35 +44,77 @@ class UserDetailViewController: UIViewController {
         return segmentedControl
     }()
     
+    lazy private var noResultStackView: UIStackView = {
+        let noResultStackView = UIStackView()
+        noResultStackView.axis = .vertical
+        noResultStackView.isHidden = true
+        noResultStackView.addArrangedSubview(noDataIcon)
+        noResultStackView.addArrangedSubview(noPhotoLabel)
+        return noResultStackView
+    }()
+    private let noDataIcon: UIImageView = {
+        let image = UIImage(named: "noDataIcon")
+        let noDataIcon = UIImageView(image: image)
+        noDataIcon.contentMode = .scaleAspectFit
+        return noDataIcon
+    }()
+    private let noPhotoLabel: UILabel = {
+        let noPhotoLabel = UILabel()
+        noPhotoLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        noPhotoLabel.textColor = .darkGray
+        noPhotoLabel.textAlignment = .center
+        return noPhotoLabel
+    }()
+    
     @objc private func segmentAction(segmentedControl: UISegmentedControl){
         let selectedIndex = segmentedControl.selectedSegmentIndex
         if selectedIndex == 0 {
             guard let userPhotos = userPhotos else {
                 return
             }
-            collectionDirector.updateItems(with: [])
-            collectionDirector.updateItems(with: userPhotos.map({
-                CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: $0),
-                                   size: Size(width: self.view.frame.width, height: self.view.frame.width/$0.aspectRatio))
-            }))
+            if userPhotos.isEmpty {
+                noPhotoLabel.text = "No photos"
+                noResultStackView.isHidden = false
+                collectionView.isHidden = true
+                collectionDirector.updateItems(with: [])
+            } else {
+                collectionView.isHidden = false
+                noResultStackView.isHidden = true
+                collectionDirector.updateItems(with: userPhotos.map({
+                    CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: $0),
+                                       size: Size(width: self.view.frame.width, height: self.view.frame.width/$0.aspectRatio))
+                }))
+            }
         } else if selectedIndex == 1 {
             guard let userLikes = userLikes else {
                 return
             }
-            collectionDirector.updateItems(with: [])
-            collectionDirector.updateItems(with: userLikes.map({
-                CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: $0),
-                                   size: Size(width: self.view.frame.width, height: self.view.frame.width/$0.aspectRatio))
-            }))
+            if userLikes.isEmpty {
+                noPhotoLabel.text = "No likes"
+                noResultStackView.isHidden = false
+                collectionDirector.updateItems(with: [])
+            } else {
+                noResultStackView.isHidden = true
+                collectionDirector.updateItems(with: userLikes.map({
+                    CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: $0),
+                                       size: Size(width: self.view.frame.width, height: self.view.frame.width/$0.aspectRatio))
+                }))
+            }
         } else {
             guard let userCollections = userCollections else {
                 return
             }
-            collectionDirector.updateItems(with: [])
-            collectionDirector.updateItems(with: userCollections.map({
-                CollectionCellData(cellConfigurator: SearchedCollectionCellConfigurator(data: $0),
-                                   size: nil)
-            }))
+            if userCollections.isEmpty {
+                noPhotoLabel.text = "No collections"
+                noResultStackView.isHidden = false
+                collectionDirector.updateItems(with: [])
+            } else {
+                noResultStackView.isHidden = true
+                collectionDirector.updateItems(with: userCollections.map({
+                    CollectionCellData(cellConfigurator: SearchedCollectionCellConfigurator(data: $0),
+                                       size: nil)
+                }))
+            }
         }
     }
     
@@ -103,6 +145,7 @@ class UserDetailViewController: UIViewController {
         view.backgroundColor = .black
         userDetailTopView.configure(with: user)
         layout()
+        layoutNoDataInfo()
         bindViewModel()
         fetchData()
         setActionsForCells()
@@ -126,6 +169,17 @@ class UserDetailViewController: UIViewController {
             $0.bottom.equalTo(segmentedControl.snp.top).offset(-20)
             $0.width.equalTo(view)
             $0.height.equalTo(view).dividedBy(2)
+        }
+    }
+    
+    private func layoutNoDataInfo() {
+        noDataIcon.snp.makeConstraints{
+            $0.size.equalTo(150)
+        }
+        view.addSubview(noResultStackView)
+        noResultStackView.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(segmentedControl.snp.bottom).offset(50)
         }
     }
     

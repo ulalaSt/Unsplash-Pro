@@ -30,6 +30,15 @@ class UserResultPage: UIViewController {
         return collectionDirector
     }()
     
+    private let noDataLabel: UILabel = {
+        let noDataLabel = UILabel()
+        noDataLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        noDataLabel.textColor = .white
+        noDataLabel.textAlignment = .center
+        noDataLabel.text = "No results"
+        return noDataLabel
+    }()
+    
     init(with viewModel: UserResultViewModel, query: String){
         self.viewModel = viewModel
         self.query = query
@@ -56,16 +65,28 @@ class UserResultPage: UIViewController {
         }
     }
     
+    private func layoutNoDataInfo() {
+        view.addSubview(noDataLabel)
+        noDataLabel.snp.makeConstraints{
+            $0.centerX.centerY.equalToSuperview()
+        }
+    }
+
     private func bindViewModel(){
         viewModel.didLoadSearchedUsers = { [weak self] users in
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.collectionDirector.updateItems(with: users.map { user in
-                CollectionCellData(cellConfigurator: SearchedUserCellConfigurator(data: user),
-                                   size: Size(width: strongSelf.view.frame.width,
-                                              height: 80))
-            })
+            
+            if users.isEmpty {
+                strongSelf.layoutNoDataInfo()
+            } else {
+                strongSelf.collectionDirector.updateItems(with: users.map { user in
+                    CollectionCellData(cellConfigurator: SearchedUserCellConfigurator(data: user),
+                                       size: Size(width: strongSelf.view.frame.width,
+                                                  height: 80))
+                })
+            }
         }
         viewModel.didLoadAdditionalSearchedUsers = { [weak self] users in
             guard let strongSelf = self else {
@@ -96,9 +117,5 @@ class UserResultPage: UIViewController {
                 animated: true)
             
         }
-        //        collectionDirector.actionProxy.on(action: .didReachedEnd) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
-        //            strongSelf.currentLastPage = strongSelf.currentLastPage + 1
-        //            strongSelf.fetchData()
-        //        }
     }
 }

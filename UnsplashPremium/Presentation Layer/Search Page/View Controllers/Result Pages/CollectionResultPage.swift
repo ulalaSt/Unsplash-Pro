@@ -30,6 +30,31 @@ class CollectionResultPage: UIViewController {
         return collectionDirector
     }()
     
+    lazy private var noResultStackView: UIStackView = {
+        let noResultStackView = UIStackView()
+        noResultStackView.axis = .vertical
+        noResultStackView.addArrangedSubview(noDataIcon)
+        noResultStackView.addArrangedSubview(noPhotoLabel)
+        return noResultStackView
+    }()
+    
+    private let noDataIcon: UIImageView = {
+        let image = UIImage(named: "noDataIcon")
+        let noDataIcon = UIImageView(image: image)
+        noDataIcon.contentMode = .scaleAspectFit
+        return noDataIcon
+    }()
+    
+    private let noPhotoLabel: UILabel = {
+        let noPhotoLabel = UILabel()
+        noPhotoLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        noPhotoLabel.textColor = .darkGray
+        noPhotoLabel.textAlignment = .center
+        noPhotoLabel.text = "No collections"
+        return noPhotoLabel
+    }()
+    
+
     init(with viewModel: CollectionResultViewModel, query: String){
         self.viewModel = viewModel
         self.query = query
@@ -56,16 +81,30 @@ class CollectionResultPage: UIViewController {
         }
     }
     
+    private func layoutNoDataInfo() {
+        noDataIcon.snp.makeConstraints{
+            $0.size.equalTo(150)
+        }
+        view.addSubview(noResultStackView)
+        noResultStackView.snp.makeConstraints{
+            $0.centerX.centerY.equalToSuperview()
+        }
+    }
+
     private func bindViewModel(){
         viewModel.didLoadSearchedCollections = { [weak self] collections in
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.collectionDirector.updateItems(with: collections.map { collection in
-                CollectionCellData(cellConfigurator: SearchedCollectionCellConfigurator(data: collection),
-                                   size: Size(width: strongSelf.view.frame.width,
-                                              height: 250))
-            })
+            if collections.isEmpty {
+                strongSelf.layoutNoDataInfo()
+            } else {
+                strongSelf.collectionDirector.updateItems(with: collections.map { collection in
+                    CollectionCellData(cellConfigurator: SearchedCollectionCellConfigurator(data: collection),
+                                       size: Size(width: strongSelf.view.frame.width,
+                                                  height: 250))
+                })
+            }
         }
         viewModel.didLoadAdditionalSearchedCollections = { [weak self] collections in
             guard let strongSelf = self else {

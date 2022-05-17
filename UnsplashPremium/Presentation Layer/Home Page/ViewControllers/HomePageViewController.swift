@@ -243,7 +243,7 @@ extension HomePageViewController: UIPageViewControllerDelegate {
 }
 
 
-class TransparentNavigationBar: UINavigationBar {
+extension UINavigationBar {
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         guard nestedInteractiveViews(in: self, contain: point) else { return false }
         return super.point(inside: point, with: event)

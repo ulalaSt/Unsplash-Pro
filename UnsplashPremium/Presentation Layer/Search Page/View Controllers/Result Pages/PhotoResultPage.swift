@@ -28,6 +28,28 @@ class PhotoResultPage: UIViewController {
         return collectionView
     }()
     
+    lazy private var noResultStackView: UIStackView = {
+        let noResultStackView = UIStackView()
+        noResultStackView.axis = .vertical
+        noResultStackView.addArrangedSubview(noDataIcon)
+        noResultStackView.addArrangedSubview(noPhotoLabel)
+        return noResultStackView
+    }()
+    private let noDataIcon: UIImageView = {
+        let image = UIImage(named: "noDataIcon")
+        let noDataIcon = UIImageView(image: image)
+        noDataIcon.contentMode = .scaleAspectFit
+        return noDataIcon
+    }()
+    private let noPhotoLabel: UILabel = {
+        let noPhotoLabel = UILabel()
+        noPhotoLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        noPhotoLabel.textColor = .darkGray
+        noPhotoLabel.textAlignment = .center
+        noPhotoLabel.text = "No photos"
+        return noPhotoLabel
+    }()
+    
     lazy private var collectionDirector: WaterfallCollectionDirector = {
         let collectionDirector = WaterfallCollectionDirector(collectionView: collectionView)
         return collectionDirector
@@ -62,16 +84,29 @@ class PhotoResultPage: UIViewController {
         }
     }
     
+    private func layoutNoDataInfo() {
+        noDataIcon.snp.makeConstraints{
+            $0.size.equalTo(150)
+        }
+        view.addSubview(noResultStackView)
+        noResultStackView.snp.makeConstraints{
+            $0.centerX.centerY.equalToSuperview()
+        }
+    }
     private func bindViewModel(){
         viewModel.didLoadSearchedPhotos = { [weak self] photos in
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.collectionDirector.updateItems(with: photos.map { photo in
-                CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: photo),
-                                   size: Size(width: strongSelf.view.frame.width,
-                                              height: strongSelf.view.frame.width/photo.aspectRatio))
-            })
+            if photos.isEmpty {
+                strongSelf.layoutNoDataInfo()
+            } else {
+                strongSelf.collectionDirector.updateItems(with: photos.map { photo in
+                    CollectionCellData(cellConfigurator: HomePhotoCellConfigurator(data: photo),
+                                       size: Size(width: strongSelf.view.frame.width,
+                                                  height: strongSelf.view.frame.width/photo.aspectRatio))
+                })
+            }
         }
         viewModel.didLoadAdditionalSearchedPhotos = { [weak self] photos in
             guard let strongSelf = self else {
