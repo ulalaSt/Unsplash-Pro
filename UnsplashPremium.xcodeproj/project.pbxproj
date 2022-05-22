@@ -42,7 +42,6 @@
 		CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */; };
 		CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */; };
 		CE3FD904282DFA3400F479CF /* UnsplashLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */; };
-		CE3FD906282E800B00F479CF /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD905282E800B00F479CF /* ServiceManager.swift */; };
 		CE3FD93028322EB700F479CF /* DashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD92F28322EB700F479CF /* DashedLineView.swift */; };
 		CE3FD9342832305400F479CF /* UploadPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9332832305400F479CF /* UploadPhotoCell.swift */; };
 		CE3FD93728323E2100F479CF /* SubmitToTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93628323E2100F479CF /* SubmitToTopicCell.swift */; };
@@ -52,6 +51,29 @@
 		CE3FD93F2832671100F479CF /* SubmitToTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD93E2832671100F479CF /* SubmitToTopicViewController.swift */; };
 		CE3FD9412832717500F479CF /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9402832717500F479CF /* PhotoCell.swift */; };
 		CE3FD94328327D3C00F479CF /* TopicPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD94228327D3C00F479CF /* TopicPhotoCell.swift */; };
+		CE3FD9452833AD3200F479CF /* PrivateUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9442833AD3200F479CF /* PrivateUserService.swift */; };
+		CE3FD94728349F0900F479CF /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD94628349F0800F479CF /* AccessToken.swift */; };
+		CE3FD9492834A48000F479CF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9482834A48000F479CF /* ProfileViewModel.swift */; };
+		CE3FD9B02837575E00F479CF /* UserProfileWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9AF2837575E00F479CF /* UserProfileWrapper.swift */; };
+		CE3FD9B22837688C00F479CF /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9B12837688C00F479CF /* WelcomeViewController.swift */; };
+		CE3FD9B62837EE3100F479CF /* LoginProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9B52837EE3100F479CF /* LoginProfileViewController.swift */; };
+		CE3FD9B82837EEC800F479CF /* LoginProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9B72837EEC800F479CF /* LoginProfileViewModel.swift */; };
+		CE3FD9BE28391AE300F479CF /* ProfileTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9BD28391AE300F479CF /* ProfileTopView.swift */; };
+		CE3FD9C028394D9300F479CF /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9BF28394D9200F479CF /* AccountSettingsViewController.swift */; };
+		CE3FD9C22839F32F00F479CF /* AccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9C12839F32F00F479CF /* AccountSettingsViewModel.swift */; };
+		CE3FD9C5283A013E00F479CF /* ResizableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9C4283A013E00F479CF /* ResizableTableView.swift */; };
+		CE3FD9C7283A032600F479CF /* AccountSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9C6283A032600F479CF /* AccountSettingCell.swift */; };
+		CE3FD9CB283A104300F479CF /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9CA283A104300F479CF /* EditProfileViewController.swift */; };
+		CE3FD9CD283A118F00F479CF /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9CC283A118F00F479CF /* TextFieldCell.swift */; };
+		CE3FD9CF283A11C800F479CF /* TextFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9CE283A11C800F479CF /* TextFieldData.swift */; };
+		CE3FD9D1283A421E00F479CF /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9D0283A421E00F479CF /* EditProfileViewModel.swift */; };
+		CE3FD9D3283A433B00F479CF /* ProfileUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9D2283A433B00F479CF /* ProfileUpdatable.swift */; };
+		CE3FD9D5283A4B8100F479CF /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9D4283A4B8100F479CF /* APIManager.swift */; };
+		CE3FD9D9283A96AF00F479CF /* UserProfileUpdatableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9D8283A96AE00F479CF /* UserProfileUpdatableWrapper.swift */; };
+		CE3FD9DB283AB20D00F479CF /* CloseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9DA283AB20D00F479CF /* CloseAccountViewController.swift */; };
+		CE3FD9DD283ABFE600F479CF /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9DC283ABFE600F479CF /* ChangePasswordViewController.swift */; };
+		CE3FD9DF283AC58D00F479CF /* TextFieldSimpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */; };
+		CE3FD9E1283AC5C400F479CF /* TextFieldSimpleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9E0283AC5C400F479CF /* TextFieldSimpleData.swift */; };
 		CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F39D2817E6BF00860EA2 /* Gradient View.swift */; };
 		CE7689A8282147F6004DEDDB /* TopicDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */; };
 		CE7689AA2821A412004DEDDB /* PhotoDetailedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */; };
@@ -129,7 +151,6 @@
 		CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashViewModel.swift; sourceTree = "<group>"; };
 		CE3FD901282DF7DD00F479CF /* TextInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInfoCell.swift; sourceTree = "<group>"; };
 		CE3FD903282DFA3400F479CF /* UnsplashLogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashLogoCell.swift; sourceTree = "<group>"; };
-		CE3FD905282E800B00F479CF /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		CE3FD92F28322EB700F479CF /* DashedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedLineView.swift; sourceTree = "<group>"; };
 		CE3FD9332832305400F479CF /* UploadPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoCell.swift; sourceTree = "<group>"; };
 		CE3FD93628323E2100F479CF /* SubmitToTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitToTopicCell.swift; sourceTree = "<group>"; };
@@ -139,6 +160,29 @@
 		CE3FD93E2832671100F479CF /* SubmitToTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitToTopicViewController.swift; sourceTree = "<group>"; };
 		CE3FD9402832717500F479CF /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CE3FD94228327D3C00F479CF /* TopicPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPhotoCell.swift; sourceTree = "<group>"; };
+		CE3FD9442833AD3200F479CF /* PrivateUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateUserService.swift; sourceTree = "<group>"; };
+		CE3FD94628349F0800F479CF /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		CE3FD9482834A48000F479CF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		CE3FD9AF2837575E00F479CF /* UserProfileWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileWrapper.swift; sourceTree = "<group>"; };
+		CE3FD9B12837688C00F479CF /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		CE3FD9B52837EE3100F479CF /* LoginProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProfileViewController.swift; sourceTree = "<group>"; };
+		CE3FD9B72837EEC800F479CF /* LoginProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProfileViewModel.swift; sourceTree = "<group>"; };
+		CE3FD9BD28391AE300F479CF /* ProfileTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTopView.swift; sourceTree = "<group>"; };
+		CE3FD9BF28394D9200F479CF /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
+		CE3FD9C12839F32F00F479CF /* AccountSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewModel.swift; sourceTree = "<group>"; };
+		CE3FD9C4283A013E00F479CF /* ResizableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableTableView.swift; sourceTree = "<group>"; };
+		CE3FD9C6283A032600F479CF /* AccountSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingCell.swift; sourceTree = "<group>"; };
+		CE3FD9CA283A104300F479CF /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		CE3FD9CC283A118F00F479CF /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		CE3FD9CE283A11C800F479CF /* TextFieldData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldData.swift; sourceTree = "<group>"; };
+		CE3FD9D0283A421E00F479CF /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		CE3FD9D2283A433B00F479CF /* ProfileUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdatable.swift; sourceTree = "<group>"; };
+		CE3FD9D4283A4B8100F479CF /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		CE3FD9D8283A96AE00F479CF /* UserProfileUpdatableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileUpdatableWrapper.swift; sourceTree = "<group>"; };
+		CE3FD9DA283AB20D00F479CF /* CloseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseAccountViewController.swift; sourceTree = "<group>"; };
+		CE3FD9DC283ABFE600F479CF /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSimpleCell.swift; sourceTree = "<group>"; };
+		CE3FD9E0283AC5C400F479CF /* TextFieldSimpleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSimpleData.swift; sourceTree = "<group>"; };
 		CE66F39D2817E6BF00860EA2 /* Gradient View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient View.swift"; sourceTree = "<group>"; };
 		CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDescriptionCell.swift; sourceTree = "<group>"; };
 		CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailedWrapper.swift; sourceTree = "<group>"; };
@@ -218,6 +262,9 @@
 				CEB77D87281750D5005C5E7A /* TopicWrapper.swift */,
 				207EEA982819B9CF00A074EC /* UsersWrapper.swift */,
 				CE3FD8D2282ABD3A00F479CF /* CollectionWrapper.swift */,
+				CE3FD94628349F0800F479CF /* AccessToken.swift */,
+				CE3FD9AF2837575E00F479CF /* UserProfileWrapper.swift */,
+				CE3FD9D8283A96AE00F479CF /* UserProfileUpdatableWrapper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -297,6 +344,75 @@
 				CE3FD92F28322EB700F479CF /* DashedLineView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CE3FD9B928391A8900F479CF /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77D70281704ED005C5E7A /* ProfileViewController.swift */,
+				CE3FD9B52837EE3100F479CF /* LoginProfileViewController.swift */,
+				CE3FD9B12837688C00F479CF /* WelcomeViewController.swift */,
+				CE3FD9BF28394D9200F479CF /* AccountSettingsViewController.swift */,
+				CE3FD9CA283A104300F479CF /* EditProfileViewController.swift */,
+				CE3FD9DA283AB20D00F479CF /* CloseAccountViewController.swift */,
+				CE3FD9DC283ABFE600F479CF /* ChangePasswordViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		CE3FD9BA28391A9700F479CF /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD9482834A48000F479CF /* ProfileViewModel.swift */,
+				CE3FD9B72837EEC800F479CF /* LoginProfileViewModel.swift */,
+				CE3FD9C12839F32F00F479CF /* AccountSettingsViewModel.swift */,
+				CE3FD9D0283A421E00F479CF /* EditProfileViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		CE3FD9BB28391AAD00F479CF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD93C2832531A00F479CF /* ProfileTextField.swift */,
+				CE3FD9BD28391AE300F479CF /* ProfileTopView.swift */,
+				CE3FD9C4283A013E00F479CF /* ResizableTableView.swift */,
+				CE3FD9C6283A032600F479CF /* AccountSettingCell.swift */,
+				CE3FD9CC283A118F00F479CF /* TextFieldCell.swift */,
+				CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE3FD9BC28391AB900F479CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD9CE283A11C800F479CF /* TextFieldData.swift */,
+				CE3FD9D2283A433B00F479CF /* ProfileUpdatable.swift */,
+				CE3FD9E0283AC5C400F479CF /* TextFieldSimpleData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE3FD9D6283A4B8E00F479CF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77D80281748D7005C5E7A /* PhotosService.swift */,
+				CEBD44772828E7FE0051EA8B /* ResultService.swift */,
+				CE3FD8E3282B719A00F479CF /* RecommendationService.swift */,
+				CE3FD8F1282C002400F479CF /* CollectionDetailService.swift */,
+				CE3FD8F5282C078400F479CF /* UserDetailService.swift */,
+				CE3FD9442833AD3200F479CF /* PrivateUserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CE3FD9D7283A4B9A00F479CF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				CE3FD9D4283A4B8100F479CF /* APIManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		CE9034D4281F82F8001C4674 /* Collection Director */ = {
@@ -422,13 +538,9 @@
 		CEB77D7528170537005C5E7A /* Service Layer */ = {
 			isa = PBXGroup;
 			children = (
-				CEB77D80281748D7005C5E7A /* PhotosService.swift */,
-				CEBD44772828E7FE0051EA8B /* ResultService.swift */,
-				CE3FD8E3282B719A00F479CF /* RecommendationService.swift */,
-				CE3FD8F1282C002400F479CF /* CollectionDetailService.swift */,
-				CE3FD8F5282C078400F479CF /* UserDetailService.swift */,
+				CE3FD9D7283A4B9A00F479CF /* Managers */,
+				CE3FD9D6283A4B8E00F479CF /* Services */,
 				207EEA9A2819B9D700A074EC /* Model */,
-				CE3FD905282E800B00F479CF /* ServiceManager.swift */,
 			);
 			path = "Service Layer";
 			sourceTree = "<group>";
@@ -499,8 +611,10 @@
 		CEB77D972817933E005C5E7A /* Profile Page */ = {
 			isa = PBXGroup;
 			children = (
-				CEB77D70281704ED005C5E7A /* ProfileViewController.swift */,
-				CE3FD93C2832531A00F479CF /* ProfileTextField.swift */,
+				CE3FD9B928391A8900F479CF /* View Controllers */,
+				CE3FD9BA28391A9700F479CF /* View Models */,
+				CE3FD9BC28391AB900F479CF /* Models */,
+				CE3FD9BB28391AAD00F479CF /* Views */,
 			);
 			path = "Profile Page";
 			sourceTree = "<group>";
@@ -679,9 +793,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3FD9D5283A4B8100F479CF /* APIManager.swift in Sources */,
 				CEB77D9F281794AE005C5E7A /* HomePagePhotoCell.swift in Sources */,
 				CE9034E0281FDB60001C4674 /* Size.swift in Sources */,
 				207EEA992819B9CF00A074EC /* UsersWrapper.swift in Sources */,
+				CE3FD9492834A48000F479CF /* ProfileViewModel.swift in Sources */,
 				CE3FD8EE282B855D00F479CF /* Category.swift in Sources */,
 				CE3FD9342832305400F479CF /* UploadPhotoCell.swift in Sources */,
 				CE3FD8CB282A863F00F479CF /* CollectionResultPage.swift in Sources */,
@@ -691,17 +807,23 @@
 				CE7689AC2821B89B004DEDDB /* PhotoInfoViewController.swift in Sources */,
 				CE9034CF281E90BD001C4674 /* EditorialPage.swift in Sources */,
 				CEB77D71281704ED005C5E7A /* ProfileViewController.swift in Sources */,
+				CE3FD9CB283A104300F479CF /* EditProfileViewController.swift in Sources */,
+				CE3FD9B82837EEC800F479CF /* LoginProfileViewModel.swift in Sources */,
+				CE3FD9C028394D9300F479CF /* AccountSettingsViewController.swift in Sources */,
 				CEB77D88281750D5005C5E7A /* TopicWrapper.swift in Sources */,
 				CE9034DB281F8358001C4674 /* CollectionCellConfigurator.swift in Sources */,
 				CE3FD8C8282A861400F479CF /* PhotoResultPage.swift in Sources */,
 				CEB77D5B2817037C005C5E7A /* TopicPage.swift in Sources */,
 				CE3FD93728323E2100F479CF /* SubmitToTopicCell.swift in Sources */,
+				CE3FD9452833AD3200F479CF /* PrivateUserService.swift in Sources */,
 				CE3FD93028322EB700F479CF /* DashedLineView.swift in Sources */,
 				CEB77D8F28177E0A005C5E7A /* User.swift in Sources */,
+				CE3FD9D1283A421E00F479CF /* EditProfileViewModel.swift in Sources */,
 				CE9034CD281E8872001C4674 /* HomePageViewController.swift in Sources */,
 				CE3FD8D3282ABD3A00F479CF /* CollectionWrapper.swift in Sources */,
 				CEB77D7F2817286C005C5E7A /* TopicCell.swift in Sources */,
 				CE3FD8D1282A896B00F479CF /* UserResultViewModel.swift in Sources */,
+				CE3FD9C22839F32F00F479CF /* AccountSettingsViewModel.swift in Sources */,
 				CEB77D7B28172166005C5E7A /* TopicBar.swift in Sources */,
 				CE3FD93B283244D000F479CF /* PostViewModel.swift in Sources */,
 				CEB77D572817037C005C5E7A /* AppDelegate.swift in Sources */,
@@ -710,13 +832,15 @@
 				CE3FD8C4282A757100F479CF /* WaterfallCollectionDirector.swift in Sources */,
 				CE3FD8CD282A865000F479CF /* UserResultPage.swift in Sources */,
 				CE3FD94328327D3C00F479CF /* TopicPhotoCell.swift in Sources */,
-				CE3FD906282E800B00F479CF /* ServiceManager.swift in Sources */,
 				CE3FD902282DF7DD00F479CF /* TextInfoCell.swift in Sources */,
 				CE3FD8EC282B83D400F479CF /* CategoryContainingCell.swift in Sources */,
+				CE3FD9B22837688C00F479CF /* WelcomeViewController.swift in Sources */,
+				CE3FD9DB283AB20D00F479CF /* CloseAccountViewController.swift in Sources */,
 				CE3FD93928323F0600F479CF /* TitleCellData.swift in Sources */,
 				CE90351128213377001C4674 /* UIImage + BlurHash.swift in Sources */,
 				CE3FD8DC282B6C2600F479CF /* TableDirector.swift in Sources */,
 				CE3FD8C6282A852F00F479CF /* ResultPageViewController.swift in Sources */,
+				CE3FD9DF283AC58D00F479CF /* TextFieldSimpleCell.swift in Sources */,
 				CE3FD8E8282B7E7300F479CF /* TableCellData.swift in Sources */,
 				CE3FD904282DFA3400F479CF /* UnsplashLogoCell.swift in Sources */,
 				CEB77D8628174D90005C5E7A /* HomeViewModel.swift in Sources */,
@@ -725,12 +849,14 @@
 				CE3FD9412832717500F479CF /* PhotoCell.swift in Sources */,
 				CE7689B02821CBC8004DEDDB /* InfoCell.swift in Sources */,
 				CE3FD8F2282C002400F479CF /* CollectionDetailService.swift in Sources */,
+				CE3FD9C7283A032600F479CF /* AccountSettingCell.swift in Sources */,
 				CE3FD900282DF71A00F479CF /* UnsplashViewModel.swift in Sources */,
 				CE3FD8CF282A895900F479CF /* CollectionResultViewModel.swift in Sources */,
 				CE3FD8F4282C012800F479CF /* CollectionDetailViewController.swift in Sources */,
 				CE3FD93F2832671100F479CF /* SubmitToTopicViewController.swift in Sources */,
 				CE3FD8E2282B716B00F479CF /* SearchRecommendationViewModel.swift in Sources */,
 				CE3FD8D5282AC23A00F479CF /* Collection.swift in Sources */,
+				CE3FD9D9283A96AF00F479CF /* UserProfileUpdatableWrapper.swift in Sources */,
 				CE7689B42822C891004DEDDB /* Info.swift in Sources */,
 				CE3FD8FA282CE6CC00F479CF /* UserDetailViewController.swift in Sources */,
 				CE3FD8DE282B6C6200F479CF /* ActionProxy.swift in Sources */,
@@ -741,22 +867,32 @@
 				CE3FD8FE282DF5E200F479CF /* UnsplashInfoViewController.swift in Sources */,
 				CEB77D592817037C005C5E7A /* SceneDelegate.swift in Sources */,
 				CE3FD8EA282B81E100F479CF /* TitleRecommendationCell.swift in Sources */,
+				CE3FD9B02837575E00F479CF /* UserProfileWrapper.swift in Sources */,
 				CEB77D78281714BE005C5E7A /* PhotoWrapper.swift in Sources */,
 				CE3FD8F8282CE39700F479CF /* UserDetailViewModel.swift in Sources */,
+				CE3FD9B62837EE3100F479CF /* LoginProfileViewController.swift in Sources */,
 				CE9034D1281F80C7001C4674 /* Action.swift in Sources */,
+				CE3FD9C5283A013E00F479CF /* ResizableTableView.swift in Sources */,
 				CE7689AA2821A412004DEDDB /* PhotoDetailedWrapper.swift in Sources */,
+				CE3FD9E1283AC5C400F479CF /* TextFieldSimpleData.swift in Sources */,
 				CEB77D8328174C06005C5E7A /* Endpoint.swift in Sources */,
 				CEBD4480282A46780051EA8B /* CollectionCellData.swift in Sources */,
+				CE3FD9CD283A118F00F479CF /* TextFieldCell.swift in Sources */,
 				CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */,
 				CE3FD8E4282B719A00F479CF /* RecommendationService.swift in Sources */,
+				CE3FD9CF283A11C800F479CF /* TextFieldData.swift in Sources */,
 				CE9034DE281FDB07001C4674 /* DetailedPhoto.swift in Sources */,
 				CEB77D6F281704DE005C5E7A /* PostViewController.swift in Sources */,
 				CE3FD8C1282A5FA700F479CF /* PhotoResultViewModel.swift in Sources */,
 				CE3FD8F0282BFFB100F479CF /* CollectionDetailViewModel.swift in Sources */,
+				CE3FD9BE28391AE300F479CF /* ProfileTopView.swift in Sources */,
 				CE3FD8D7282AC46D00F479CF /* SearchedCollectionCell.swift in Sources */,
 				CEB77D8B28177B2A005C5E7A /* Topic.swift in Sources */,
 				CE3FD8F6282C078400F479CF /* UserDetailService.swift in Sources */,
+				CE3FD9D3283A433B00F479CF /* ProfileUpdatable.swift in Sources */,
 				CE3FD93D2832531A00F479CF /* ProfileTextField.swift in Sources */,
+				CE3FD94728349F0900F479CF /* AccessToken.swift in Sources */,
+				CE3FD9DD283ABFE600F479CF /* ChangePasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

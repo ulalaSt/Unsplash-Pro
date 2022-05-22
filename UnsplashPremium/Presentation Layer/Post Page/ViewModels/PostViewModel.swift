@@ -4,6 +4,12 @@
 //
 //  Created by user on 16.05.2022.
 //
+//
+//  PostViewModel.swift
+//  UnsplashPremium
+//
+//  Created by user on 16.05.2022.
+//
 
 import Foundation
 

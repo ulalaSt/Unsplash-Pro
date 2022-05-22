@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-
 class PostViewController: UIViewController {
     
     private let viewModel: PostViewModel
@@ -102,7 +101,6 @@ class PostViewController: UIViewController {
             }
 
             strongSelf.present(viewController, animated: true, completion: nil)
-
             
         }
     }

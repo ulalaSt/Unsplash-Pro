@@ -1,5 +1,6 @@
 
 import UIKit
+import Alamofire
 
 
 //MARK: - Set All Pages, Topic Bar, and Logo

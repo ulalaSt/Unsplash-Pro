@@ -22,20 +22,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let homeVC = HomePageViewController(viewModel: HomeViewModel(photosService: PhotosServiceImplementation()))
         let searchVC = SearchViewController(viewModel: SearchRecommendationViewModel(resultsService: RecommendationServiceImplementation()))
         let postVC = PostViewController(viewModel: PostViewModel(photosService: PhotosServiceImplementation()))
-        let profileVC = ProfileViewController(nibName: nil, bundle: nil)
-                
+        let profileVC = ProfileViewController(viewModel: ProfileViewModel(privateService: PrivateUserServiceImplementation(), detailService: UserDetailServiceImplementation()))
+        let profileLoginVC = LoginProfileViewController(viewModel: LoginProfileViewModel(privateService: PrivateUserServiceImplementation()))
+        
+        if UserDefaults.standard.string(forKey: DefaultKeys.currentUserAccessTokenKey) != nil {
+            let loginViewController = ProfileViewController(viewModel: ProfileViewModel(privateService: PrivateUserServiceImplementation(), detailService: UserDetailServiceImplementation()))
+            profileLoginVC.addPageView(of: loginViewController)
+        }
         homeVC.tabBarItem.image = UIImage(systemName: "photo.fill")
         searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         postVC.tabBarItem.image = UIImage(systemName: "plus.square.fill")
         profileVC.tabBarItem.image = UIImage(systemName: "person.circle.fill")
-        
+        profileLoginVC.tabBarItem.image = UIImage(systemName: "person.circle.fill")
+
         let homeNavC = UINavigationController(rootViewController: homeVC)
         let searchNavC = UINavigationController(rootViewController: searchVC)
         let postNavC = UINavigationController(rootViewController: postVC)
         let profileNavC = UINavigationController(rootViewController: profileVC)
-        
+        let profileLoginNavC = UINavigationController(rootViewController: profileLoginVC)
+
         let tabBarC = UITabBarController()
-        tabBarC.viewControllers = [homeNavC,searchNavC,postNavC,profileNavC]
+        tabBarC.viewControllers = [homeNavC,searchNavC,postNavC,profileLoginNavC]
+
+
         tabBarC.selectedIndex = 0
         tabBarC.tabBar.backgroundColor = .black
         tabBarC.tabBar.unselectedItemTintColor = .gray

@@ -25,7 +25,7 @@ class SubmitToTopicViewController: UIViewController {
     
     private let xButton: UIButton = {
         let xButton = UIButton()
-        let image = UIImage(systemName: "x.circle.fill")
+        let image = UIImage(systemName: "xmark.circle.fill")
         xButton.setImage(image, for: .normal)
         xButton.backgroundColor = .clear
         xButton.tintColor = .gray
