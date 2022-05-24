@@ -1,5 +1,5 @@
 # Unsplash-Pro
-The application is identical to the world famous application: **Unsplash**. The structure is MVVM.
+One of the most identical application to the world famous application: **Unsplash**. The structure is MVVM.
 The back-end is from the Unsplash itself (Check for [documentation](https://unsplash.com/documentation))
 
 ## About The Project
