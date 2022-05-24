@@ -6,7 +6,7 @@ The back-end is from the Unsplash itself (Check for [documentation](https://unsp
 Unsplash-Pro is an app dedicated to sharing stock photography under the Unsplash license. It covers almost every feature that Unsplash provides access to, from modifying a user's private data to publicly accessing searched users.
 
 ### Youtube Link
-All features of this project, you can quickly see on youtube by this [link](). 
+You can quickly see all the features of this project on youtube using this [link](). 
 
 ## Features
  * **View** editorial photos, topic photos, photos in detail, photo shoot information
