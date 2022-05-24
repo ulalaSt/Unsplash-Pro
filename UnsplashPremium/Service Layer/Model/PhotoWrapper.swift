@@ -24,6 +24,7 @@ struct PhotoWrapper: Codable {
     let color, blurHash: String
     let photoDescription: String?
     let urls: UrlsCodable
+    let likedByUser: Bool
     let links: PhotoLinksCodable
     let likes: Int
     let user: UserCodable
@@ -35,6 +36,7 @@ struct PhotoWrapper: Codable {
         case blurHash = "blur_hash"
         case photoDescription = "description"
         case urls, links, likes
+        case likedByUser = "liked_by_user"
         case user
     }
 }

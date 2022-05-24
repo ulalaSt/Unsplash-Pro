@@ -111,7 +111,6 @@ class EditProfileViewController: UIViewController {
     
     @objc private func didTapSave(){
         viewModel.postUpdatedUserProfile(with: thingsToChange)
-        
     }
     
     @objc private func didTapCancel(){
@@ -214,7 +213,7 @@ class EditProfileViewController: UIViewController {
                     _ = self?.navigationController?.popViewController(animated: true)
                 }
             case .failure( let error):
-                print(error.localizedDescription)
+                print(String(describing: error))
                 return
             }
         }

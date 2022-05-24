@@ -30,7 +30,7 @@ class CollectionDetailViewModel {
                     self.didLoadAdditionalCollectionPhotos?(collections.map({  Photo(wrapper: $0) }))
                 }
             case .failure(let error):
-                print("Error on loading Searched Photos: \(error.localizedDescription)")
+                print("Error on loading Searched Collection Photos: \(error.localizedDescription)")
             }
         }
     }

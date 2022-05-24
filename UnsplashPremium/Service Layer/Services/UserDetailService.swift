@@ -22,14 +22,25 @@ class UserDetailServiceImplementation: UserDetailService {
             EndPoint.clientIdParameter )
         guard let url = URL(string: urlString) else { return }
         
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
+        let headers = APIManager.headers()
+        print(headers, "  and  ", urlString)
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
-            case .success( let photos):
-                result(.success(photos))
+            case .success(let elements):
+                result(.success(elements))
             case .failure(let error):
                 result(.failure(error))
             }
         }
+
+//        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
+//            switch response.result {
+//            case .success( let photos):
+//                result(.success(photos))
+//            case .failure(let error):
+//                result(.failure(error))
+//            }
+//        }
     }
     
     func getUserLikedPhotos(with username: String, page: Int, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
@@ -39,10 +50,12 @@ class UserDetailServiceImplementation: UserDetailService {
             EndPoint.clientIdParameter )
         guard let url = URL(string: urlString) else { return }
         
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
+        let headers = APIManager.headers()
+        print(headers, "  and  ", urlString)
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
-            case .success( let photos):
-                result(.success(photos))
+            case .success(let elements):
+                result(.success(elements))
             case .failure(let error):
                 result(.failure(error))
             }
@@ -56,10 +69,11 @@ class UserDetailServiceImplementation: UserDetailService {
             EndPoint.clientIdParameter )
         guard let url = URL(string: urlString) else { return }
         
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[CollectionWrapper], AFError>) in
+        AF.request(url, method: .get).responseDecodable { (response: DataResponse<[CollectionWrapper], AFError>) in
             switch response.result {
-            case .success( let photos):
-                result(.success(photos))
+            case .success(let elements):
+                print("This are elements: \(elements)")
+                result(.success(elements))
             case .failure(let error):
                 result(.failure(error))
             }

@@ -127,15 +127,9 @@ class CollectionDetailViewController: UIViewController {
     private func setActionsForCells() {
         
         collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
-            let photoUrl = configurator.data.urlStringLarge
-            let userName = configurator.data.userName
-            let id = configurator.data.id
+            let photo = configurator.data
             self?.navigationController?.pushViewController(
-                PhotoDetailViewController(
-                    photoUrlString: photoUrl,
-                    userName: userName,
-                    photoId: id
-                ),
+                PhotoDetailViewController(photo: photo),
                 animated: true
             )
         }

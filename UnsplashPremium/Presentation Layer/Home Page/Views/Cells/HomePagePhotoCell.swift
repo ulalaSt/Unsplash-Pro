@@ -9,7 +9,7 @@ typealias HomePhotoCellConfigurator = CollectionCellConfigurator<HomePagePhotoCe
 class HomePagePhotoCell: UICollectionViewCell {
     
     static let identifier = "HomePagePhotoCell"
-        
+    
     private let authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.textColor = .white
@@ -19,6 +19,7 @@ class HomePagePhotoCell: UICollectionViewCell {
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true
+        photoView.isUserInteractionEnabled = true
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -27,6 +28,7 @@ class HomePagePhotoCell: UICollectionViewCell {
         super.init(frame: frame)
         layout()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

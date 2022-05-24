@@ -20,7 +20,7 @@ class SearchedCollectionCell: UICollectionViewCell {
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true
-        photoView.layer.cornerRadius = 15
+        photoView.layer.cornerRadius = 20
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -37,7 +37,7 @@ class SearchedCollectionCell: UICollectionViewCell {
     private func layout(){
         contentView.addSubview(photoView)
         photoView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview().inset(5)
         }
         contentView.addSubview(authorLabel)
         authorLabel.snp.makeConstraints {

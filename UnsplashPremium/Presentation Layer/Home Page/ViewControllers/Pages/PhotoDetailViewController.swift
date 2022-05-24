@@ -7,7 +7,18 @@ import SnapKit
 
 class PhotoDetailViewController: UIViewController {
     
+    private let viewModel = PhotoDetailViewModel(photosService: PrivatePhotoServiceImplementation())
+    
     private var photoInfo: PhotoInfo?
+    
+    private let initialLikedByUser: Bool
+    
+    private var likedByUser: Bool {
+        didSet {
+            checkLiked()
+        }
+    }
+    private let photoId: String
     
     private let photoView: UIImageView = {
         let photoView = UIImageView()
@@ -33,7 +44,7 @@ class PhotoDetailViewController: UIViewController {
     private let likeImageView: UIImageView = {
         let likeImageView = UIImageView(image: UIImage(systemName: "heart.fill")?.withRenderingMode(.alwaysTemplate))
         likeImageView.contentMode = .scaleAspectFit
-        likeImageView.tintColor = UIColor.white
+        likeImageView.isUserInteractionEnabled = true
         return likeImageView
     }()
     private let plusView: UIView = {
@@ -67,6 +78,15 @@ class PhotoDetailViewController: UIViewController {
         infoImageView.isUserInteractionEnabled = true
         return infoImageView
     }()
+    
+    private func checkLiked(){
+        if likedByUser {
+            likeImageView.tintColor = .systemRed
+        }
+        else {
+            likeImageView.tintColor = .white
+        }
+    }
 
     @objc private func didTapShare(){
         guard let image = photoView.image else {
@@ -79,7 +99,19 @@ class PhotoDetailViewController: UIViewController {
             }
         }
         present(shareController, animated: true, completion: nil)
-        
+    }
+    
+    @objc private func didTapCancel(){
+        _ = navigationController?.popViewController(animated: true)
+        if initialLikedByUser != likedByUser {
+            StoredData.inProcessChangedLikes[photoId] = likedByUser
+            viewModel.photoLikeRequest(id: photoId, isLiked: likedByUser)
+            NotificationCenter.default.post(name: NSNotification.Name("didChangeLike"), object: nil, userInfo: [photoId: likedByUser])
+        }
+    }
+    
+    @objc private func didTapLike(){
+        likedByUser = !likedByUser
     }
     
     //when info icon tapped: show photo info
@@ -95,35 +127,52 @@ class PhotoDetailViewController: UIViewController {
     }
     
     //initialize
-    init(photoUrlString: String, userName: String, photoId: String){
+    init(photo: Photo){
+        self.photoId = photo.id
+        if let likedInProcess = StoredData.inProcessChangedLikes[photoId]{
+            likedByUser = likedInProcess
+            initialLikedByUser = likedInProcess
+        } else {
+            initialLikedByUser = photo.details.likedByUser
+            likedByUser = photo.details.likedByUser
+        }
         super.init(nibName: nil, bundle: nil)
-        setImage(with: photoUrlString)
-        titleLabel.text = userName
-        fetchData(with: photoId)
+        checkLiked()
+        setImage(with: photo.urlStringLarge)
+        titleLabel.text = photo.userName
+        fetchData(with: photo.id)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        self.navigationItem.titleView = titleLabel
-        let menuButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(didTapShare))
-        self.navigationItem.rightBarButtonItem = menuButton
-        navigationItem.rightBarButtonItem?.tintColor = .white
+        setNavigationItem()
+        addGestures()
+        layout()
+    }
+    private func addGestures(){
         infoImageView.addGestureRecognizer(
             UITapGestureRecognizer(
                 target: self,
                 action: #selector(infoIconTapped)
             )
         )
-        
-        layout()
+        likeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLike)))
     }
     
+    private func setNavigationItem() {
+        navigationItem.titleView = titleLabel
+        let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(didTapShare))
+        navigationItem.rightBarButtonItem = shareButton
+        navigationItem.rightBarButtonItem?.tintColor = .white
+        let cancelButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(didTapCancel))
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.leftBarButtonItem?.tintColor = .white
+    }
     
     private func setImage(with urlString: String){
         PhotosServiceImplementation.getImage(urlString: urlString) { [weak self] result in

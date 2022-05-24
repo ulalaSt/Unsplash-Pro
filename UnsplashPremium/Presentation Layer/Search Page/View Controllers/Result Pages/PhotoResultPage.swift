@@ -135,12 +135,11 @@ class PhotoResultPage: UIViewController {
             strongSelf.fetchData()
         }
         collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
-            let photoDetail = PhotoDetailViewController(
-                photoUrlString: configurator.data.urlStringLarge,
-                userName: configurator.data.userName,
-                photoId: configurator.data.id)
-            self?.navigationController?.pushViewController(photoDetail,
-                                                           animated: true)
+            let photo = configurator.data
+            self?.navigationController?.pushViewController(
+                PhotoDetailViewController(photo: photo),
+                animated: true
+            )
         }
     }
 }

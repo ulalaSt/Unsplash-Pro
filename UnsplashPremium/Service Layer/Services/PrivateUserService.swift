@@ -61,42 +61,61 @@ class PrivateUserServiceImplementation: PrivateUserService {
         
         urlString.remove(at: urlString.index(before: urlString.endIndex))
         
-//        guard let url = URL(string: urlString) else {
-//            return
-//        }
-//        print(urlString)
-//        let headers = APIManager.headers()
-//        print(headers, "  and  ", String(urlString.dropLast()))
-//        AF.request(url, method: .post, headers: headers).responseDecodable { (response: DataResponse<UserProfileUpdatableWrapper, AFError>) in
-//            switch response.result {
-//            case .success(let elements):
-//                result(.success(ProfileUpdatable(profile: elements)))
-//            case .failure(let error):
-//                result(.failure(error))
-//            }
-//        }
-        guard let accessToken = EndPoint.currentUserAccessToken else {
-            return
-        }
         guard let url = URL(string: urlString) else {
             return
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.httpMethod = "PUT"
-        URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
-            guard let data = data else {
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let responseObject = try decoder.decode(UserProfileUpdatableWrapper.self, from: data)
-                result(.success(ProfileUpdatable(profile: responseObject)))
-            } catch {
+        let headers = APIManager.headers()
+        print(headers, "  and  ", String(urlString.dropLast()))
+        AF.request(url, method: .put, headers: headers).responseDecodable { (response: DataResponse<UserProfileUpdatableWrapper, AFError>) in
+            switch response.result {
+            case .success(let elements):
+                result(.success(ProfileUpdatable(profile: elements)))
+            case .failure(let error):
                 result(.failure(error))
             }
-        }.resume()
+        }
+//        guard let accessToken = EndPoint.currentUserAccessToken else {
+//            return
+//        }
+//        guard let url = URL(string: urlString) else {
+//            return
+//        }
+//        var urlRequest = URLRequest(url: url)
+//        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//        urlRequest.httpMethod = "PUT"
+//        URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
+//            guard let data = data else {
+//                return
+//            }
+//            let decoder = JSONDecoder()
+//            do {
+//                let responseObject = try decoder.decode(UserProfileUpdatableWrapper.self, from: data)
+//                result(.success(ProfileUpdatable(profile: responseObject)))
+//            } catch {
+//                result(.failure(error))
+//            }
+//        }.resume()
 
     }
-
+//    func getSinglePhoto(with id: String, completion: @escaping (Result<Photo, Error>) -> Void){
+//        let urlString = String(
+//            format: "%@photos/\(id)?%@",
+//            EndPoint.baseUrl,
+//            EndPoint.clientIdParameter
+//        )
+//
+//        guard let url = URL(string: urlString) else {
+//            return
+//        }
+//        let headers = APIManager.headers()
+//        print(headers, "  and  ", urlString)
+//        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<PhotoDetailedWrapper, AFError>) in
+//            switch response.result {
+//            case .success(let detailedPhoto):
+//                completion(.success(Photo(wrapper: detailedPhoto)))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
 }

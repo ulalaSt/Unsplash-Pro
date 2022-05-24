@@ -22,7 +22,9 @@ class CollectionDetailServiceImplementation: CollectionDetailService {
         )
         guard let url = URL(string: urlString) else { return }
         print(urlString)
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
+        let headers = APIManager.headers()
+        print(headers, "  and  ", urlString)
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
             switch response.result {
             case .success(let elements):
                 result(.success(elements))

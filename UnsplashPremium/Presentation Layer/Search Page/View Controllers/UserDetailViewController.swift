@@ -16,9 +16,27 @@ class UserDetailViewController: UIViewController {
     
     private let user: UserWrapper
     
-    private var userPhotos: [Photo]?
-    private var userLikes: [Photo]?
-    private var userCollections: [Collection]?
+    private var userPhotos: [Photo]? {
+        didSet {
+            if segmentedControl.selectedSegmentIndex == 0 {
+                collectionView.reloadData()
+            }
+        }
+    }
+    private var userLikes: [Photo]? {
+        didSet {
+            if segmentedControl.selectedSegmentIndex == 1 {
+                collectionView.reloadData()
+            }
+        }
+    }
+    private var userCollections: [Collection]? {
+        didSet {
+            if segmentedControl.selectedSegmentIndex == 2 {
+                collectionView.reloadData()
+            }
+        }
+    }
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -38,7 +56,6 @@ class UserDetailViewController: UIViewController {
         segmentedControl.selectedSegmentTintColor = .lightGray
         segmentedControl.tintColor = .white
         segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.isUserInteractionEnabled = true
         segmentedControl.addTarget(self, action: #selector(segmentAction(segmentedControl:)), for: .valueChanged)
         return segmentedControl
@@ -143,6 +160,7 @@ class UserDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        segmentedControl.selectedSegmentIndex = 0
         userDetailTopView.configure(with: user)
         layout()
         layoutNoDataInfo()
@@ -211,12 +229,11 @@ class UserDetailViewController: UIViewController {
     // show detail when cells are tapped
     private func setActionsForCells() {
         collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: HomePhotoCellConfigurator, cell) in
+            let photo = configurator.data
             self?.navigationController?.pushViewController(
-                PhotoDetailViewController(
-                    photoUrlString: configurator.data.urlStringLarge,
-                    userName: configurator.data.userName,
-                    photoId: configurator.data.id),
-                animated: true)
+                PhotoDetailViewController(photo: photo),
+                animated: true
+            )
         }
         collectionDirector.actionProxy.on(action: .didSelect) { [weak self] (configurator: SearchedCollectionCellConfigurator, cell) in
             self?.navigationController?.pushViewController(

@@ -12,8 +12,9 @@ class ProfileViewModel: UserDetailViewModel {
     
     var didLoadUserProfile: ((Result<UserProfileWrapper, Error>) -> Void)?
     
-    var noAccessTokenStored: (() -> Void)?
+    var didLoadExtraLikedPhoto: ((Result<Photo, Error>) -> Void)?
     
+    var noAccessTokenStored: (() -> Void)?
 
     func getUserProfile() {
         guard let accessToken = EndPoint.currentUserAccessToken else {
@@ -44,5 +45,15 @@ class ProfileViewModel: UserDetailViewModel {
                 }
             }
         }.resume()
+    }
+    func getSinglePhoto(id: String){
+        PhotosServiceImplementation.getSinglePhoto(with: id) { [weak self] result in
+            switch result {
+            case .success( let detailedPhoto):
+                self?.didLoadExtraLikedPhoto?(.success(Photo(wrapper: detailedPhoto)))
+            case .failure( let error):
+                self?.didLoadExtraLikedPhoto?(.failure(error))
+            }
+        }
     }
 }

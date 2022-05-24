@@ -24,7 +24,8 @@ class SearchResultServiceImplementation: SearchResultService {
         ).replacingOccurrences(of: " ", with: "%20")
         guard let url = URL(string: urlString) else { return }
         print(urlString)
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<ResultWrapper, AFError>) in
+        let headers = APIManager.headers()
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<ResultWrapper, AFError>) in
             switch response.result {
             case .success(let elements):
                 result(.success(elements.results))
@@ -42,7 +43,8 @@ class SearchResultServiceImplementation: SearchResultService {
         )
         guard let url = URL(string: urlString) else { return }
         print(urlString)
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<CollectionResult, AFError>) in
+        let headers = APIManager.headers()
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<CollectionResult, AFError>) in
             switch response.result {
             case .success(let elements):
                 result(.success(elements.results))
@@ -60,7 +62,8 @@ class SearchResultServiceImplementation: SearchResultService {
         )
         guard let url = URL(string: urlString) else { return }
         print(urlString)
-        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<UsersResult, AFError>) in
+        let headers = APIManager.headers()
+        AF.request(url, method: .get, headers: headers).responseDecodable { (response: DataResponse<UsersResult, AFError>) in
             switch response.result {
             case .success(let elements):
                 result(.success(elements.results))

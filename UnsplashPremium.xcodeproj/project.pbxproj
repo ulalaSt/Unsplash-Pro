@@ -74,6 +74,9 @@
 		CE3FD9DD283ABFE600F479CF /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9DC283ABFE600F479CF /* ChangePasswordViewController.swift */; };
 		CE3FD9DF283AC58D00F479CF /* TextFieldSimpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */; };
 		CE3FD9E1283AC5C400F479CF /* TextFieldSimpleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9E0283AC5C400F479CF /* TextFieldSimpleData.swift */; };
+		CE3FD9E5283B924300F479CF /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9E4283B924300F479CF /* PhotoDetailViewModel.swift */; };
+		CE3FD9E7283B92CD00F479CF /* PrivatePhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9E6283B92CD00F479CF /* PrivatePhotoService.swift */; };
+		CE3FD9E9283BB55900F479CF /* FirstCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD9E8283BB55900F479CF /* FirstCollectionCell.swift */; };
 		CE66F39E2817E6BF00860EA2 /* Gradient View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE66F39D2817E6BF00860EA2 /* Gradient View.swift */; };
 		CE7689A8282147F6004DEDDB /* TopicDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */; };
 		CE7689AA2821A412004DEDDB /* PhotoDetailedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */; };
@@ -183,6 +186,9 @@
 		CE3FD9DC283ABFE600F479CF /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSimpleCell.swift; sourceTree = "<group>"; };
 		CE3FD9E0283AC5C400F479CF /* TextFieldSimpleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSimpleData.swift; sourceTree = "<group>"; };
+		CE3FD9E4283B924300F479CF /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
+		CE3FD9E6283B92CD00F479CF /* PrivatePhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatePhotoService.swift; sourceTree = "<group>"; };
+		CE3FD9E8283BB55900F479CF /* FirstCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionCell.swift; sourceTree = "<group>"; };
 		CE66F39D2817E6BF00860EA2 /* Gradient View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient View.swift"; sourceTree = "<group>"; };
 		CE7689A7282147F6004DEDDB /* TopicDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDescriptionCell.swift; sourceTree = "<group>"; };
 		CE7689A92821A412004DEDDB /* PhotoDetailedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailedWrapper.swift; sourceTree = "<group>"; };
@@ -380,6 +386,7 @@
 				CE3FD9C6283A032600F479CF /* AccountSettingCell.swift */,
 				CE3FD9CC283A118F00F479CF /* TextFieldCell.swift */,
 				CE3FD9DE283AC58D00F479CF /* TextFieldSimpleCell.swift */,
+				CE3FD9E8283BB55900F479CF /* FirstCollectionCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -403,6 +410,7 @@
 				CE3FD8F1282C002400F479CF /* CollectionDetailService.swift */,
 				CE3FD8F5282C078400F479CF /* UserDetailService.swift */,
 				CE3FD9442833AD3200F479CF /* PrivateUserService.swift */,
+				CE3FD9E6283B92CD00F479CF /* PrivatePhotoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -567,6 +575,7 @@
 			children = (
 				CEB77D8528174D90005C5E7A /* HomeViewModel.swift */,
 				CE3FD8FF282DF71A00F479CF /* UnsplashViewModel.swift */,
+				CE3FD9E4283B924300F479CF /* PhotoDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -829,6 +838,7 @@
 				CEB77D572817037C005C5E7A /* AppDelegate.swift in Sources */,
 				207EEA952819AF5900A074EC /* CellConfigurator.swift in Sources */,
 				CEB77D93281791E8005C5E7A /* CollectionDirector.swift in Sources */,
+				CE3FD9E9283BB55900F479CF /* FirstCollectionCell.swift in Sources */,
 				CE3FD8C4282A757100F479CF /* WaterfallCollectionDirector.swift in Sources */,
 				CE3FD8CD282A865000F479CF /* UserResultPage.swift in Sources */,
 				CE3FD94328327D3C00F479CF /* TopicPhotoCell.swift in Sources */,
@@ -837,6 +847,7 @@
 				CE3FD9B22837688C00F479CF /* WelcomeViewController.swift in Sources */,
 				CE3FD9DB283AB20D00F479CF /* CloseAccountViewController.swift in Sources */,
 				CE3FD93928323F0600F479CF /* TitleCellData.swift in Sources */,
+				CE3FD9E5283B924300F479CF /* PhotoDetailViewModel.swift in Sources */,
 				CE90351128213377001C4674 /* UIImage + BlurHash.swift in Sources */,
 				CE3FD8DC282B6C2600F479CF /* TableDirector.swift in Sources */,
 				CE3FD8C6282A852F00F479CF /* ResultPageViewController.swift in Sources */,
@@ -858,6 +869,7 @@
 				CE3FD8D5282AC23A00F479CF /* Collection.swift in Sources */,
 				CE3FD9D9283A96AF00F479CF /* UserProfileUpdatableWrapper.swift in Sources */,
 				CE7689B42822C891004DEDDB /* Info.swift in Sources */,
+				CE3FD9E7283B92CD00F479CF /* PrivatePhotoService.swift in Sources */,
 				CE3FD8FA282CE6CC00F479CF /* UserDetailViewController.swift in Sources */,
 				CE3FD8DE282B6C6200F479CF /* ActionProxy.swift in Sources */,
 				CEBD4482282A4A650051EA8B /* SearchViewController.swift in Sources */,

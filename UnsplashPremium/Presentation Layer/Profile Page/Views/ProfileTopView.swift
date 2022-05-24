@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class ProfileTopView: UIView {
     private let backView: UIView = {
@@ -18,7 +19,7 @@ class ProfileTopView: UIView {
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true
-        photoView.layer.cornerRadius = 45
+        photoView.layer.cornerRadius = 30
         photoView.contentMode = .scaleAspectFill
         return photoView
     }()
@@ -34,8 +35,8 @@ class ProfileTopView: UIView {
         addSubview(photoView)
         photoView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(15)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(90)
+            $0.centerY.equalToSuperview().priority(999)
+            $0.size.equalTo(60)
         }
         addSubview(usernameLabel)
         usernameLabel.snp.makeConstraints {

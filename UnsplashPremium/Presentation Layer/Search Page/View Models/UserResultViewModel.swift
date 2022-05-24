@@ -30,7 +30,7 @@ class UserResultViewModel {
                     self.didLoadAdditionalSearchedUsers?(photos)
                 }
             case .failure(let error):
-                print("Error on loading Searched Photos: \(error.localizedDescription)")
+                print("Error on loading Searched Users: \(String(describing: error))")
             }
         }
     }

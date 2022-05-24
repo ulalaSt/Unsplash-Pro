@@ -36,7 +36,7 @@ class UserDetailViewModel {
                     self.didLoadAdditionalUserPhotos?(photos.map({  Photo(wrapper: $0) }))
                 }
             case .failure(let error):
-                print("Error on loading Searched Photos: \(error.localizedDescription)")
+                print("Error on loading Searched User Photos: \(error.localizedDescription)")
             }
         }
     }
@@ -50,7 +50,7 @@ class UserDetailViewModel {
                     self.didLoadAdditionalUserLikes?(photos.map({  Photo(wrapper: $0) }))
                 }
             case .failure(let error):
-                print("Error on loading Searched Photos: \(error.localizedDescription)")
+                print("Error on loading Searched Likes: \(error.localizedDescription)")
             }
         }
     }
@@ -64,7 +64,7 @@ class UserDetailViewModel {
                     self.didLoadAdditionalUserCollections?(collections.map({  Collection(wrapper: $0) }))
                 }
             case .failure(let error):
-                print("Error on loading Searched Photos: \(error.localizedDescription)")
+                print("Error on loading Searched Collections: \(error.localizedDescription)")
             }
         }
     }
