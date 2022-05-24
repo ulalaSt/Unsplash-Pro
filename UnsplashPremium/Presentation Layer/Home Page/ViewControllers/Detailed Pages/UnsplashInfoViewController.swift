@@ -14,7 +14,7 @@ class UnsplashInfoViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = .clear
         tableView.sectionHeaderHeight = 30
         return tableView
     }()
@@ -26,7 +26,7 @@ class UnsplashInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .init(white: 0.1, alpha: 1)
         // Do any additional setup after loading the view.
         layout()
         setTableCells()
@@ -42,5 +42,5 @@ class UnsplashInfoViewController: UIViewController {
     private func setTableCells(){
         tableDirector.updateItems(with: viewModel.tableCellData)
     }
-
+    
 }

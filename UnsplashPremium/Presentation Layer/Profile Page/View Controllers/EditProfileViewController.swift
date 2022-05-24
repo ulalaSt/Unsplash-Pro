@@ -12,6 +12,7 @@ import SafariServices
 class EditProfileViewController: UIViewController {
     
     private let userProfile: UserProfileWrapper
+    
     private let viewModel: EditProfileViewModel
     
     private let profileLabel: UILabel = {
@@ -97,10 +98,11 @@ class EditProfileViewController: UIViewController {
         profileTableView.estimatedRowHeight = 50
         aboutTableView.estimatedRowHeight = 50
         let saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSave))
+        navigationController?.navigationBar.tintColor = .white
         navigationItem.rightBarButtonItem = saveButton
         let cancelButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(didTapCancel))
         navigationItem.leftBarButtonItem = cancelButton
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor(named: ColorKeys.presentationBackground)
         layout()
         setTableData()
         bindViewModel()
@@ -157,7 +159,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.firstName,
+                                text: StoredData.inProcessUpdatedUserData[.firstName] ?? userProfile.firstName,
                                 thingToChange: .firstName)),
                 height: 50),
             TableCellData(
@@ -165,7 +167,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.lastName,
+                                text: StoredData.inProcessUpdatedUserData[.lastName] ?? userProfile.lastName,
                                 thingToChange: .lastName)),
                 height: 50),
             TableCellData(
@@ -173,7 +175,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.username,
+                                text: StoredData.inProcessUpdatedUserData[.username] ?? userProfile.username,
                                 thingToChange: .username)),
                 height: 50),
             TableCellData(
@@ -181,7 +183,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.email,
+                                text: StoredData.inProcessUpdatedUserData[.email] ?? userProfile.email,
                                 thingToChange: .email)),
                 height: 50),
         ])
@@ -191,7 +193,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.location,
+                                text: StoredData.inProcessUpdatedUserData[.location] ?? userProfile.location,
                                 thingToChange: .location)),
                 height: 50),
             TableCellData(
@@ -199,7 +201,7 @@ class EditProfileViewController: UIViewController {
                     TextFieldCellConfigurator(
                         item:
                             TextFieldData(
-                                text: userProfile.portfolioURL,
+                                text: StoredData.inProcessUpdatedUserData[.website] ?? userProfile.portfolioURL,
                                 thingToChange: .website)),
                 height: 50)
         ])
@@ -224,15 +226,18 @@ class EditProfileViewController: UIViewController {
                 return
             }
             self?.thingsToChange[data.thingToChange] = data.text
+            StoredData.inProcessUpdatedUserData[data.thingToChange] = data.text
         }
         aboutTableDirector.actionProxy.on(action: .custom("textFieldDidChange")) { [weak self] (configurator: TextFieldCellConfigurator, cell) in
             guard let data = cell.currentData, configurator.item.text != cell.currentData?.text else {
                 return
             }
             self?.thingsToChange[data.thingToChange] = data.text
+            StoredData.inProcessUpdatedUserData[data.thingToChange] = data.text
         }
     }
 }
+
 enum ThingsToChange: String {
     case username = "username"
     case firstName = "first_name"

@@ -13,7 +13,6 @@ protocol CollectionDetailService {
 }
 
 class CollectionDetailServiceImplementation: CollectionDetailService {
-    
     func getCollectionPhotos( with id: String, page: Int, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
         let urlString = String(
             format: "%@collections/\(id)/photos/?page=\(page)&%@",

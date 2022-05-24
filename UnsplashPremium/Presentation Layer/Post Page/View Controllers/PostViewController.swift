@@ -14,14 +14,14 @@ class PostViewController: UIViewController {
     private let topLabel: UILabel = {
         let topLabel = UILabel()
         topLabel.text = "Contribute to Unsplash"
-        topLabel.font = .systemFont(ofSize: 30, weight: .bold)
+        topLabel.font = .systemFont(ofSize: 27, weight: .bold)
         topLabel.textColor = .white
         return topLabel
     }()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -41,7 +41,7 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         layout()
         setCells()
         bindViewModel()
@@ -53,7 +53,7 @@ class PostViewController: UIViewController {
         view.addSubview(topLabel)
         topLabel.snp.makeConstraints{
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(30)
         }
         view.addSubview(tableView)

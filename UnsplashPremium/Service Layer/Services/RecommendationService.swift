@@ -13,7 +13,6 @@ protocol RecommendationService {
 }
 
 class RecommendationServiceImplementation: RecommendationService {
-    
     func getPhotosToDiscover( result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
         let urlString = String(
             format: "%@photos/random/?count=30&%@",

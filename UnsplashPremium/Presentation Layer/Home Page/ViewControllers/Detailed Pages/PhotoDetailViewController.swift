@@ -69,6 +69,7 @@ class PhotoDetailViewController: UIViewController {
         let downloadImageView = UIImageView(image: UIImage(systemName: "arrow.down")?.withRenderingMode(.alwaysTemplate))
         downloadImageView.contentMode = .scaleAspectFit
         downloadImageView.tintColor = UIColor.darkGray
+        downloadImageView.isUserInteractionEnabled = true
         return downloadImageView
     }()
     private let infoImageView: UIImageView = {
@@ -87,7 +88,7 @@ class PhotoDetailViewController: UIViewController {
             likeImageView.tintColor = .white
         }
     }
-
+    
     @objc private func didTapShare(){
         guard let image = photoView.image else {
             return
@@ -112,6 +113,24 @@ class PhotoDetailViewController: UIViewController {
     
     @objc private func didTapLike(){
         likedByUser = !likedByUser
+    }
+    
+    @objc private func didTapDownload(){
+        guard let image = photoView.image else {
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Error on save!", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "The image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     //when info icon tapped: show photo info
@@ -146,7 +165,7 @@ class PhotoDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -162,6 +181,7 @@ class PhotoDetailViewController: UIViewController {
             )
         )
         likeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLike)))
+        downloadImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDownload)))
     }
     
     private func setNavigationItem() {

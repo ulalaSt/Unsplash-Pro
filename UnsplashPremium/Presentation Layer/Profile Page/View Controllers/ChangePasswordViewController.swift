@@ -83,8 +83,6 @@ class ChangePasswordViewController: UIViewController {
         setActions()
     }
     
-    private var thingsToChange: [ThingsToChange:String] = [:]
-    
     @objc private func didTapSave(){
         _ = navigationController?.popViewController(animated: true)
     }

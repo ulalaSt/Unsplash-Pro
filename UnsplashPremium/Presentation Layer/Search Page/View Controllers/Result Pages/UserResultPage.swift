@@ -21,7 +21,7 @@ class UserResultPage: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -51,6 +51,7 @@ class UserResultPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         layout()
         bindViewModel()
         fetchData()

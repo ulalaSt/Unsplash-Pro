@@ -16,8 +16,8 @@ class AccountSettingsViewController: UIViewController {
     
     private let topView: UIView = {
         let topView = UIView()
-        topView.backgroundColor = .gray
-        topView.layer.cornerRadius = 20
+        topView.backgroundColor = UIColor(named: "MediumGrayColor")
+        topView.layer.cornerRadius = 15
         topView.clipsToBounds = true
         return topView
     }()
@@ -52,7 +52,7 @@ class AccountSettingsViewController: UIViewController {
     }()
     private let tableView: ResizableTableView = {
         let tableView = ResizableTableView()
-        tableView.layer.cornerRadius = 20
+        tableView.layer.cornerRadius = 15
         tableView.clipsToBounds = true
         return tableView
     }()
@@ -77,7 +77,7 @@ class AccountSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor(named: ColorKeys.presentationBackground)
         tableView.estimatedRowHeight = 50
         layout()
         setOptions()
@@ -98,7 +98,7 @@ class AccountSettingsViewController: UIViewController {
         topView.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(60)
             $0.leading.trailing.equalToSuperview().inset(10)
-            $0.height.equalTo(200)
+            $0.height.equalToSuperview().dividedBy(5)
         }
         topView.addSubview(imageBottomTitle)
         imageBottomTitle.snp.makeConstraints{

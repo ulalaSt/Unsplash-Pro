@@ -159,7 +159,7 @@ class UserDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         segmentedControl.selectedSegmentIndex = 0
         userDetailTopView.configure(with: user)
         layout()

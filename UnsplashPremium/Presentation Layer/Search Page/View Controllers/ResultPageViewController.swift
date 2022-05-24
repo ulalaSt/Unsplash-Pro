@@ -82,6 +82,7 @@ class ResultPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         dataSource = self
         delegate = self

@@ -1,9 +1,5 @@
-//
-//  ResultsService.swift
-//  UnsplashPremium
-//
-//  Created by user on 09.05.2022.
-//
+
+
 
 import Foundation
 import Alamofire

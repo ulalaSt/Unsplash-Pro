@@ -27,7 +27,7 @@ class AccountSettingCell: UITableViewCell {
     }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .gray
+        backgroundColor = UIColor(named: "MediumGrayColor")
         layout()
     }
     
@@ -40,11 +40,11 @@ class AccountSettingCell: UITableViewCell {
         nextIcon.snp.makeConstraints{
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(25)
+            $0.size.equalTo(20)
         }
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(10)
+            $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalTo(nextIcon.snp.leading).inset(10)
             $0.top.bottom.equalToSuperview()
         }

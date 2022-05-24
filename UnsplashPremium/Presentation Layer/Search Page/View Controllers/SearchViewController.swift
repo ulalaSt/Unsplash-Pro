@@ -37,7 +37,7 @@ class SearchViewController: UIViewController {
         layout.minimumInteritemSpacing = 4.0
         layout.minimumColumnSpacing = 4.0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -86,7 +86,7 @@ class SearchViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         searchBar.delegate = self
         searchBar.showsCancelButton = true
         navigationItem.titleView = searchBar

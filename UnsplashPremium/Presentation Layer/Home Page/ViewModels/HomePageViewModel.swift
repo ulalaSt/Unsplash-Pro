@@ -4,8 +4,8 @@
 
 import Foundation
 
-class HomeViewModel {
-        
+class HomePageViewModel {
+    
     private let photosService: PhotosService
     
     // initializer
@@ -16,7 +16,7 @@ class HomeViewModel {
     
     // actions after request
     var didLoadTopics: (([TopicWrapper]) -> Void)?
-
+    
     var didLoadEditorialPhotos: (([PhotoWrapper]) -> Void)?
     
     var didLoadPhotosForTopic: (([Photo]) -> Void)?
@@ -49,17 +49,17 @@ class HomeViewModel {
     }
     
     func getPhotosFor(topic: Topic, page: Int){
-                self.photosService.getPhotosForTopic(topicID: topic.id, page: page) { [weak self] result in
-                    switch result {
-                    case .success(let photos):
-                        if page == 1 {
-                            self?.didLoadPhotosForTopic?(photos.map(){ Photo(wrapper: $0) })
-                        } else {
-                            self?.didLoadAdditionalPhotosForTopic?(photos)
-                        }
-                    case .failure(_):
-                        print("Failed to load photos")
-                    }
+        self.photosService.getPhotosForTopic(topicID: topic.id, page: page) { [weak self] result in
+            switch result {
+            case .success(let photos):
+                if page == 1 {
+                    self?.didLoadPhotosForTopic?(photos.map(){ Photo(wrapper: $0) })
+                } else {
+                    self?.didLoadAdditionalPhotosForTopic?(photos)
                 }
+            case .failure(_):
+                print("Failed to load photos")
+            }
+        }
     }
 }

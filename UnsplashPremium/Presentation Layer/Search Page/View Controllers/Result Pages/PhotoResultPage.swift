@@ -24,7 +24,7 @@ class PhotoResultPage: UIViewController {
         layout.itemRenderDirection = .shortestFirst
         layout.minimumColumnSpacing = 4
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -68,7 +68,7 @@ class PhotoResultPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
-        
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         layout()
         bindViewModel()
         fetchData()

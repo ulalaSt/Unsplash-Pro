@@ -7,7 +7,7 @@ import SnapKit
 
 class TopicPage: UIViewController {
     
-    private let viewModel: HomeViewModel
+    private let viewModel: HomePageViewModel
     
     private let topic: Topic
     
@@ -19,7 +19,7 @@ class TopicPage: UIViewController {
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
@@ -50,7 +50,7 @@ class TopicPage: UIViewController {
     }
     
     // initialize with specific topic
-    init(viewModel: HomeViewModel, topic: Topic) {
+    init(viewModel: HomePageViewModel, topic: Topic) {
         self.viewModel = viewModel
         self.topic = topic
         super.init(nibName: nil, bundle: nil)
@@ -61,7 +61,7 @@ class TopicPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         collectionView.refreshControl = self.refreshControl
         layout()
         bindViewModel()
@@ -153,7 +153,7 @@ class TopicPage: UIViewController {
             
             let viewController = SubmitToTopicViewController(topic: configurator.data)
             if let presentationController = viewController.presentationController as? UISheetPresentationController {
-                presentationController.detents = [.medium()] /// change to [.medium(), .large()] for a half *and* full screen sheet
+                presentationController.detents = [.medium()]
             }
 
             strongSelf.present(viewController, animated: true, completion: nil)

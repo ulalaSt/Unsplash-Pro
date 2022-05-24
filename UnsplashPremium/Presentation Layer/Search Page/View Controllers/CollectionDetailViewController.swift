@@ -32,7 +32,7 @@ class CollectionDetailViewController: UIViewController {
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
@@ -57,7 +57,7 @@ class CollectionDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         layout()
         bindViewModel()
         fetchData()

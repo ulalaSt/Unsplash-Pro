@@ -45,8 +45,9 @@ class LoginProfileViewModel {
         privateService.getAccessToken(authenticationID: authenticationID) { [weak self] result in
             switch result {
             case .success(let accessToken):
-                UserDefaults.standard.set(accessToken.access_token, forKey: "currentUserAccessToken")
-                UserDefaults.standard.set(accessToken.scope, forKey: "currentUserAccessScope")
+                UserDefaults.standard.set(accessToken.access_token, forKey: DefaultKeys.currentUserAccessTokenKey)
+                UserDefaults.standard.set(accessToken.scope, forKey: DefaultKeys.currentUserAccessScopeKey)
+                UserDefaults.standard.setValue(accessToken.access_token, forKey: DefaultKeys.currentUserAccessTokenKey)
                 self?.didLoadUserAccessToken?(.success(accessToken))
             case .failure(let error):
                 self?.didLoadUserAccessToken?(.failure(error))

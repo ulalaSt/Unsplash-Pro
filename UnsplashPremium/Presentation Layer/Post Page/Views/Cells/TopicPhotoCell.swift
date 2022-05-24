@@ -20,6 +20,7 @@ class TopicPhotoCell: UICollectionViewCell {
     private let photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.clipsToBounds = true
+        photoView.alpha = 0.7
         photoView.layer.cornerRadius = 15
         photoView.contentMode = .scaleAspectFill
         return photoView

@@ -20,7 +20,7 @@ class TextFieldSimpleCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .gray
+        backgroundColor = UIColor(named: ColorKeys.mediumGray)
         textField.delegate = self
         layout()
     }
@@ -32,7 +32,7 @@ class TextFieldSimpleCell: UITableViewCell {
     private func layout(){
         contentView.addSubview(textField)
         textField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.top.bottom.equalToSuperview()
         }
     }

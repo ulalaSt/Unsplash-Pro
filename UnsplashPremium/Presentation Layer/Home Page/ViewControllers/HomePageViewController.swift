@@ -7,7 +7,7 @@ import Alamofire
 
 class HomePageViewController: UIPageViewController {
     
-    private let viewModel: HomeViewModel
+    private let viewModel: HomePageViewModel
     
     private let topicBar: TopicBar = {
         let topicBar = TopicBar()
@@ -41,7 +41,7 @@ class HomePageViewController: UIPageViewController {
         present(UnsplashInfoViewController(), animated: true, completion: nil)
     }
     
-    init(viewModel: HomeViewModel) {
+    init(viewModel: HomePageViewModel) {
         self.viewModel = viewModel
         super.init(transitionStyle: .scroll,
                    navigationOrientation: .horizontal,
@@ -55,7 +55,7 @@ class HomePageViewController: UIPageViewController {
     
     //subpages
     private var orderedSubViewControllers: [UIViewController] = {
-        let model = HomeViewModel(photosService: PhotosServiceImplementation())
+        let model = HomePageViewModel(photosService: PhotosServiceImplementation())
         return [EditorialPage(viewModel: model)]
     }()
     
@@ -72,6 +72,7 @@ class HomePageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: ColorKeys.background)
         navigationItem.titleView = logoNameView
         dataSource = self
         delegate = self
@@ -128,7 +129,7 @@ class HomePageViewController: UIPageViewController {
     private func appendTopicPage(with topic: Topic) {
         orderedSubViewControllers.append(
             TopicPage(
-                viewModel: HomeViewModel(photosService: PhotosServiceImplementation()),
+                viewModel: HomePageViewModel(photosService: PhotosServiceImplementation()),
                 topic: topic
             ))
     }

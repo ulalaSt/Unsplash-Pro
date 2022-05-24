@@ -34,7 +34,7 @@ class UploadPhotoCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .black
+        backgroundColor = .init(white: 0.1, alpha: 1)
         layout()
     }
     

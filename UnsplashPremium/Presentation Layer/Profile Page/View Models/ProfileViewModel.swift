@@ -17,7 +17,7 @@ class ProfileViewModel: UserDetailViewModel {
     var noAccessTokenStored: (() -> Void)?
 
     func getUserProfile() {
-        guard let accessToken = EndPoint.currentUserAccessToken else {
+        guard let accessToken = UserDefaults.standard.string(forKey: DefaultKeys.currentUserAccessTokenKey) else {
             noAccessTokenStored?()
             return
         }
@@ -28,6 +28,7 @@ class ProfileViewModel: UserDetailViewModel {
         
         URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
             guard let data = data else {
+                print("rsdtfyguh")
                 DispatchQueue.main.async {
                     self?.didLoadUserProfile?(.failure(error!))
                 }
@@ -36,10 +37,12 @@ class ProfileViewModel: UserDetailViewModel {
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(UserProfileWrapper.self, from: data)
+                print("UUUUUUUUUUU")
                 DispatchQueue.main.async {
                     self?.didLoadUserProfile?(.success(responseObject))
                 }
             } catch {
+                print("AAAAAAAAAA")
                 DispatchQueue.main.async {
                     self?.didLoadUserProfile?(.failure(error))
                 }

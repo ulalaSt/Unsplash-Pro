@@ -353,7 +353,7 @@ class ProfileViewController: UIViewController {
     
     func presentWelcomePage(){
         var firstName = "User"
-        if let name = UserDefaults.standard.string(forKey: DefaultKeys.userFirstName) {
+        if let name = EndPoint.currentUserName {
             firstName = name
         }
         let viewController = WelcomeViewController(name: firstName)

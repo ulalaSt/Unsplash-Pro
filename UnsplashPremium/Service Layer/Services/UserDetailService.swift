@@ -32,15 +32,6 @@ class UserDetailServiceImplementation: UserDetailService {
                 result(.failure(error))
             }
         }
-
-//        AF.request(url, method: .get, parameters: nil).responseDecodable { (response: DataResponse<[PhotoWrapper], AFError>) in
-//            switch response.result {
-//            case .success( let photos):
-//                result(.success(photos))
-//            case .failure(let error):
-//                result(.failure(error))
-//            }
-//        }
     }
     
     func getUserLikedPhotos(with username: String, page: Int, result: @escaping (Result<[PhotoWrapper], Error>) -> Void) {
